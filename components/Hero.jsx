@@ -26,7 +26,7 @@ const Hero = () => {
         // Filtre les mots lorsque le terme de recherche change
         if (searchTerm) {
             const filteredWords = words.filter(word =>
-                word.french.some(term => term.toLowerCase().includes(searchTerm.toLowerCase()))
+                word.french && word.french.some(term => term.toLowerCase().includes(searchTerm.toLowerCase()))
             );
             // Limite le nombre de résultats à 5 éléments
             setResults(filteredWords.slice(0, 5));
@@ -60,7 +60,7 @@ const Hero = () => {
 
                     {/* Liste déroulante des résultats */}
                     {results.length > 0 && (
-                        <div className="list absolute w-full bg-white z-10 border border-gray-300 rounded-md shadow-lg">
+                        <div className="list list-none absolute w-full bg-white  border border-gray-300 rounded-md shadow-lg">
                             {results.map(word => (
                                 <Link href={"/word/" + word.id} key={word.id} className="list-item">{word.french.join(", ")}</Link>
                             ))}

@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { getWordById } from "@/api/words"; // Assurez-vous que le chemin est correct
 import Layout from "@/app/layout";
+import Title from "@/components/Title";
+import WordMain from "@/components/WordMain";
 
 export default function Word({ params }) {
     const [word, setWord] = useState(null);
@@ -36,9 +38,8 @@ export default function Word({ params }) {
         <Layout type="root">
             {word ? (
                 <div>
-                    <h1>{word.french.join(", ")}</h1>
-                    <p>{word.arabic}</p>
-                    {/* Afficher d'autres informations sur le mot ici */}
+                    <Title>{word.french.join(", ")}</Title>
+                    <WordMain words={word.darija} />
                 </div>
             ) : (
                 <div>Word not found</div>
