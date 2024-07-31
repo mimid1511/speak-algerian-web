@@ -32,7 +32,6 @@ const ProfilePage = () => {
             }
             setLoading(false);
         });
-
         return () => unsubscribe();
     }, [router]);
 
@@ -90,7 +89,7 @@ const ProfilePage = () => {
     return (
         <Layout type="root">
             <Title>Profil</Title>
-            <div className="container mx-auto p-5 bg-gray-100">
+            <div className="container mx-auto p-4 bg-gray-100">
                 {user && (
                     <div className="flex flex-col items-center bg-white p-10">
                         <AvatarUpload

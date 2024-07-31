@@ -20,7 +20,7 @@ const ProfileForm = ({ user, onSubmit, photoUrl }) => {
     }
 
     return (
-        <form onSubmit={handleUpdateProfile} className="w-full max-w-md">
+        <form onSubmit={handleUpdateProfile} className="w-full">
             {error && <p className="text-red-600 mb-4">{error}</p>}
             <label className="block mb-4">
                 <span className="block mb-1 text-xs font-medium text-gray-700">Nom d'utilisateur</span>
@@ -53,7 +53,7 @@ const ProfileForm = ({ user, onSubmit, photoUrl }) => {
 
             <button
                 type="button" onClick={handleUpdateProfile}
-                className="btn btn-primary w-full"
+                className="btn btn-md btn-primary w-full"
             >
                 Mettre à jour
             </button>

@@ -6,6 +6,8 @@ import Link from "next/link";
 import React from "react";
 import { auth } from "@/api/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
+import Footer from "@/components/Footer";
+import { getUserDetail } from "@/api/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,12 +20,26 @@ const MainLayout = ({ children }) => (
 const RootLayout = ({ children }) => {
   // On suppose que getCurrentUser() est une fonction asynchrone
   const [user, setUser] = React.useState(null);
+  const [roleUser, setRoleUser] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
+
+    const fetchUserDetails = async (user) => {
+      try {
+        const userDetails = await getUserDetail(user.uid);
+        setRoleUser(userDetails.role);
+        console.log('User Details:', userDetails.role);
+      } catch (error) {
+        setRoleUser("free");
+        console.error('Erreur:', error.message);
+      }
+    };
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        fetchUserDetails(user);
       } else {
         setUser(null);
       }
@@ -40,7 +56,11 @@ const RootLayout = ({ children }) => {
         <div className="h-screen w-full bg-white relative flex overflow-hidden">
           {/* Sidebar */}
           <aside className="h-full w-16 flex flex-col space-y-10 items-center justify-center bg-primary text-white">
-            <Link href={"/"}><div className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white"><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 576 512"><path fill="currentColor" d="M249.6 471.5c10.8 3.8 22.4-4.1 22.4-15.5V78.6c0-4.2-1.6-8.4-5-11C247.4 52 202.4 32 144 32C93.5 32 46.3 45.3 18.1 56.1C6.8 60.5 0 71.7 0 83.8v370.3c0 11.9 12.8 20.2 24.1 16.5C55.6 460.1 105.5 448 144 448c33.9 0 79 14 105.6 23.5m76.8 0C353 462 398.1 448 432 448c38.5 0 88.4 12.1 119.9 22.6c11.3 3.8 24.1-4.6 24.1-16.5V83.8c0-12.1-6.8-23.3-18.1-27.6C529.7 45.3 482.5 32 432 32c-58.4 0-103.4 20-123 35.6c-3.3 2.6-5 6.8-5 11V456c0 11.4 11.7 19.3 22.4 15.5"></path></svg></div></Link>
+
+            <Link href={"/"}><div className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white"><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 576 512"><path fill="currentColor" d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1v16.2c0 22.1-17.9 40-40 40h-16c-1.1 0-2.2 0-3.3-.1c-1.4.1-2.8.1-4.2.1L416 512h-24c-22.1 0-40-17.9-40-40v-88c0-17.7-14.3-32-32-32h-64c-17.7 0-32 14.3-32 32v88c0 22.1-17.9 40-40 40h-55.9c-1.5 0-3-.1-4.5-.2c-1.2.1-2.4.2-3.6.2h-16c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9.1-2.8v-69.7h-32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7l255.4 224.5c8 7 12 15 11 24"></path></svg></div></Link>
+
+
+            <Link href={"/lessons"}><div className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white"><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 576 512"><path fill="currentColor" d="M249.6 471.5c10.8 3.8 22.4-4.1 22.4-15.5V78.6c0-4.2-1.6-8.4-5-11C247.4 52 202.4 32 144 32C93.5 32 46.3 45.3 18.1 56.1C6.8 60.5 0 71.7 0 83.8v370.3c0 11.9 12.8 20.2 24.1 16.5C55.6 460.1 105.5 448 144 448c33.9 0 79 14 105.6 23.5m76.8 0C353 462 398.1 448 432 448c38.5 0 88.4 12.1 119.9 22.6c11.3 3.8 24.1-4.6 24.1-16.5V83.8c0-12.1-6.8-23.3-18.1-27.6C529.7 45.3 482.5 32 432 32c-58.4 0-103.4 20-123 35.6c-3.3 2.6-5 6.8-5 11V456c0 11.4 11.7 19.3 22.4 15.5"></path></svg></div></Link>
 
             <div className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 512 512"><path fill="currentColor" d="M0 96c0-35.3 28.7-64 64-64h384c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64zm64 0v64h64V96zm384 0H192v64h256zM64 224v64h64v-64zm384 0H192v64h256zM64 352v64h64v-64zm384 0H192v64h256z"></path></svg>
@@ -79,11 +99,19 @@ const RootLayout = ({ children }) => {
                 ) : user ? (
                   <>
                     <div className="flex flex-col items-end">
-                      <div className="text-md font-medium">{user.email || 'Nom Inconnu'}</div>
-                      <div className="text-sm font-regular">{user.role || 'Rôle Inconnu'}</div>
+                      <div className="text-md font-medium">{user.displayName || user.email}</div>
+                      <div className="text-sm font-regular">{roleUser}</div>
                     </div>
-                    <div className="avatar avatar-online bg-white">
-                      <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M256 288a144 144 0 1 0 0-288a144 144 0 1 0 0 288m-94.7 32C72.2 320 0 392.2 0 481.3c0 17 13.8 30.7 30.7 30.7h450.6c17 0 30.7-13.8 30.7-30.7c0-89.1-72.2-161.3-161.3-161.3z"></path></svg>
+                    <div className="avatar avatar-online bg-white border border-white">
+                      {user.photoURL ? (
+                        <img
+                          src={user.photoURL}
+                          alt="Profile"
+                          className="w-6 h-6 rounded-full"
+                        />
+                      ) : (
+                        <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M256 288a144 144 0 1 0 0-288a144 144 0 1 0 0 288m-94.7 32C72.2 320 0 392.2 0 481.3c0 17 13.8 30.7 30.7 30.7h450.6c17 0 30.7-13.8 30.7-30.7c0-89.1-72.2-161.3-161.3-161.3z"></path></svg>
+                      )}
                     </div>
                   </>
                 ) : (
@@ -97,6 +125,7 @@ const RootLayout = ({ children }) => {
             {/* Main Content */}
             <main className="flex-1 overflow-auto">
               {children}
+              <Footer />
             </main>
           </div>
         </div>

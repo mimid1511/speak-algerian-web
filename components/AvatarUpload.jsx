@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { deleteProfilePicture } from '@/api/auth';
 
 const AvatarUpload = ({ setPhotoUrl, photoUrl }) => {
     const [fileName, setFileName] = useState('');
@@ -20,7 +21,7 @@ const AvatarUpload = ({ setPhotoUrl, photoUrl }) => {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setSelectedImage(reader.result); // Met à jour l'URL de l'image
-                 // Met à jour l'URL de la photo dans le parent
+                // Met à jour l'URL de la photo dans le parent
                 setFileName(file.name);
             };
             reader.readAsDataURL(file); // Lit le fichier comme une URL de données
@@ -28,13 +29,24 @@ const AvatarUpload = ({ setPhotoUrl, photoUrl }) => {
     };
 
     const handleReset = () => {
-        setSelectedImage(photoUrl || ''); // Réinitialise l'image à l'URL actuelle
-        setPhotoUrl(''); // Vide l'URL de l'image
-        setFileName('');
+        if (photoUrl) {
+            if (typeof photoUrl === 'string') {
+                if (confirm("Etes vous sur de vouloir réinitialiser votre photo de profil") == true) {
+                    setSelectedImage(photoUrl); // Réinitialise l'image à l'URL actuelle
+                    setPhotoUrl(''); // Vide l'URL de l'image
+                    setFileName('');
+                    deleteProfilePicture();
+                }
+            }
+            else{
+                setPhotoUrl(''); // Vide l'URL de l'image
+                setFileName('');
+            }
+        }
     };
 
     return (
-        <div className="mb-6 flex flex-col items-center">
+        <div className="mb-6 flex flex-col items-center w-full">
             <div className="avatar avatar-xl mb-4">
                 {selectedImage ? (
                     <img

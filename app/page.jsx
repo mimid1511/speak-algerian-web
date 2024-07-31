@@ -9,7 +9,7 @@ export default function Home() {
     <Layout type="root">
       <Hero />
       <Features />
-      <LessonGrid />
+      <LessonGrid limited={true} />
     </Layout>
   );
 }

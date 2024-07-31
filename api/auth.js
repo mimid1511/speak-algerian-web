@@ -1,4 +1,5 @@
-import { auth, storage } from "./firebaseConfig"; // Assurez-vous que le chemin est correct
+import { auth, storage, db } from "./firebaseConfig"; // Assurez-vous que le chemin est correct
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -7,15 +8,26 @@ import {
     updateProfile,
     signOut // Importation directe de signOut
 } from 'firebase/auth';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 
-// Fonction pour l'inscription
-export const signUp = async (email, password) => {
+export const signUp = async (email, password, role) => {
     try {
+        // Créer l'utilisateur avec Firebase Auth
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
+
+        // Envoyer un email de vérification
         await sendEmailVerification(user);
-        return { message: 'User created and verification email sent.' };
+
+        // Créer un document dans la collection 'users' avec le même ID que celui de l'utilisateur
+        const userDocRef = doc(db, 'users', user.uid);
+        await setDoc(userDocRef, {
+            role: role, // Assurez-vous de passer le rôle en paramètre lors de l'appel de la fonction
+            email: email, // Facultatif: vous pouvez ajouter d'autres informations
+            createdAt: new Date(), // Facultatif: ajouter une date de création
+        });
+
+        return { message: 'User created, role assigned, and verification email sent.' };
     } catch (error) {
         console.error("Erreur lors de l'inscription:", error);
         throw new Error(error.message);
@@ -103,6 +115,28 @@ export const uploadProfilePicture = async (file) => {
     }
 };
 
+export const deleteProfilePicture = async () => {
+    try {
+        const user = auth.currentUser;
+        if (user) {
+            const storageRef = ref(storage, `user/${user.uid}/profile-picture.jpg`);
+
+            // Supprimer la photo de profil du stockage
+            await deleteObject(storageRef);
+
+            // Mettre à jour le profil de l'utilisateur pour supprimer l'URL de la photo
+            await updateUserProfile(user.displayName, "");
+
+            return { message: 'Profile picture deleted successfully.' };
+        } else {
+            throw new Error('No user is currently signed in.');
+        }
+    } catch (error) {
+        console.error("Erreur lors de la suppression de la photo de profil:", error);
+        throw new Error(error.message);
+    }
+};
+
 // Fonction pour la déconnexion
 export const signOutUser = async () => {
     try {
@@ -110,6 +144,23 @@ export const signOutUser = async () => {
         return { message: 'User signed out successfully.' };
     } catch (error) {
         console.error("Erreur lors de la déconnexion:", error);
+        throw new Error(error.message);
+    }
+};
+
+//Fonction pour récuperer le détail d'un utilisateur
+export const getUserDetail = async (userId) => {
+    try {
+        const userDocRef = doc(db, 'users', userId);
+        const userDocSnap = await getDoc(userDocRef);
+
+        if (userDocSnap.exists()) {
+            return { id: userDocSnap.id, ...userDocSnap.data() };
+        } else {
+            throw new Error('No user data found for the given ID.');
+        }
+    } catch (error) {
+        console.error("Erreur lors de la récupération des détails de l'utilisateur:", error);
         throw new Error(error.message);
     }
 };

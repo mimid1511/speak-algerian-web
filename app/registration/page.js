@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Footer from '@/components/Footer';
 
 const CheckIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className='flex-none w-4 h-4 mt-1 mr-2 text-green-600' viewBox="0 0 448 512">
@@ -14,145 +15,152 @@ const XmarkIcon = () => (
 
 const Pricing = () => {
     return (
-        <section className="max-w-full px-4 pt-12 pb-12 mx-auto bg-[url('/bg.jpg')] bg-repeat">
-            <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
-                <div className='flex justify-center items-center mb-4'>
-                    <Link href={"/"}>
-                        <img src={'/sa-logo-green.png'} alt="Logo" className="h-20" />
-                    </Link>
+
+        <>
+
+            <section className="max-w-full px-4 pt-12 pb-12 mx-auto bg-[url('/bg.jpg')] bg-repeat">
+                <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
+                    <div className='flex justify-center items-center mb-4'>
+                        <Link href={"/"}>
+                            <img src={'/sa-logo-green.png'} alt="Logo" className="h-20" />
+                        </Link>
+                    </div>
+                    <p className="px-0 mb-10 text-secondary text-lg text-gray-500 md:text-lg lg:px-24">
+                        Découvrez le Darija algérien avec notre dictionnaire gratuit et nos leçons interactives. <br /> Tous nos abonnements sont sans engagement !
+                    </p>
                 </div>
-                <p className="px-0 mb-10 text-secondary text-lg text-gray-500 md:text-lg lg:px-24">
-                    Découvrez le Darija algérien avec notre dictionnaire gratuit et nos leçons interactives. <br/> Tous nos abonnements sont sans engagement !
-                </p>
-            </div>
-            <div className="w-full mx-auto xl:w-4/5">
-                <div className="grid grid-cols-1 gap-16 lg:grid-cols-3 sm:gap-8">
-                    <div className="border-0 rounded-none shadow-md card sm:rounded-lg md:border">
-                        <div className="flex flex-col justify-between p-6 border-b border-gray-200">
-                            <p className="mb-1 text-lg font-semibold text-pink-600">Free</p>
-                            <p className="pb-0 my-2 font-mono text-4xl font-extrabold text-gray-900">0€</p>
-                            <p className="text-sm text-gray-500">Pas de frais, pas d'engagement</p>
-                            <a href="#" className="w-full mt-6 btn btn-light btn-lg">Démarer gratuitement</a>
-                        </div>
-                        <ul className="flex flex-col flex-grow p-6 space-y-3">
-                            <li className="flex items-start">
-                                <XmarkIcon />
-                                <span className="text-gray-700"> Leçons interactives </span>
-                            </li>
-                            <li className="flex items-start">
-                                <XmarkIcon />
-                                <span className="text-gray-700"> Vidéos, exercices et quiz </span>
-                            </li>
-                            <li className="flex items-start">
-                                <XmarkIcon />
-                                <span className="text-gray-700"> Notifications </span>
-                            </li>
-                            <li className="flex items-start">
-                                <XmarkIcon />
-                                <span className="text-gray-700"> Mots régionaux spécifiques du dictionnaire </span>
-                            </li>
-                            <li className="flex items-start">
-                                <CheckIcon />
-                                <span className="text-gray-700"> Dictionnaire du Darija algérien </span>
-                            </li>
-                            {/* <li className="flex items-start">
+                <div className="w-full mx-auto xl:w-4/5">
+                    <div className="grid grid-cols-1 gap-16 lg:grid-cols-3 sm:gap-8">
+                        <div className="border-0 rounded-none shadow-md card sm:rounded-lg md:border">
+                            <div className="flex flex-col justify-between p-6 border-b border-gray-200">
+                                <p className="mb-1 text-lg font-semibold text-pink-600">Free</p>
+                                <p className="pb-0 my-2 font-mono text-4xl font-extrabold text-gray-900">0€</p>
+                                <p className="text-sm text-gray-500">Pas de frais, pas d'engagement</p>
+                                <Link href="registration/free" className="w-full mt-6 btn btn-light btn-lg">Démarer gratuitement</Link>
+                            </div>
+                            <ul className="flex flex-col flex-grow p-6 space-y-3">
+                                <li className="flex items-start">
+                                    <XmarkIcon />
+                                    <span className="text-gray-700"> Leçons interactives </span>
+                                </li>
+                                <li className="flex items-start">
+                                    <XmarkIcon />
+                                    <span className="text-gray-700"> Vidéos, exercices et quiz </span>
+                                </li>
+                                <li className="flex items-start">
+                                    <XmarkIcon />
+                                    <span className="text-gray-700"> Notifications </span>
+                                </li>
+                                <li className="flex items-start">
+                                    <XmarkIcon />
+                                    <span className="text-gray-700"> Mots régionaux spécifiques du dictionnaire </span>
+                                </li>
+                                <li className="flex items-start">
+                                    <CheckIcon />
+                                    <span className="text-gray-700"> Dictionnaire du Darija algérien </span>
+                                </li>
+                                {/* <li className="flex items-start">
                                 <CheckIcon />
                                 <span className="text-gray-700"> Recherche par mots clés et traduction instantané </span>
                             </li> */}
-                            <li className="flex items-start">
-                                <CheckIcon />
-                                <span className="text-gray-700"> Forum de discussion du Darija algérien </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="border-0 rounded-none shadow-none card sm:rounded-lg md:border shadow-xl">
-                        <div className="flex flex-col justify-between p-6 border-b border-gray-200">
-                            <div>
-                                <div className="flex items-center justify-between">
-                                    <p className="mb-1 text-lg font-semibold text-primary">Student</p>
-                                </div>
-                                <p className="my-2 text-4xl font-bold text-gray-900">24,99€</p>
-                                <p className="text-sm text-gray-500">Par mois et sans engagement</p>
-                            </div>
-                            <a href="#" className="w-full mt-6 btn btn-primary btn-lg">Démarer</a>
+                                <li className="flex items-start">
+                                    <CheckIcon />
+                                    <span className="text-gray-700"> Forum de discussion du Darija algérien </span>
+                                </li>
+                            </ul>
                         </div>
-                        <ul className="flex flex-col flex-grow p-6 space-y-3">
-                            <li className="flex items-start">
-                                <CheckIcon />
-                                <span className="text-gray-700"> Profitez de toutes nos leçons interactives et captivantes </span>
-                            </li>
-                            <li className="flex items-start">
-                                <CheckIcon />
-                                <span className="text-gray-700"> Accès illimité aux vidéos, exercices et quiz </span>
-                            </li>
-                            <li className="flex items-start">
-                                <CheckIcon />
-                                <span className="text-gray-700"> Notifications de rappel pour vous aider à rester sur la bonne voie </span>
-                            </li>
-                            <li className="flex items-start">
-                                <CheckIcon />
-                                <span className="text-gray-700"> Mots régionaux spécifiques du dictionnaire pour une compréhension approfondie </span>
-                            </li>
-                            <li className="flex items-start">
-                                <CheckIcon />
-                                <span className="text-gray-700"> Dictionnaire du Darija algérien </span>
-                            </li>
-                            <li className="flex items-start">
-                                <CheckIcon />
-                                <span className="text-gray-700"> Recherche par mots clés et traduction instantané </span>
-                            </li>
-                            <li className="flex items-start">
-                                <CheckIcon />
-                                <span className="text-gray-700"> Forum de discussion du Darija algérien </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="border-0 rounded-none shadow-none card sm:rounded-lg md:border shadow-xl">
-                        <div className="flex flex-col justify-between p-6 border-b border-gray-200">
-                            <div>
-                                <div className="flex items-center justify-between">
-                                    <p className="mb-1 text-lg font-semibold text-secondary">Student +</p>
-                                    <span className="badge bg-secondary text-white">Le plus populaire</span>
+                        <div className="border-0 rounded-none shadow-none card sm:rounded-lg md:border shadow-xl">
+                            <div className="flex flex-col justify-between p-6 border-b border-gray-200">
+                                <div>
+                                    <div className="flex items-center justify-between">
+                                        <p className="mb-1 text-lg font-semibold text-primary">Student</p>
+                                    </div>
+                                    <p className="my-2 text-4xl font-bold text-gray-900">24,99€</p>
+                                    <p className="text-sm text-gray-500">Par mois et sans engagement</p>
                                 </div>
-                                <p className="my-2 text-4xl font-bold text-gray-900">19,99€</p>
-                                <p className="text-sm text-gray-500"><strong>240€</strong>/an (soit 19,99 €/mois) sans engagement</p>
+                                <a href="#" className="w-full mt-6 btn btn-primary btn-lg">Démarer</a>
                             </div>
-                            <a href="#" className="w-full mt-6 btn bg-red-700 text-white btn-lg">Démarer</a>
+                            <ul className="flex flex-col flex-grow p-6 space-y-3">
+                                <li className="flex items-start">
+                                    <CheckIcon />
+                                    <span className="text-gray-700"> Profitez de toutes nos leçons interactives et captivantes </span>
+                                </li>
+                                <li className="flex items-start">
+                                    <CheckIcon />
+                                    <span className="text-gray-700"> Accès illimité aux vidéos, exercices et quiz </span>
+                                </li>
+                                <li className="flex items-start">
+                                    <CheckIcon />
+                                    <span className="text-gray-700"> Notifications de rappel pour vous aider à rester sur la bonne voie </span>
+                                </li>
+                                <li className="flex items-start">
+                                    <CheckIcon />
+                                    <span className="text-gray-700"> Mots régionaux spécifiques du dictionnaire pour une compréhension approfondie </span>
+                                </li>
+                                <li className="flex items-start">
+                                    <CheckIcon />
+                                    <span className="text-gray-700"> Dictionnaire du Darija algérien </span>
+                                </li>
+                                <li className="flex items-start">
+                                    <CheckIcon />
+                                    <span className="text-gray-700"> Recherche par mots clés et traduction instantané </span>
+                                </li>
+                                <li className="flex items-start">
+                                    <CheckIcon />
+                                    <span className="text-gray-700"> Forum de discussion du Darija algérien </span>
+                                </li>
+                            </ul>
                         </div>
-                        <ul className="flex flex-col flex-grow p-6 space-y-3">
-                            <li className="flex items-start">
-                                <CheckIcon />
-                                <span className="text-gray-700"> Profitez de toutes nos leçons interactives et captivantes </span>
-                            </li>
-                            <li className="flex items-start">
-                                <CheckIcon />
-                                <span className="text-gray-700"> Accès illimité aux vidéos, exercices et quiz </span>
-                            </li>
-                            <li className="flex items-start">
-                                <CheckIcon />
-                                <span className="text-gray-700"> Notifications de rappel pour vous aider à rester sur la bonne voie </span>
-                            </li>
-                            <li className="flex items-start">
-                                <CheckIcon />
-                                <span className="text-gray-700"> Mots régionaux spécifiques du dictionnaire pour une compréhension approfondie </span>
-                            </li>
-                            <li className="flex items-start">
-                                <CheckIcon />
-                                <span className="text-gray-700"> Dictionnaire du Darija algérien </span>
-                            </li>
-                            <li className="flex items-start">
-                                <CheckIcon />
-                                <span className="text-gray-700"> Recherche par mots clés et traduction instantané </span>
-                            </li>
-                            <li className="flex items-start">
-                                <CheckIcon />
-                                <span className="text-gray-700"> Forum de discussion du Darija algérien </span>
-                            </li>
-                        </ul>
+                        <div className="border-0 rounded-none shadow-none card sm:rounded-lg md:border shadow-xl">
+                            <div className="flex flex-col justify-between p-6 border-b border-gray-200">
+                                <div>
+                                    <div className="flex items-center justify-between">
+                                        <p className="mb-1 text-lg font-semibold text-secondary">Student +</p>
+                                        <span className="badge bg-secondary text-white">Le plus populaire</span>
+                                    </div>
+                                    <p className="my-2 text-4xl font-bold text-gray-900">19,99€</p>
+                                    <p className="text-sm text-gray-500"><strong>240€</strong>/an (soit 19,99 €/mois) sans engagement</p>
+                                </div>
+                                <a href="#" className="w-full mt-6 btn bg-red-700 text-white btn-lg">Démarer</a>
+                            </div>
+                            <ul className="flex flex-col flex-grow p-6 space-y-3">
+                                <li className="flex items-start">
+                                    <CheckIcon />
+                                    <span className="text-gray-700"> Profitez de toutes nos leçons interactives et captivantes </span>
+                                </li>
+                                <li className="flex items-start">
+                                    <CheckIcon />
+                                    <span className="text-gray-700"> Accès illimité aux vidéos, exercices et quiz </span>
+                                </li>
+                                <li className="flex items-start">
+                                    <CheckIcon />
+                                    <span className="text-gray-700"> Notifications de rappel pour vous aider à rester sur la bonne voie </span>
+                                </li>
+                                <li className="flex items-start">
+                                    <CheckIcon />
+                                    <span className="text-gray-700"> Mots régionaux spécifiques du dictionnaire pour une compréhension approfondie </span>
+                                </li>
+                                <li className="flex items-start">
+                                    <CheckIcon />
+                                    <span className="text-gray-700"> Dictionnaire du Darija algérien </span>
+                                </li>
+                                <li className="flex items-start">
+                                    <CheckIcon />
+                                    <span className="text-gray-700"> Recherche par mots clés et traduction instantané </span>
+                                </li>
+                                <li className="flex items-start">
+                                    <CheckIcon />
+                                    <span className="text-gray-700"> Forum de discussion du Darija algérien </span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+            <Footer />
+
+        </>
+
     );
 };
 
