@@ -33,7 +33,7 @@ const Pricing = () => {
                     <div className="grid grid-cols-1 gap-16 lg:grid-cols-3 sm:gap-8">
                         <div className="border-0 rounded-none shadow-md card sm:rounded-lg md:border">
                             <div className="flex flex-col justify-between p-6 border-b border-gray-200">
-                                <p className="mb-1 text-lg font-semibold text-pink-600">Free</p>
+                                <p className="mb-1 text-lg font-semibold text-gray-500">Free</p>
                                 <p className="pb-0 my-2 font-mono text-4xl font-extrabold text-gray-900">0€</p>
                                 <p className="text-sm text-gray-500">Pas de frais, pas d'engagement</p>
                                 <Link href="registration/free" className="w-full mt-6 btn btn-light btn-lg">Démarer gratuitement</Link>

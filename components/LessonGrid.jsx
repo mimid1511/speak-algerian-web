@@ -21,7 +21,7 @@ const NotReservedIcon = () => (
 );
 
 const LessonGrid = ({ limited }) => {
-    const [roleUser, setRoleUser] = useState(null);
+    const [roleUser, setRoleUser] = useState("free");
     const [units, setUnits] = useState([]);
     const [loading, setLoading] = useState(true);
     const [lessonsCompleted, setLessonsCompleted] = useState([]);
@@ -83,7 +83,13 @@ const LessonGrid = ({ limited }) => {
 
     if (loading) {
         return (
-            <div className="p-4 bg-gray-200">
+            <div className="p-4 bg-gray-300">
+                {roleUser != "free" && !limited &&
+                    <div className='p-4 bg-white mb-4 rounded'>
+                        <progress class="progress" max="100" />
+                    </div>
+                }
+
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
                     {Array.from({ length: 6 }).map((_, index) => (
                         <div key={index} class="w-full h-72 bg-white rounded animate-pulse"></div>
@@ -99,11 +105,11 @@ const LessonGrid = ({ limited }) => {
     const completedUnits = calculateCompletedUnits();
 
     return (
-        <div className="p-4 bg-gray-200">
+        <div className="p-4 bg-gray-300">
 
             {/* Grande barre de progression */}
             {roleUser != "free" && !limited &&
-                <div className='p-4 bg-white shadow-md mb-4 rounded'>
+                <div className='p-4 bg-white mb-4 rounded'>
                     {/* <div className="text-center text-gray-700 mt-2">
                     {`${completedUnits} xp / ${totalUnits}`}
                 </div> */}
@@ -120,7 +126,7 @@ const LessonGrid = ({ limited }) => {
                     return (
                         <div
                             key={unit.id}
-                            className={`text-${unit.reserved && roleUser == "free" ? 'secondary' : 'primary'} border-${unit.reserved && roleUser == "free" ? 'neutral-400' : 'primary-light'} bg-${unit.reserved && roleUser == "free" ? 'white' : 'green-50'} shadow-md card`}
+                            className={`text-${unit.reserved && roleUser == "free" ? 'secondary' : 'primary'} border-${unit.reserved && roleUser == "free" ? 'neutral-400' : 'primary-light'} bg-${unit.reserved && roleUser == "free" ? 'white' : 'green-50'}  card`}
                         >
                             <div className="card-header">
                                 <strong>{`Unité ${unit.order}`}</strong>
@@ -143,7 +149,7 @@ const LessonGrid = ({ limited }) => {
                                 </ul>
                             </div>
                             <div className={`justify-end card-footer bg-${unit.reserved && roleUser == "free" ? 'neutral' : 'green-100'}`}>
-                                <Link href={unit.reserved && roleUser == "free" ? "/registration" : "/units/" + unit.id} className={`btn btn-${unit.reserved && roleUser == "free" ? 'dark' : 'primary'} btn-sm`}>
+                                <Link href={unit.reserved && roleUser == "free" ? "/registration" : "/units/" + unit.id} className={`btn btn-${unit.reserved && roleUser == "free" ? 'secondary' : 'primary'} btn-sm`}>
                                     {unit.reserved && roleUser == "free" ? "S'abonner" : "Suivre la leçon"}
                                 </Link>
                             </div>

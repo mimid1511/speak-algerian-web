@@ -35,8 +35,6 @@ const ProfilePage = () => {
         return () => unsubscribe();
     }, [router]);
 
-    if (loading) return <p>Loading...</p>;
-
     const handleProfileUpdate = async (displayName, file) => {
         try {
             if (user) {
@@ -89,9 +87,9 @@ const ProfilePage = () => {
     return (
         <Layout type="root">
             <Title>Profil</Title>
-            <div className="container mx-auto p-4 bg-gray-100">
-                {user && (
-                    <div className="flex flex-col items-center bg-white p-10">
+            <div className="m-full flex justify-center items-center md:p-4 bg-gray-300">
+                {user && !loading ?
+                    <div className="flex container max-w-2xl flex-col items-center bg-white p-10">
                         <AvatarUpload
                             photoUrl={photoUrl}
                             setPhotoUrl={setPhotoUrl}
@@ -105,7 +103,19 @@ const ProfilePage = () => {
                         />
                         <LogoutButton onSignOut={handleSignOut} />
                     </div>
-                )}
+                    :
+                    <div className="flex container max-w-2xl flex-col items-center bg-white p-10 animate-pulse">
+                        {/* Ce div imitera le contenu lorsque les données sont en cours de chargement */}
+                        <div className="h-32 w-32 bg-gray-300 rounded-full mb-6"></div>
+                        <div className="w-96 h-10 bg-gray-300 rounded mb-2"></div>
+                        <div className="w-96 h-10 bg-gray-300 rounded mb-8"></div>
+                        <div className="w-full h-10 bg-gray-300 rounded mb-4"></div>
+                        <div className="w-full h-10 bg-gray-300 rounded mb-4"></div>
+                        <div className="w-full h-10 bg-gray-300 rounded mb-4"></div>
+                        <div className="w-full h-10 bg-gray-300 rounded mb-4"></div>
+                        <div className="w-full h-14 bg-gray-300 rounded"></div>
+                    </div>
+                }
             </div>
         </Layout>
     );

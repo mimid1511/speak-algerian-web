@@ -190,7 +190,7 @@ const EvaluationPage = ({ params }) => {
                         </progress>
                     </div>
                     <div>
-                        <h2 className="mb-4 font-bold text-center text-2xl mb-12">{currentQuestion.statement}</h2>
+                        <h2 className="mb-4 font-bold text-center text-2xl mb-14">{currentQuestion.statement}</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {currentQuestion.answers.map((answer, index) => (
                                 <button

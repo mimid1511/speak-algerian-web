@@ -77,11 +77,25 @@ export const updateUserProfile = async (displayName, photoURL) => {
     try {
         const user = auth.currentUser;
         if (user) {
-            console.log(photoURL + displayName);
-            await updateProfile(user, {
-                displayName,
-                photoURL
+
+            let file = photoURL ;
+
+            if (file && file instanceof File) {
+                file = photoURL ;
+            }
+            else{
+                file = user.photoURL ;
+            }
+
+            await updateProfile(user, { displayName, file });
+
+            // Mettre à jour le document utilisateur dans Firestore
+            const userDocRef = doc(db, 'users', user.uid);
+            await updateDoc(userDocRef, {
+                displayName: displayName,
+                photoURL: file,
             });
+
             return { message: 'Profile updated successfully.' };
         } else {
             throw new Error('No user is currently signed in.');
@@ -101,7 +115,7 @@ export const uploadProfilePicture = async (file) => {
 
             // Téléversement du fichier
             await uploadBytes(storageRef, file);
-            const photoURL = await getDownloadURL(storageRef); // Optionnel: Obtenir l'URL de téléchargement
+            const photoURL = await getDownloadURL(storageRef);
 
             // Mise à jour du profil avec la nouvelle photo
             await updateUserProfile(user.displayName, photoURL);
@@ -126,7 +140,7 @@ export const deleteProfilePicture = async () => {
             await deleteObject(storageRef);
 
             // Mettre à jour le profil de l'utilisateur pour supprimer l'URL de la photo
-            await updateUserProfile(user.displayName, "");
+            await updateUserProfile(user.displayName, '');
 
             return { message: 'Profile picture deleted successfully.' };
         } else {
