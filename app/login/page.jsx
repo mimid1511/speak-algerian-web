@@ -89,7 +89,7 @@ export default function LoginPage() {
             </div>
             <div className="col-span-1 lg:col-span-4">
                 <img
-                    src="https://www.cityzeum.com/images/wikimedia/makam_chahid.webp"
+                    src="https://media.routard.com/image/26/2/photo.1509262.jpg"
                     alt="3 women looking at a laptop"
                     className="object-cover w-full h-64 min-h-full bg-gray-100"
                     loading="lazy"

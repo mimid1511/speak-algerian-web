@@ -121,7 +121,7 @@ const Pricing = () => {
                                     <p className="my-2 text-4xl font-bold text-gray-900">19,99€</p>
                                     <p className="text-sm text-gray-500"><strong>240€</strong>/an (soit 19,99 €/mois) sans engagement</p>
                                 </div>
-                                <a href="#" className="w-full mt-6 btn bg-red-700 text-white btn-lg">Démarer</a>
+                                <a href="#" className="w-full mt-6 btn bg-red-700 hover:bg-red-900 text-white btn-lg">Démarer</a>
                             </div>
                             <ul className="flex flex-col flex-grow p-6 space-y-3">
                                 <li className="flex items-start">

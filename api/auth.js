@@ -1,5 +1,5 @@
 import { auth, storage, db } from "./firebaseConfig"; // Assurez-vous que le chemin est correct
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -25,6 +25,7 @@ export const signUp = async (email, password, role) => {
             role: role, // Assurez-vous de passer le rôle en paramètre lors de l'appel de la fonction
             email: email, // Facultatif: vous pouvez ajouter d'autres informations
             createdAt: new Date(), // Facultatif: ajouter une date de création
+            lessonsCompleted: [], // Ajouter un tableau vide pour les unités complètes
         });
 
         return { message: 'User created, role assigned, and verification email sent.' };
@@ -161,6 +162,29 @@ export const getUserDetail = async (userId) => {
         }
     } catch (error) {
         console.error("Erreur lors de la récupération des détails de l'utilisateur:", error);
+        throw new Error(error.message);
+    }
+};
+
+// Fonction pour ajouter un ID d'unité au tableau unitsCompleted de l'utilisateur courant
+export const addLessonCompleted = async (id) => {
+    try {
+        const user = auth.currentUser;
+        if (!user) {
+            throw new Error('No user is currently signed in.');
+        }
+
+        // Référence au document de l'utilisateur dans Firestore
+        const userDocRef = doc(db, 'users', user.uid);
+
+        // Mise à jour du tableau unitsCompleted en ajoutant l'ID de l'unité
+        await updateDoc(userDocRef, {
+            lessonsCompleted: arrayUnion(id)
+        });
+
+        return { message: 'Lesson ID added to unitsCompleted successfully.' };
+    } catch (error) {
+        console.error("Erreur lors de l'ajout de la lesson complétée:", error);
         throw new Error(error.message);
     }
 };

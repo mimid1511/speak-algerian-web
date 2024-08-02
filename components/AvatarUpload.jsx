@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { deleteProfilePicture } from '@/api/auth';
+import { auth } from '@/api/firebaseConfig';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const AvatarUpload = ({ setPhotoUrl, photoUrl }) => {
     const [fileName, setFileName] = useState('');

@@ -24,12 +24,14 @@ const LessonGrid = ({ limited }) => {
     const [roleUser, setRoleUser] = useState(null);
     const [units, setUnits] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [lessonsCompleted, setLessonsCompleted] = useState([]);
 
     useEffect(() => {
         const fetchUserDetails = async (user) => {
             try {
                 const userDetails = await getUserDetail(user.uid);
                 setRoleUser(userDetails.role);
+                setLessonsCompleted(userDetails.lessonsCompleted || []); // Récupérer les leçons complétées
                 console.log('User Details:', userDetails.role);
             } catch (error) {
                 setRoleUser("free");
@@ -64,6 +66,21 @@ const LessonGrid = ({ limited }) => {
         fetchUnits();
     }, []);
 
+    const calculateProgress = (unit) => {
+        const completedLessons = unit.lessons.filter(lesson =>
+            lessonsCompleted.includes(lesson.id)
+        ).length;
+
+        return (completedLessons / unit.lessons.length) * 100;
+    };
+
+    const calculateCompletedUnits = () => {
+        return units.filter(unit =>
+            unit.lessons.every(lesson => lessonsCompleted.includes(lesson.id))
+        ).length;
+    };
+
+
     if (loading) {
         return (
             <div className="p-4 bg-gray-200">
@@ -78,44 +95,67 @@ const LessonGrid = ({ limited }) => {
 
     const displayedUnits = limited ? units.slice(0, 6) : units;
 
+    const totalUnits = units.length;
+    const completedUnits = calculateCompletedUnits();
+
     return (
         <div className="p-4 bg-gray-200">
+
+            {/* Grande barre de progression */}
+            {roleUser != "free" && !limited &&
+                <div className='p-4 bg-white shadow-md mb-4 rounded'>
+                    {/* <div className="text-center text-gray-700 mt-2">
+                    {`${completedUnits} xp / ${totalUnits}`}
+                </div> */}
+                    <progress className="progress text-primary" value={completedUnits} max={totalUnits}>
+                        {`${completedUnits}/${totalUnits}`}
+                    </progress>
+                </div>
+            }
+
+            {/* Grille des unités */}
             <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-                {displayedUnits.map((unit) => (
-                    <div
-                        key={unit.id}
-                        className={`text-${unit.reserved && roleUser=="free" ? 'gray-900' : 'primary'} border-${unit.reserved  && roleUser=="free" ? 'neutral-400' : 'primary-light'} bg-${unit.reserved  && roleUser=="free" ? 'white' : 'green-50'} shadow-md card`}
-                    >
-                        <div className="card-header">
-                            <strong>{`Unité ${unit.order}`}</strong>
-                            {unit.reserved  && roleUser=="free" ? <ReservedIcon /> : <NotReservedIcon />}
+                {displayedUnits.map((unit) => {
+                    const progress = calculateProgress(unit); // Calculer la progression pour cette unité
+                    return (
+                        <div
+                            key={unit.id}
+                            className={`text-${unit.reserved && roleUser == "free" ? 'secondary' : 'primary'} border-${unit.reserved && roleUser == "free" ? 'neutral-400' : 'primary-light'} bg-${unit.reserved && roleUser == "free" ? 'white' : 'green-50'} shadow-md card`}
+                        >
+                            <div className="card-header">
+                                <strong>{`Unité ${unit.order}`}</strong>
+                                {unit.reserved && roleUser == "free" ? <ReservedIcon /> : <NotReservedIcon />}
+                            </div>
+                            <div className="card-body">
+                                {roleUser != "free" && !limited ? <progress className="progress h-1 text-gray-300" value={progress} max="100">{progress}%</progress> : ""}
+                                <ul className="list list-flush">
+                                    {unit.lessons.map((lesson, index) => (
+                                        <li className="list-item" key={index}>
+                                            <p>
+                                                {unit.reserved && roleUser == "free"
+                                                    ? <span className="badge bg-gray-100 text-gray-900">{lesson.type}</span>
+                                                    : <span className="badge bg-green-200 text-green-800">{lesson.type}</span>
+                                                }
+                                                &nbsp; {lesson.name}
+                                            </p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div className={`justify-end card-footer bg-${unit.reserved && roleUser == "free" ? 'neutral' : 'green-100'}`}>
+                                <Link href={unit.reserved && roleUser == "free" ? "/registration" : "/units/" + unit.id} className={`btn btn-${unit.reserved && roleUser == "free" ? 'dark' : 'primary'} btn-sm`}>
+                                    {unit.reserved && roleUser == "free" ? "S'abonner" : "Suivre la leçon"}
+                                </Link>
+                            </div>
                         </div>
-                        <div className="card-body">
-                            <ul className='list list-flush'>
-                                {unit.lessons.map((lesson, index) => (
-                                    <li className="list-item" key={index}>
-                                        <p>
-                                            {unit.reserved  && roleUser=="free"
-                                                ? <span className="badge bg-gray-100 text-gray-900">{lesson.type}</span>
-                                                : <span className="badge bg-green-200 text-green-800">{lesson.type}</span>
-                                            }
-                                            &nbsp; {lesson.name}
-                                        </p>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className={`justify-end card-footer bg-${unit.reserved  && roleUser=="free" ? 'neutral' : 'green-100'}`}>
-                            <Link href={unit.reserved  && roleUser=="free" ? "/registration" : "/units/" + unit.id} className={`btn btn-${unit.reserved  && roleUser=="free" ? 'dark' : 'primary'} btn-sm`}>
-                                {unit.reserved && roleUser=="free" ? "S'abonner" : "Suivre la leçon"}
-                            </Link>
-                        </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
+
+            {/* Si `limited` est vrai, afficher le bouton pour voir toutes les leçons */}
             {limited && (
                 <div className="mt-4 text-center">
-                    <Link href="/lessons" className="btn btn-dark w-full">
+                    <Link href="/lessons" className="btn bg-red-700 hover:bg-red-900 text-white btn-xl w-full">
                         Voir toutes les leçons
                     </Link>
                 </div>

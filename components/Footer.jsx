@@ -3,9 +3,9 @@ import React from 'react';
 const Footer = () => {
     return (
         <footer className="flex flex-col items-center justify-between px-4 py-4 mx-auto max-w-7xl md:flex-row">
-            <p className="mb-8 text-sm text-center text-gray-700 md:text-left md:mb-0">© Copyright 2024 - Speak Algerian. Tout droit réservé.</p>
+            <p className="mb-8 text-sm text-center text-gray-700 md:text-left md:mb-0">© Copyright 2024 - Parler Algerien. Tout droit réservé.</p>
             <div className="flex items-center space-x-6">
-                <a href="#">
+                {/* <a href="#">
                     <span className="sr-only">Twitter</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="2500" height="2031" viewBox="-0.25 -0.25 1109.5 901.5" className="w-5 h-5" aria-hidden="true">
                         <path
@@ -21,8 +21,8 @@ const Footer = () => {
                             stroke-width=".5"
                         />
                     </svg>
-                </a>
-                <a href="#">
+                </a> */}
+                {/* <a href="#">
                     <span className="sr-only">LinkedIn</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="2500" height="2500" viewBox="7.025 7.025 497.951 497.95" className="w-5 h-5" aria-hidden="true">
                         <linearGradient id="a" gradientUnits="userSpaceOnUse" x1="-974.482" y1="1306.773" x2="-622.378" y2="1658.877" gradientTransform="translate(1054.43 -1226.825)">
@@ -34,7 +34,7 @@ const Footer = () => {
                             fill="url(#a)"
                         />
                     </svg>
-                </a>
+                </a> */}
                 <a href="#">
                     <span className="sr-only">Instagram</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500 2500" width="2500" height="2500" className="w-5 h-5" aria-hidden="true">
@@ -58,7 +58,7 @@ const Footer = () => {
                         />
                     </svg>
                 </a>
-                <a href="#">
+                {/* <a href="#">
                     <span className="sr-only">Facebook</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="1298" height="2500" viewBox="88.428 12.828 107.543 207.085" className="w-5 h-5" aria-hidden="true">
                         <path
@@ -66,7 +66,14 @@ const Footer = () => {
                             fill="#3c5a9a"
                         />
                     </svg>
+                </a> */}
+                <a href="#">
+                    <span className="sr-only">YouTube</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.43em" height="1em" viewBox="0 0 256 180"><path fill="#f00" d="M250.346 28.075A32.18 32.18 0 0 0 227.69 5.418C207.824 0 127.87 0 127.87 0S47.912.164 28.046 5.582A32.18 32.18 0 0 0 5.39 28.24c-6.009 35.298-8.34 89.084.165 122.97a32.18 32.18 0 0 0 22.656 22.657c19.866 5.418 99.822 5.418 99.822 5.418s79.955 0 99.82-5.418a32.18 32.18 0 0 0 22.657-22.657c6.338-35.348 8.291-89.1-.164-123.134"></path><path fill="#fff" d="m102.421 128.06l66.328-38.418l-66.328-38.418z"></path></svg>
                 </a>
+                <a href="#">
+                    <span className="sr-only">Tik Tok</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 1024 1024"><path fill="currentColor" fillRule="evenodd" d="M912 224.962C912 162.575 861.425 112 799.038 112H224.962C162.575 112 112 162.575 112 224.962v574.076C112 861.426 162.575 912 224.962 912h574.076C861.425 912 912 861.426 912 799.038zM774.759 460.916c-51.615.577-99.71-15.027-141.938-43.927v202.874c0 90.166-61.72 167.62-148.996 187.848c-119.068 27.165-219.864-58.954-232.577-161.835c-13.294-102.884 52.322-193.051 152.892-213.281c19.651-4.045 49.209-4.045 64.458-.577v108.661c-4.692-1.153-9.086-2.31-13.709-2.888c-39.304-6.937-77.371 12.715-92.977 48.55c-15.605 35.838-5.16 77.451 26.629 101.73c26.586 20.806 56.085 23.694 86.14 9.822c30.057-13.291 46.21-37.567 49.676-70.512c.578-4.622.546-9.826.546-15.028V222.206c0-10.981.086-10.502 11.068-10.502h86.12c6.36 0 8.673.915 9.25 8.433c4.621 67.047 55.526 124.147 120.838 132.818c6.937 1.155 14.369 1.613 22.58 2.19z"></path></svg>                </a>
             </div>
         </footer>
     );
