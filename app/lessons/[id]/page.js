@@ -4,6 +4,7 @@ import { getLessonById } from '@/api/units'; // Assurez-vous que le chemin est c
 import Layout from '@/app/layout';
 import Title from '@/components/Title';
 import Link from 'next/link';
+import Alert from '@/components/Alert';
 import { storage, auth } from '@/api/firebaseConfig'; // Assurez-vous que le chemin est correct
 import { ref, listAll, getDownloadURL } from "firebase/storage"; // Import Firebase storage functions
 import { onAuthStateChanged } from 'firebase/auth'; // Import Firebase Auth function
@@ -61,9 +62,10 @@ const LessongPages = ({ params }) => {
     return (
         <Layout type="root">
             <Title>{lesson ? lesson.name : <div className="w-full h-8 bg-gray-200 rounded animate-pulse"></div>}</Title>
-            <div className="md:p-8 bg-gray-200">
+            <div className="md:p-4 bg-gray-200">
                 <div className="bg-white md:p-5 rounded shadow-md">
-                    <div className="flex flex-wrap justify-center">
+                    <Alert type={"primary"} message={"Ce cours est basé sur le dialecte d'Alger. Selon les régions il peux y avoir des changements de vocabulaire ou de la structure grammaticale. N'hesitez pas à consulter le dictionnaire !"} />
+                    <div className="flex flex-wrap justify-center mt-4">
                         {loading
                             ? Array.from({ length: 4 }).map((_, index) => (
                                 <div key={index} className="m-4 md:w-1/2 h-auto">

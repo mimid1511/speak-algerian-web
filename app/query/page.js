@@ -6,17 +6,50 @@ import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 const addQuestionsToFirestore = async () => {
     try {
         // Référence au document existant
-        const docRef = doc(db, "assessments", "rmsbx9ebPB2CPSOXGsg0");
+        const docRef = doc(db, "assessments", "NAvYeuKw2xtBCtkcP5wm");
 
         // Exemple de question à ajouter
         const newQuestions = [
             {
-                statement: "l'article reste entier et ne se supprime jamais même devant les préposition",
+                statement: "La 3ème personne du singulier féminin",
                 answers: [
-                    { wording: "oui", correct: false },
-                    { wording: "non", correct: true },
+                    { wording: "انا ana", correct: true },
+                    { wording: "هِيَ hiya", correct: true },
+                    { wording: "هُوَ huwa", correct: false },
                 ]
-            }
+            },
+            {
+                statement: "La 2ème personne du pluriel",
+                answers: [
+                    { wording: "انتُمَ ntuma", correct: true },
+                    { wording: "انتَ enta", correct: false },
+                    { wording: "انتِ enti", correct: false },
+                ]
+            },
+            {
+                statement: "La 1ère personne du pluriel",
+                answers: [
+                    { wording: "انا ana", correct: false },
+                    { wording: "احنا ḥna", correct: true },
+                    { wording: "هُوَ huwa", correct: false },
+                ]
+            },
+            {
+                statement: "L'augmentatif de je/moi",
+                answers: [
+                    { wording: "anāya", correct: true },
+                    { wording: "anāwa", correct: false },
+                    { wording: "yanāya", correct: false },
+                ]
+            },
+            {
+                statement: "L'augmentatif de tu/toi",
+                answers: [
+                    { wording: "ntāya ", correct: true },
+                    { wording: "ntāwa", correct: false },
+                    { wording: "nātaya", correct: false },
+                ]
+            },
         ];
 
         // Mise à jour du document en ajoutant les nouvelles questions à l'array existant

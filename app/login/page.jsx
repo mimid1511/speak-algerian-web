@@ -49,7 +49,32 @@ export default function LoginPage() {
                 title: 'Tipaza',
                 description: 'Fondée par les Phéniciens, devenue romaine, Tipaza est célèbre pour ses ruines antiques, notamment son amphithéâtre, qui témoignent de son riche passé historique. Aujourd\'hui, Tipaza est un site attirant de nombreux visiteurs mais surtout pour son tourisme balnéaire, ses plages et ses complexes touristiques modernes, tels que "Matarès" ou la "Corne d\'or".'
             },
-            // Ajoutez ici les autres images avec titres et descriptions
+            {
+                url: '/Login/Hoggar.jpg',
+                title: 'Le Hoggar',
+                description: 'Le Parc Culturel de l\'Ahaggar, situé dans le sahara, est un vaste territoire qui s\'étend sur plus de 450 000 km². Ce parc, inscrit au patrimoine mondial de l\'UNESCO, abrite le massif de l\'Ahaggar, une région montagneuse spectaculaire dominée par le mont Tahat, le plus haut sommet d\'Algérie. Le parc est riche en histoire et en culture, étant le cœur du territoire des Touaregs.'
+            },
+            {
+                url: '/Login/Tassili.jpg',
+                title: 'Tassili',
+                description: 'Le Parc Culturel du Tassili n\'Ajjer, situé dans le sud-est de l\'Algérie, couvrant une superficie d\'environ 72 000 km². Classé au patrimoine mondial de l\'UNESCO, ce parc est célèbre pour ses canyons profonds et son incroyable collection d\'art rupestre, avec plus de 15 000 peintures et gravures, certaines datant de plus de 10 000 ans.'
+            },
+            // Histoire de la langue
+            {
+                url: '/Login/Hilalien.jpg',
+                title: 'L\'invasion Hilaliene et son influence sur le Darija',
+                description: 'Les Beni Hilal, Beni Sulaym et Beni Maqil, tribus arabes du désert, ont migré vers l\'Algérie au XIe siècle sous l\'impulsion des Fatimides. Ils ont profondément influencé le darija algérien, notamment en étant à l\'origine des dialectes ruraux utilisant la lettre "gaf". Le dialecte algérien porte encore les traces de cette riche influence linguistique et culturelle.'
+            },
+            {
+                url: '/Login/Phenicien.jpg',
+                title: 'Les Phéniciens et leur influence sur le Darija',
+                description: 'Les Phéniciens, navigateurs et commerçants venus du Liban ou de Palestine, ont fondé des comptoirs en Algérie à partir du XIIe siècle avant J.-C., comme Tipasa. Cette influence phénicienne a enrichi le substrat linguistique berbère et a laissé des traces dans les toponymes et certains termes du darija algérien.'
+            },
+            {
+                url: '/Login/Ottoman.jpg',
+                title: 'Les Ottomans et leur influence sur le Darija',
+                description: 'La période ottomane en Algérie, débutant au XVIe siècle et s\'étendant jusqu\'à la conquête française en 1830, a eu un impact significatif sur le darija algérien. Les Ottomans ont introduit de nombreux mots turcs dans le dialecte, notamment dans les domaines de l\'administration, de la cuisine et de l\'art militaire.'
+            },
         ];
 
         // Sélection aléatoire d'une image

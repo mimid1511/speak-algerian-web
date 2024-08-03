@@ -67,7 +67,7 @@ const TopicPage = ({ params }) => {
     return (
         <Layout type={"root"}>
             {topic && <Title>{topic.title}</Title>}
-            <div className="container mx-auto p-4 md:p-8 bg-gray-200">
+            <div className="mx-auto p-4 md:p-8 bg-gray-200">
                 {error && <p className="text-red-500">{error}</p>}
                 {topic && (
                     <div>
@@ -82,7 +82,7 @@ const TopicPage = ({ params }) => {
                         */}
                         <div className="space-y-4">
                             {messages.map(message => (
-                                <div key={message.id} className="bg-white md:p-4 rounded flex items-start">
+                                <div key={message.id} className="bg-white md:p-6 rounded flex items-start">
                                     <div className="avatar bg-primary-light border w-6 h-6 mr-4">
                                         {message.userAvatar ? (
                                             <img

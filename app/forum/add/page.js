@@ -28,7 +28,7 @@ const AddTopicPage = () => {
     return (
         <Layout type={"root"}>
             <Title className="text-2xl font-bold mb-4">Ajouter un nouveau topic</Title>
-            <div className="container mx-auto md:p-8 bg-gray-300">
+            <div className="mx-auto md:p-8 bg-gray-300">
                 {error && <p className="text-red-500">{error}</p>}
                 <form onSubmit={handleSubmit} className='bg-white p-5 md:p-10 rounded'>
                     <div className="mb-4">

@@ -55,8 +55,8 @@ const UnitsPage = ({ params }) => {
         <Layout type="root">
             <Title>{unit ? `Unité ${unit.order}` : 'Chargement...'}</Title>
             <div className="p-4 bg-gray-200">
-                <div className="bg-white p-5 md:p-10 rounded shadow-md">
-                    <h2 className="text-xl font-semibold mb-8 mt-2">Leçons disponibles</h2>
+                <div className="bg-white p-5 md:p-10 rounded">
+                    {/* <h2 className="text-xl font-semibold mb-8 mt-2">Leçons disponibles</h2> */}
                     {loading ? (
                         <SkeletonLoader />
                     ) : (
