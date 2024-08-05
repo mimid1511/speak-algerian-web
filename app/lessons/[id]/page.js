@@ -63,7 +63,7 @@ const LessongPages = ({ params }) => {
         <Layout type="root">
             <Title>{lesson ? lesson.name : <div className="w-full h-8 bg-gray-200 rounded animate-pulse"></div>}</Title>
             <div className="md:p-4 bg-gray-200">
-                <div className="bg-white md:p-5 rounded shadow-md">
+                <div className="bg-white md:p-5 rounded">
                     <Alert type={"primary"} message={"Ce cours est basé sur le dialecte d'Alger. Selon les régions il peux y avoir des changements de vocabulaire ou de la structure grammaticale. N'hesitez pas à consulter le dictionnaire !"} />
                     <div className="flex flex-wrap justify-center mt-4">
                         {loading

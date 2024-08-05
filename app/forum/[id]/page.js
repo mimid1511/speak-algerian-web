@@ -94,11 +94,6 @@ const TopicPage = ({ params }) => {
                                             <svg className="h-12 w-12 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 288a144 144 0 1 0 0-288a144 144 0 1 0 0 288m-94.7 32C72.2 320 0 392.2 0 481.3c0 17 13.8 30.7 30.7 30.7h450.6c17 0 30.7-13.8 30.7-30.7c0-89.1-72.2-161.3-161.3-161.3z"></path></svg>
                                         )}
                                     </div>
-                                    {/* <img
-                                        src={message.userAvatar || '/default-avatar.jpg'}
-                                        alt={message.userName}
-                                        className="w-12 h-12 rounded-full mr-4"
-                                    /> */}
                                     <div className="flex-1">
                                         <p className="font-semibold">{message.userName}</p>
                                         <p className="text-gray-600 text-sm">{new Date(message.createdAt.seconds * 1000).toLocaleDateString()} à {new Date(message.createdAt.seconds * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>

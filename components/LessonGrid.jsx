@@ -126,7 +126,7 @@ const LessonGrid = ({ limited }) => {
                     return (
                         <div
                             key={unit.id}
-                            className={`text-${unit.reserved && roleUser == "free" ? 'secondary' : 'primary'} border-${unit.reserved && roleUser == "free" ? 'neutral-400' : 'primary-light'} bg-${unit.reserved && roleUser == "free" ? 'white' : 'green-50'}  card`}
+                            className={`text-${unit.reserved && roleUser == "free" ? 'secondary' : 'primary'}  bg-${unit.reserved && roleUser == "free" ? 'white' : 'green-50'}  card`}
                         >
                             <div className="card-header">
                                 <strong>{`Unité ${unit.order}`}</strong>

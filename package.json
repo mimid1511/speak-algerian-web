@@ -13,6 +13,7 @@
     "kutty": "^0.6.0",
     "next": "14.2.5",
     "react": "^18",
+    "react-canvas-confetti": "^2.0.7",
     "react-dom": "^18"
   },
   "devDependencies": {

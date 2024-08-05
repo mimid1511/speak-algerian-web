@@ -61,7 +61,7 @@ const ForumPage = () => {
                     Ajouter un nouveau topic
                 </button>
             </div>
-            <div className=" bg-gray-300 mx-auto w-full p-4">
+            <div className="bg-gray-300 mx-auto w-full p-4">
                 {error && <p className="text-red-500">{error}</p>}
                 <div className="list list-none bg-white rounded">
                     {topics.map(topic => (

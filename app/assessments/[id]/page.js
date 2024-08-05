@@ -1,13 +1,14 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useRef } from 'react';
 import { db } from '@/api/firebaseConfig'; // Assurez-vous que le chemin est correct
 import { doc, getDoc } from 'firebase/firestore';
 import Layout from '@/app/layout';
 import Title from '@/components/Title';
 import { useRouter } from 'next/navigation';
 import { addLessonCompleted } from '@/api/auth';
+import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 
-// Fonction pour mélanger un tableau
 const shuffleArray = (array) => {
     return array.sort(() => Math.random() - 0.5);
 };
@@ -21,11 +22,14 @@ const EvaluationPage = ({ params }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [testFinished, setTestFinished] = useState(false);
-    const [testStarted, setTestStarted] = useState(false); // Nouvel état pour contrôler le démarrage du test
-    const [userAnswers, setUserAnswers] = useState([]); // Pour stocker les réponses de l'utilisateur
-    const evaluationId = params.id; // Récupérer l'ID de l'évaluation depuis les props
+    const [testStarted, setTestStarted] = useState(false);
+    const [userAnswers, setUserAnswers] = useState([]);
+    const evaluationId = params.id;
 
-    const maxTime = 20 * 1000; // Durée maximale du temps pour chaque question en millisecondes
+    const maxTime = 20 * 1000;
+
+    // Ref pour l'audio
+    const audioRef = useRef(null);
 
     useEffect(() => {
         const fetchEvaluation = async () => {
@@ -56,7 +60,7 @@ const EvaluationPage = ({ params }) => {
     useEffect(() => {
         if (testStarted && timeLeft < maxTime) {
             const intervalId = setInterval(() => {
-                setTimeLeft((prevTimeLeft) => prevTimeLeft + 10); // Augmente toutes les 10ms
+                setTimeLeft((prevTimeLeft) => prevTimeLeft + 10);
             }, 10);
 
             return () => clearInterval(intervalId);
@@ -66,8 +70,8 @@ const EvaluationPage = ({ params }) => {
     }, [timeLeft, testStarted]);
 
     const handleStartTest = () => {
-        setTestStarted(true); // Démarrer le test
-        setTimeLeft(0); // Initialiser le temps pour la première question
+        setTestStarted(true);
+        setTimeLeft(0);
     };
 
     const handleAnswerClick = (isCorrect, selectedAnswer) => {
@@ -85,7 +89,7 @@ const EvaluationPage = ({ params }) => {
     const handleNextQuestion = () => {
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
-            setTimeLeft(0); // Réinitialiser le temps pour la question suivante
+            setTimeLeft(0);
         } else {
             setTestFinished(true);
         }
@@ -95,10 +99,28 @@ const EvaluationPage = ({ params }) => {
         setCurrentQuestionIndex(0);
         setScore(0);
         setTimeLeft(0);
-        setTestStarted(false); // Réinitialiser l'état de démarrage
+        setTestStarted(false);
         setTestFinished(false);
         setUserAnswers([]);
     };
+
+    useEffect(() => {
+        if (testFinished && score / questions.length >= 0.7) {
+            const audio = audioRef.current;
+
+            if (audio) {
+                audio.currentTime = 9.5;
+                audio.play();
+
+                const stopAudio = setTimeout(() => {
+                    audio.pause();
+                    audio.currentTime = 0; // Réinitialiser pour la prochaine utilisation
+                }, 10800); // Arrête la musique après 10 secondes (20 - 10 = 10 secondes)
+
+                return () => clearTimeout(stopAudio);
+            }
+        }
+    }, [testFinished, score, questions.length]);
 
     if (error) {
         return <p>{error}</p>;
@@ -108,20 +130,23 @@ const EvaluationPage = ({ params }) => {
         return (
             <Layout type="root">
                 <Title>Évaluation</Title>
-                <div className="p-4 bg-gray-200 text-center">
-                    {isLoading ? (
-                        <button className="btn btn-outline-dark btn-loading" disabled>
-                            <span className="w-4 h-4 spinner" role="status" aria-hidden="true"></span>
-                            <span className="pl-1">Chargement...</span>
-                        </button>
-                    ) : (
-                        <button
-                            onClick={handleStartTest}
-                            className="py-2 px-4 btn btn-primary btn-lg mt-4"
-                        >
-                            Démarrer le test
-                        </button>
-                    )}
+                <div className="p-4 bg-gray-300 text-center">
+                    <div className='bg-white p-16 rounded'>
+                        {isLoading ? (
+                            <button className="btn btn-outline-primary btn-xl btn-loading" disabled>
+                                <span className="w-4 h-4 spinner" role="status" aria-hidden="true"></span>
+                                <span className="pl-1"> Chargement...</span>
+                            </button>
+                        ) : (
+                            <button
+                                onClick={handleStartTest}
+                                className="py-2 px-4 btn btn-primary btn-xl"
+                            >
+                                Démarrer le test
+                            </button>
+                        )}
+                    </div>
+
                 </div>
             </Layout>
         );
@@ -131,52 +156,79 @@ const EvaluationPage = ({ params }) => {
         const totalQuestions = questions.length;
         const percentage = (score / totalQuestions) * 100;
         const isPassed = percentage >= 70;
-        if(isPassed){
+        if (isPassed) {
             addLessonCompleted(params.id);
         }
 
         return (
             <Layout type="root">
                 <Title>Résultat de l'évaluation</Title>
-                <div className="p-4 bg-gray-200">
-                    <div className="bg-white md:p-8 rounded shadow-md text-center">
-                        <p>Score: {score} / {totalQuestions}</p>
-                        <p>Pourcentage: {percentage.toFixed(2)}%</p>
-                        <p>{isPassed ? "Vous avez réussi l'évaluation!" : "Vous avez échoué l'évaluation."}</p>
-                        <button
-                            onClick={restartTest}
-                            className="py-2 px-4 btn btn-primary btn-lg mt-4"
-                        >
-                            Recommencer
-                        </button>
+                <div className="p-4 bg-gray-200 flex flex-col items-center">
+                    <div style={{backgroundColor: '#FCFEFC'}}  className="md:p-8 rounded flex flex-col items-center space-y-4 container max-w-xl">
+                        <p className={`text-2xl font-bold ${isPassed ? "bg-green-200" : "bg-red-200"} p-4 rounded text-center`}>
+                            {isPassed ? "Vous avez réussi l'évaluation !" : "Vous avez échoué l'évaluation."}
+                        </p>
+                        {isPassed && (
+                            <img src='\victory.gif' width={150} />
+                        )}
+                        <p className='font-semibold rounded p-4 text-xl mt-8 mb-2 bg-gray-100 text-center'>
+                            Score: {percentage.toFixed(2)}%
+                        </p>
+                        {isPassed ?
+                            <button
+                                onClick={restartTest}
+                                className="py-2 px-4 btn btn-primary btn-lg mt-4"
+                            >
+                                Retourner à l'unité
+                            </button>
+                            :
+                            <button
+                                onClick={restartTest}
+                                className="py-2 px-4 btn bg-red-700 hover:bg-red-900 text-white btn-lg mt-4"
+                            >
+                                Recommencer
+                            </button>
+                        }
                     </div>
-                    <div className="bg-white mt-8 p-4 rounded shadow-md">
-                        <h3 className="text-lg font-bold mb-4">Détails des réponses</h3>
-                        <ul className="list-disc pl-5">
-                            {userAnswers.map((answer, index) => (
-                                <li key={index} className="mb-2">
-                                    <p><strong>Question:</strong> {answer.question}</p>
-                                    <p><strong>Votre réponse:</strong> {answer.selectedAnswer}</p>
-                                    <p><strong>Réponse correcte:</strong> {answer.correctAnswer}</p>
-                                </li>
-                            ))}
-                        </ul>
+                    {isPassed && <Fireworks autorun={{ speed: 3, duration: 10000, delay: 500 }} />}
+                    <div className="bg-white mt-4 p-8 rounded">
+                        <h3 className="text-xl font-bold mb-8 mt-2 text-center">
+                            Détails des réponses ({score}/{totalQuestions})
+                        </h3>
+                        <div className="grid  ">
+                            <ul className="list list-flush list-none">
+                                {userAnswers.map((answer, index) => (
+                                    <li key={index} className={`list-item bg-${answer.selectedAnswer === answer.correctAnswer ? 'green-100' : 'red-100'} text-${answer.selectedAnswer === answer.correctAnswer ? 'green-800' : 'red-700'} p-4 rounded mb-2`}>
+                                        <p>Question: {answer.question}</p>
+                                        {answer.selectedAnswer !== answer.correctAnswer ? (
+                                            <>
+                                                <p>Votre réponse: {answer.selectedAnswer}</p>
+                                                <p>Réponse correcte: <strong>{answer.correctAnswer}</strong></p>
+                                            </>
+                                        ) : (
+                                            <p>Réponse: <strong>{answer.correctAnswer}</strong></p>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
+                {/* Lecteur audio caché */}
+                <audio ref={audioRef} src="/victory.mp3" />
             </Layout>
         );
     }
 
     const currentQuestion = questions[currentQuestionIndex];
-    const progressValue = (timeLeft / maxTime) * 100; // Calcul de la valeur de la progression
+    const progressValue = (timeLeft / maxTime) * 100;
 
     return (
         <Layout type="root">
             <Title>Évaluation</Title>
             <div className="p-4 bg-gray-200">
-                <div className="bg-white p-5 md:p-16 rounded shadow-md">
+                <div className="bg-white p-5 md:p-16 rounded">
                     <div className="text-center mb-12">
-                        {/* Afficher le nombre de questions répondues / nombre total */}
                         <span class="badge bg-gray-100 text-gray-900 mb-4">
                             {currentQuestionIndex + 1} / {questions.length}
                         </span>
@@ -191,7 +243,7 @@ const EvaluationPage = ({ params }) => {
                     </div>
                     <div>
                         <h2 className="mb-4 font-bold text-center text-2xl">{currentQuestion.statement}</h2>
-                        <br/>
+                        <br />
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {currentQuestion.answers.map((answer, index) => (
                                 <button
@@ -210,7 +262,6 @@ const EvaluationPage = ({ params }) => {
     );
 };
 
-// Fonction pour extraire l'ID depuis le contexte de la route (Next.js)
 EvaluationPage.getInitialProps = async ({ query }) => {
     return { params: query };
 };
