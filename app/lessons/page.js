@@ -6,7 +6,7 @@ import Layout from '../layout';
 const Lessons = () => {
     return (
         <Layout type="root">
-            <Title>Les leçons</Title>
+            <Title title={"Leçons"}/>
             <LessonGrid limited={false}/>
         </Layout>
     );

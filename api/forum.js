@@ -1,5 +1,5 @@
 import { db, auth } from './firebaseConfig';
-import { collection, addDoc, getDocs, getDoc, deleteDoc, doc, query, where } from 'firebase/firestore';
+import { collection, addDoc, getDocs, getDoc, deleteDoc, doc, query, where, orderBy } from 'firebase/firestore';
 
 // Récupère tous les topics
 export const getAllTopics = async () => {
@@ -20,9 +20,6 @@ export const getTopicById = async (topicId) => {
 
 // Fonction pour anonymiser l'email
 const anonymizeEmail = (email) => {
-
-    console.log(email);
-
     if (typeof email !== 'string' || !email.includes('@')) {
         return 'Unknown User'; // Valeur par défaut si l'email est invalide
     }
@@ -35,7 +32,10 @@ const anonymizeEmail = (email) => {
 export const getMessagesByTopicId = async (topicId) => {
     try {
         const messagesRef = collection(db, 'topics', topicId, 'messages');
-        const q = query(messagesRef);
+        
+        // Modification de la requête pour trier les messages par createdAt du plus récent au plus ancien
+        const q = query(messagesRef, orderBy('createdAt'));
+        
         const querySnapshot = await getDocs(q);
 
         const messages = [];

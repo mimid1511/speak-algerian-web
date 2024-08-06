@@ -29,14 +29,14 @@ const Pricing = () => {
                         Découvrez le Darija algérien avec notre dictionnaire gratuit et nos leçons interactives. <br /> Tous nos abonnements sont sans engagement !
                     </p>
                 </div>
-                <div className="w-full mx-auto xl:w-4/5">
-                    <div className="grid grid-cols-1 gap-16 lg:grid-cols-3 sm:gap-8">
-                        <div className="border-0 rounded-none shadow-md card sm:rounded-lg md:border">
+                <div className="w-full mx-auto xl:w-4/5 ">
+                    <div className="grid grid-cols-1 gap-16 lg:grid-cols-3 sm:gap-8 ">
+                        <div className="border-0 rounded-none shadow-md  card  md:border">
                             <div className="flex flex-col justify-between p-6 border-b border-gray-200">
                                 <p className="mb-1 text-lg font-semibold text-gray-500">Free</p>
                                 <p className="pb-0 my-2 font-mono text-4xl font-extrabold text-gray-900">0€</p>
                                 <p className="text-sm text-gray-500">Pas de frais, pas d'engagement</p>
-                                <Link href="registration/free" className="w-full mt-6 btn btn-light btn-lg">Démarer gratuitement</Link>
+                                <Link href="registration/free" className="w-full mt-6 btn btn-light btn-lg rounded-none">Démarer gratuitement</Link>
                             </div>
                             <ul className="flex flex-col flex-grow p-6 space-y-3">
                                 <li className="flex items-start">
@@ -69,7 +69,7 @@ const Pricing = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div className="border-0 rounded-none shadow-none card sm:rounded-lg md:border shadow-xl">
+                        <div className="border-0 rounded-none shadow-none card  md:border shadow-xl">
                             <div className="flex flex-col justify-between p-6 border-b border-gray-200">
                                 <div>
                                     <div className="flex items-center justify-between">
@@ -78,7 +78,7 @@ const Pricing = () => {
                                     <p className="my-2 text-4xl font-bold text-gray-900">24,99€</p>
                                     <p className="text-sm text-gray-500">Par mois et sans engagement</p>
                                 </div>
-                                <a href="#" className="w-full mt-6 btn btn-primary btn-lg">Démarer</a>
+                                <a href="#" className="w-full rounded-none mt-6 btn btn-primary btn-lg">Démarer</a>
                             </div>
                             <ul className="flex flex-col flex-grow p-6 space-y-3">
                                 <li className="flex items-start">
@@ -111,7 +111,7 @@ const Pricing = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div className="border-0 rounded-none shadow-none card sm:rounded-lg md:border shadow-xl">
+                        <div className="border-0 rounded-none shadow-none card  md:border shadow-xl">
                             <div className="flex flex-col justify-between p-6 border-b border-gray-200">
                                 <div>
                                     <div className="flex items-center justify-between">
@@ -121,7 +121,7 @@ const Pricing = () => {
                                     <p className="my-2 text-4xl font-bold text-gray-900">19,99€</p>
                                     <p className="text-sm text-gray-500"><strong>240€</strong>/an (soit 19,99 €/mois) sans engagement</p>
                                 </div>
-                                <a href="#" className="w-full mt-6 btn bg-red-700 hover:bg-red-900 text-white btn-lg">Démarer</a>
+                                <a href="#" className="w-full rounded-none mt-6 btn bg-red-700 hover:bg-red-900 text-white btn-lg">Démarer</a>
                             </div>
                             <ul className="flex flex-col flex-grow p-6 space-y-3">
                                 <li className="flex items-start">

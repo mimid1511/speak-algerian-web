@@ -97,7 +97,7 @@ const Registration = () => {
                         <img src={'/sa-logo-green.png'} alt="Logo" className="h-16" />
                     </Link>
                     <div
-                        className="w-full px-0 pt-5 pb-6 mx-auto mt-4 shadow-lg mb-0 space-y-4 bg-transparent border-0 border-gray-200 rounded-lg md:bg-white md:border sm:w-10/12 md:w-8/12 lg:w-6/12 xl:w-4/12 md:px-6 sm:mt-8 sm:mb-5"
+                        className="w-full px-0 pt-5 pb-6 mx-auto mt-4 shadow-lg mb-0 space-y-4 bg-transparent border-0 border-gray-200 rounded-none md:bg-white md:border sm:w-10/12 md:w-8/12 lg:w-6/12 xl:w-4/12 md:px-6 sm:mt-8 sm:mb-5"
                     >
                         <h1 className="mb-5 text-xl font-light text-left text-gray-800 sm:text-center">Réjoingnez-nous gratuitement</h1>
                         {message && <Alert type={type} message={message} />}
@@ -105,7 +105,7 @@ const Registration = () => {
                             <label className="block">
                                 <span className="block mb-1 text-xs font-medium text-gray-700">Adresse mail</span>
                                 <input
-                                    className={`form-input ${errors.email ? 'border-red-500' : ''}`}
+                                    className={`form-input rounded-none ${errors.email ? 'border-red-500' : ''}`}
                                     type="email"
                                     name="email"
                                     placeholder="Ex. jilali@boualem.com"
@@ -118,7 +118,7 @@ const Registration = () => {
                             <label className="block">
                                 <span className="block mb-1 text-xs font-medium text-gray-700">Mot de passe</span>
                                 <input
-                                    className={`form-input ${errors.password ? 'border-red-500' : ''}`}
+                                    className={`form-input rounded-none ${errors.password ? 'border-red-500' : ''}`}
                                     type="password"
                                     name="password"
                                     placeholder="••••••••"
@@ -131,7 +131,7 @@ const Registration = () => {
                             <label className="block">
                                 <span className="block mb-1 text-xs font-medium text-gray-700">Confirmer le mot de passe</span>
                                 <input
-                                    className={`form-input ${errors.confirmPassword ? 'border-red-500' : ''}`}
+                                    className={`form-input rounded-none ${errors.confirmPassword ? 'border-red-500' : ''}`}
                                     type="password"
                                     name="confirmPassword"
                                     placeholder="••••••••"
@@ -146,7 +146,7 @@ const Registration = () => {
                                     <input
                                         type="checkbox"
                                         name="termsAccepted"
-                                        className="form-checkbox"
+                                        className="form-checkbox rounded-none"
                                         checked={formData.termsAccepted}
                                         onChange={handleChange}
                                     />
@@ -155,7 +155,7 @@ const Registration = () => {
                                 {errors.termsAccepted && <p className="text-red-500 text-xs mt-1">{errors.termsAccepted}</p>}
                                 <input
                                     type="submit"
-                                    className={`w-full mt-5 btn btn-primary sm:w-auto sm:mt-0 ${!formData.termsAccepted ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    className={`w-full rounded-none mt-5 btn btn-primary sm:w-auto sm:mt-0 ${!formData.termsAccepted ? 'opacity-50 cursor-not-allowed' : ''}`}
                                     value="S'inscrire"
                                     disabled={!formData.termsAccepted || isSubmitting}
                                 />

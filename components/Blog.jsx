@@ -9,7 +9,7 @@ const Blog = () => {
             <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
                 <div>
                     <a href="#">
-                        <img src="https://news.radioalgerie.dz/sites/default/data/2024-03/algerie.jpg" class="object-cover w-full h-56 mb-5 bg-center rounded" alt="Kutty" loading="lazy" />
+                        <img src="https://news.radioalgerie.dz/sites/default/data/2024-03/algerie.jpg" class="object-cover w-full h-56 mb-5 bg-center " alt="Kutty" loading="lazy" />
                     </a>
                     <h2 class="mb-2 text-lg font-semibold text-gray-900">
                         <a href="#" class="text-gray-900 hover:text-purple-700">Process Documents Using Artificial Intelligence For RPA Bots</a>
@@ -25,7 +25,7 @@ const Blog = () => {
                 </div>
                 <div>
                     <a href="#">
-                        <img src="https://news.radioalgerie.dz/sites/default/data/2024-03/algerie.jpg" class="object-cover w-full h-56 mb-5 bg-center rounded" alt="Kutty" loading="lazy" />
+                        <img src="https://news.radioalgerie.dz/sites/default/data/2024-03/algerie.jpg" class="object-cover w-full h-56 mb-5 bg-center " alt="Kutty" loading="lazy" />
                     </a>
                     <h2 class="mb-2 text-lg font-semibold text-gray-900">
                         <a href="#" class="text-gray-900 hover:text-purple-700">Implement Dark Mode in Your Android App</a>
@@ -41,7 +41,7 @@ const Blog = () => {
                 </div>
                 <div>
                     <a href="#">
-                        <img src="https://news.radioalgerie.dz/sites/default/data/2024-03/algerie.jpg" class="object-cover w-full h-56 mb-5 bg-center rounded" alt="Kutty" loading="lazy" />
+                        <img src="https://news.radioalgerie.dz/sites/default/data/2024-03/algerie.jpg" class="object-cover w-full h-56 mb-5 bg-center " alt="Kutty" loading="lazy" />
                     </a>
                     <h2 class="mb-2 text-lg font-semibold text-gray-900">
                         <a href="#" class="text-gray-900 hover:text-purple-700">Why is Mental Health one of the Important Issues to Address?</a>
@@ -57,7 +57,7 @@ const Blog = () => {
                 </div>
                 <div>
                     <a href="#">
-                        <img src="https://news.radioalgerie.dz/sites/default/data/2024-03/algerie.jpg" class="object-cover w-full h-56 mb-5 bg-center rounded" alt="Kutty" loading="lazy" />
+                        <img src="https://news.radioalgerie.dz/sites/default/data/2024-03/algerie.jpg" class="object-cover w-full h-56 mb-5 bg-center " alt="Kutty" loading="lazy" />
                     </a>
                     <h2 class="mb-2 text-lg font-semibold text-gray-900">
                         <a href="#" class="text-gray-900 hover:text-purple-700">Pattern Matching In Elixir</a>
@@ -73,7 +73,7 @@ const Blog = () => {
                 </div>
                 <div>
                     <a href="#">
-                        <img src="https://news.radioalgerie.dz/sites/default/data/2024-03/algerie.jpg" class="object-cover w-full h-56 mb-5 bg-center rounded" alt="Kutty" loading="lazy" />
+                        <img src="https://news.radioalgerie.dz/sites/default/data/2024-03/algerie.jpg" class="object-cover w-full h-56 mb-5 bg-center " alt="Kutty" loading="lazy" />
                     </a>
                     <h2 class="mb-2 text-lg font-semibold text-gray-900">
                         <a href="#" class="text-gray-900 hover:text-purple-700">3 things you should change during your focus group interview</a>
@@ -86,7 +86,7 @@ const Blog = () => {
                 </div>
                 <div>
                     <a href="#">
-                        <img src="https://news.radioalgerie.dz/sites/default/data/2024-03/algerie.jpg" class="object-cover w-full h-56 mb-5 bg-center rounded" alt="Kutty" loading="lazy" />
+                        <img src="https://news.radioalgerie.dz/sites/default/data/2024-03/algerie.jpg" class="object-cover w-full h-56 mb-5 bg-center " alt="Kutty" loading="lazy" />
                     </a>
                     <h2 class="mb-2 text-lg font-semibold text-gray-900">
                         <a href="#" class="text-gray-900 hover:text-purple-700">Using Webpack with React Typescript</a>
@@ -102,8 +102,8 @@ const Blog = () => {
                 </div>
             </div>
             <div class="flex flex-col items-center justify-center mt-20 space-x-0 space-y-2 md:space-x-2 md:space-y-0 md:flex-row">
-                <a href="#" class="w-full rounded-full btn btn-primary btn-xl md:w-auto">Previous Page</a>
-                <a href="#" class="w-full rounded-full btn btn-primary btn-xl md:w-auto">Next Page</a>
+                <a href="#" class="w-full rounded-none btn btn-primary btn-xl md:w-auto">Previous Page</a>
+                <a href="#" class="w-full rounded-none btn btn-primary btn-xl md:w-auto">Next Page</a>
             </div>
         </section>
 

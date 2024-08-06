@@ -17,7 +17,7 @@ const LogoutButton = () => {
     return (
         <button
             onClick={handleLogout}
-            className="btn btn-lg btn-danger w-full mt-4"
+            className="btn rounded-none btn-lg btn-danger w-full mt-4"
         >
             Déconnexion
         </button>

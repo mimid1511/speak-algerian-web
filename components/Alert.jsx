@@ -6,7 +6,7 @@ const Alert = ({ type, message }) => {
     switch (type) {
       case 'primary':
         return (
-          <div className="alert bg-white text-primary-light border border-primary" role="alert">
+          <div className="alert bg-white text-primary-light border border-primary rounded-none" role="alert">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -27,7 +27,7 @@ const Alert = ({ type, message }) => {
         );
       case 'success':
         return (
-          <div className="alert text-green-800 bg-green-100" role="alert">
+          <div className="alert text-green-800 bg-green-100 rounded-none" role="alert">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -46,7 +46,7 @@ const Alert = ({ type, message }) => {
         );
       case 'danger':
         return (
-          <div className="alert text-red-700 bg-red-100" role="alert">
+          <div className="alert text-red-700 bg-red-100 rounded-none" role="alert">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -66,7 +66,7 @@ const Alert = ({ type, message }) => {
         );
       case 'warning':
         return (
-          <div className="alert text-yellow-800 bg-yellow-100" role="alert">
+          <div className="alert text-yellow-800 bg-yellow-100 rounded-none" role="alert">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"

@@ -8,7 +8,7 @@ export default function news() {
     return (
         <Layout type="root">
             {/* <HeroEvolued /> */}
-            <Title>Actualitées</Title>
+            <Title title={"Actualitées"}/>
             <Blog />
         </Layout>
     );

@@ -22,13 +22,13 @@ const ProfileForm = ({ user, onSubmit, photoUrl }) => {
     return (
         <form onSubmit={handleUpdateProfile} className="w-full">
             {error && <p className="text-red-600 mb-4">{error}</p>}
-            <label className="block mb-4">
+            <label className="block mb-4 ">
                 <span className="block mb-1 text-xs font-medium text-gray-700">Nom d'utilisateur</span>
                 <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="form-input"
+                    className="form-input rounded-none"
                     placeholder="Nom d'utilisateur"
                 />
             </label>
@@ -42,18 +42,18 @@ const ProfileForm = ({ user, onSubmit, photoUrl }) => {
 
 
             <div class="form-append mb-4">
-                <input readOnly class="form-input" placeholder="Adresse mail" />
-                <button class="btn btn-primary">Réinitialiser</button>
+                <input readOnly class="form-input rounded-none" placeholder="Adresse mail" />
+                <button class="btn rounded-none btn-primary">Réinitialiser</button>
             </div>
 
             <div class="form-append mb-4">
-                <input readOnly class="form-input" placeholder="Mot de passe" />
-                <button class="btn btn-primary">Réinitialiser</button>
+                <input readOnly class="form-input rounded-none" placeholder="Mot de passe" />
+                <button class="btn rounded-none btn-primary">Réinitialiser</button>
             </div>
 
             <button
                 type="button" onClick={handleUpdateProfile}
-                className="btn btn-md btn-primary w-full"
+                className="btn rounded-none btn-md btn-primary w-full"
             >
                 Mettre à jour
             </button>

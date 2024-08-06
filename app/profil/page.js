@@ -86,7 +86,7 @@ const ProfilePage = () => {
 
     return (
         <Layout type="root">
-            <Title>Profil</Title>
+            <Title title={"Profil"}/>
             <div className="m-full flex justify-center items-center md:p-4 bg-gray-300">
                 {user && !loading ?
                     <div className="flex container max-w-2xl flex-col items-center bg-white p-10">
@@ -107,13 +107,13 @@ const ProfilePage = () => {
                     <div className="flex container max-w-2xl flex-col items-center bg-white p-10 animate-pulse">
                         {/* Ce div imitera le contenu lorsque les données sont en cours de chargement */}
                         <div className="h-32 w-32 bg-gray-300 rounded-full mb-6"></div>
-                        <div className="w-96 h-10 bg-gray-300 rounded mb-2"></div>
-                        <div className="w-96 h-10 bg-gray-300 rounded mb-8"></div>
-                        <div className="w-full h-10 bg-gray-300 rounded mb-4"></div>
-                        <div className="w-full h-10 bg-gray-300 rounded mb-4"></div>
-                        <div className="w-full h-10 bg-gray-300 rounded mb-4"></div>
-                        <div className="w-full h-10 bg-gray-300 rounded mb-4"></div>
-                        <div className="w-full h-14 bg-gray-300 rounded"></div>
+                        <div className="w-96 h-10 bg-gray-300  mb-2"></div>
+                        <div className="w-96 h-10 bg-gray-300  mb-8"></div>
+                        <div className="w-full h-10 bg-gray-300  mb-4"></div>
+                        <div className="w-full h-10 bg-gray-300  mb-4"></div>
+                        <div className="w-full h-10 bg-gray-300  mb-4"></div>
+                        <div className="w-full h-10 bg-gray-300  mb-4"></div>
+                        <div className="w-full h-14 bg-gray-300 "></div>
                     </div>
                 }
             </div>

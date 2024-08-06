@@ -24,8 +24,8 @@ const EvaluationPage = ({ params }) => {
     const [testFinished, setTestFinished] = useState(false);
     const [testStarted, setTestStarted] = useState(false);
     const [userAnswers, setUserAnswers] = useState([]);
-    const evaluationId = params.id;
-
+    const evaluationId = params.lessonId;
+    const unitId = params.unitId;
     const maxTime = 20 * 1000;
 
     // Ref pour l'audio
@@ -129,9 +129,9 @@ const EvaluationPage = ({ params }) => {
     if (!testStarted) {
         return (
             <Layout type="root">
-                <Title>Évaluation</Title>
+                <Title title={"Évaluation"}/>
                 <div className="p-4 bg-gray-300 text-center">
-                    <div className='bg-white p-16 rounded'>
+                    <div className='bg-white p-16'>
                         {isLoading ? (
                             <button className="btn btn-outline-primary btn-xl btn-loading" disabled>
                                 <span className="w-4 h-4 spinner" role="status" aria-hidden="true"></span>
@@ -140,7 +140,7 @@ const EvaluationPage = ({ params }) => {
                         ) : (
                             <button
                                 onClick={handleStartTest}
-                                className="py-2 px-4 btn btn-primary btn-xl"
+                                className="py-2 px-4 btn btn-primary rounded-none btn-xl"
                             >
                                 Démarrer le test
                             </button>
@@ -157,34 +157,34 @@ const EvaluationPage = ({ params }) => {
         const percentage = (score / totalQuestions) * 100;
         const isPassed = percentage >= 70;
         if (isPassed) {
-            addLessonCompleted(params.id);
+            addLessonCompleted(evaluationId);
         }
 
         return (
             <Layout type="root">
-                <Title>Résultat de l'évaluation</Title>
-                <div className="p-4 bg-gray-200 flex flex-col items-center">
-                    <div style={{backgroundColor: '#FCFEFC'}}  className="md:p-8 rounded flex flex-col items-center space-y-4 container max-w-xl">
-                        <p className={`text-2xl font-bold ${isPassed ? "bg-green-200" : "bg-red-200"} p-4 rounded text-center`}>
+                <Title title={"Résultat de l'évaluation"} />
+                <div className="p-4 bg-gray-300 flex flex-col items-center">
+                    <div style={{backgroundColor: '#FCFEFC'}}  className="md:p-8 flex flex-col items-center space-y-4 container max-w-xl">
+                        <p className={`text-2xl font-bold ${isPassed ? "bg-green-200" : "bg-red-200"} p-4 text-center`}>
                             {isPassed ? "Vous avez réussi l'évaluation !" : "Vous avez échoué l'évaluation."}
                         </p>
                         {isPassed && (
                             <img src='\victory.gif' width={150} />
                         )}
-                        <p className='font-semibold rounded p-4 text-xl mt-8 mb-2 bg-gray-100 text-center'>
+                        <p className='font-semibold p-4 text-xl mt-8 mb-2 bg-gray-100 text-center'>
                             Score: {percentage.toFixed(2)}%
                         </p>
                         {isPassed ?
                             <button
-                                onClick={restartTest}
-                                className="py-2 px-4 btn btn-primary btn-lg mt-4"
+                                onClick={() => router.push("/units/" + unitId)}
+                                className="py-2 px-4 w-full rounded-none btn btn-primary btn-lg mt-4"
                             >
                                 Retourner à l'unité
                             </button>
                             :
                             <button
                                 onClick={restartTest}
-                                className="py-2 px-4 btn bg-red-700 hover:bg-red-900 text-white btn-lg mt-4"
+                                className="py-2 rounded-none px-4 w-full btn bg-red-700 hover:bg-red-900 text-white btn-lg mt-4"
                             >
                                 Recommencer
                             </button>
@@ -225,9 +225,9 @@ const EvaluationPage = ({ params }) => {
 
     return (
         <Layout type="root">
-            <Title>Évaluation</Title>
-            <div className="p-4 bg-gray-200">
-                <div className="bg-white p-5 md:p-16 rounded">
+            <Title title={"Évaluation"} />
+            <div className="p-4 bg-gray-300">
+                <div className="bg-white p-5 md:p-16">
                     <div className="text-center mb-12">
                         <span class="badge bg-gray-100 text-gray-900 mb-4">
                             {currentQuestionIndex + 1} / {questions.length}
@@ -249,7 +249,7 @@ const EvaluationPage = ({ params }) => {
                                 <button
                                     key={index}
                                     onClick={() => handleAnswerClick(answer.correct, answer.wording)}
-                                    className="btn font-semibold btn-light btn-xl"
+                                    className="btn rounded-none font-semibold btn-light btn-xl"
                                 >
                                     {answer.wording}
                                 </button>

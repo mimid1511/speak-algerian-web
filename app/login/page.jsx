@@ -108,15 +108,15 @@ export default function LoginPage() {
 
     return (
         <section className="grid grid-cols-1 gap-0 lg:grid-cols-12 min-h-screen bg-[url('/bg.jpg')] bg-repeat bg-contain">
-            <div className="w-full bg-white shadow-xl col-span-1 p-4 mx-auto mt-6 lg:col-span-8 xl:p-12 md:w-2/4">
-                <Link href={"/"}><img src={'/sa-logo-green.png'} alt="Logo" className="h-10" /></Link>
+            <div className="w-full bg-white rounded-none shadow-xl col-span-1 p-4 mx-auto mt-6 lg:col-span-8 xl:p-12 md:w-2/4">
+                <Link href={"/"}><img src={'/sa-logo-green.png'} alt="Logo" className="h-10"/></Link>
                 <h1 className="mt-6 mb-4 text-xl font-light text-left text-gray-800">Connectez-vous à votre compte</h1>
                 {alert.message && <><Alert type={alert.type} message={alert.message} /><br /></>}
                 <form className="pb-1 space-y-4" onSubmit={handleLogin}>
                     <label className="block">
                         <span className="block mb-1 text-xs font-medium text-gray-700">Adresse mail</span>
                         <input
-                            className="form-input"
+                            className="form-input rounded-none"
                             type="email"
                             placeholder="Ex. abdelkader@jilali.com"
                             inputMode="email"
@@ -128,7 +128,7 @@ export default function LoginPage() {
                     <label className="block">
                         <span className="block mb-1 text-xs font-medium text-gray-700">Mot de passe</span>
                         <input
-                            className="form-input"
+                            className="form-input rounded-none"
                             type="password"
                             placeholder="••••••••"
                             required
@@ -138,10 +138,10 @@ export default function LoginPage() {
                     </label>
                     <div className="flex items-center justify-between">
                         <label className="flex items-center">
-                            <input type="checkbox" className="form-checkbox" />
+                            <input type="checkbox" className="form-checkbox rounded-none" />
                             <span className="block ml-2 text-xs font-medium text-gray-700 cursor-pointer">Se souvenir de moi</span>
                         </label>
-                        <input type="submit" className="btn btn-primary" value="Connexion" />
+                        <input type="submit" className="btn rounded-none btn-primary" value="Connexion" />
                     </div>
                 </form>
                 <div className="my-6 space-y-2">
@@ -149,8 +149,8 @@ export default function LoginPage() {
                         Vous n'êtes pas encore abonné ?
                         <Link href="/registration" className="text-purple-700 hover:text-black"> Se créer un compte</Link>
                     </p>
-                    <a href="#" className="block text-xs text-purple-700 hover:text-black">Mot de passe oublié ?</a>
-                    <a href="#" className="block text-xs text-purple-700 hover:text-black">Terme, confidentialité et modalités</a>
+                    <a href="#" className="block  text-xs text-purple-700 hover:text-black">Mot de passe oublié ?</a>
+                    <a href="#" className="block  text-xs text-purple-700 hover:text-black">Terme, confidentialité et modalités</a>
                 </div>
             </div>
             <div className="relative col-span-1 lg:col-span-4">

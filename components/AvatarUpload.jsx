@@ -63,7 +63,7 @@ const AvatarUpload = ({ setPhotoUrl, photoUrl }) => {
                 )}
             </div>
             <form className="w-full max-w-md" action="#" method="POST">
-                <label className="form-input cursor-pointer block">
+                <label className="form-input rounded-none cursor-pointer block">
                     <input
                         type="file" accept="image/gif, image/jpeg, image/png"
                         className="sr-only"
@@ -77,7 +77,7 @@ const AvatarUpload = ({ setPhotoUrl, photoUrl }) => {
                 <button
                     type="button"
                     onClick={handleReset}
-                    className="btn btn-light w-full mt-2"
+                    className="btn btn-light w-full rounded-none"
                 >
                     Réinitialiser
                 </button>

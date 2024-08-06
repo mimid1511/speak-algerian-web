@@ -52,15 +52,15 @@ const Hero = () => {
                     <form className="w-full max-w-md">
                         <div className="flex items-center py-2">
                             <div className="form-append">
-                                <input value={searchTerm} onChange={handleInputChange} className="form-input" placeholder="Francais - Arabe Algérien (Darija)" />
-                                <button className="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" fillRule="evenodd" d="M11.5 7a4.5 4.5 0 1 1-9 0a4.5 4.5 0 0 1 9 0m-.82 4.74a6 6 0 1 1 1.06-1.06l2.79 2.79a.75.75 0 1 1-1.06 1.06z" clipRule="evenodd"></path></svg></button>
+                                <input value={searchTerm} onChange={handleInputChange} className="form-input rounded-none border-none" placeholder="Francais - Arabe Algérien (Darija)" />
+                                <button className="btn btn-primary rounded-none"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" fillRule="evenodd" d="M11.5 7a4.5 4.5 0 1 1-9 0a4.5 4.5 0 0 1 9 0m-.82 4.74a6 6 0 1 1 1.06-1.06l2.79 2.79a.75.75 0 1 1-1.06 1.06z" clipRule="evenodd"></path></svg></button>
                             </div>
                         </div>
                     </form>
 
                     {/* Liste déroulante des résultats */}
                     {results.length > 0 && (
-                        <div className="list list-none absolute w-full bg-white  border border-gray-300 rounded-md shadow-lg">
+                        <div className="list list-none absolute w-full bg-white  border border-gray-300 shadow-lg">
                             {results.map(word => (
                                 <Link href={"/word/" + word.id} key={word.id} className="list-item">{word.french.join(", ")}</Link>
                             ))}

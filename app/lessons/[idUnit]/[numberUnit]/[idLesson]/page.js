@@ -8,6 +8,7 @@ import Alert from '@/components/Alert';
 import { storage, auth } from '@/api/firebaseConfig'; // Assurez-vous que le chemin est correct
 import { ref, listAll, getDownloadURL } from "firebase/storage"; // Import Firebase storage functions
 import { onAuthStateChanged } from 'firebase/auth'; // Import Firebase Auth function
+import { useRouter } from 'next/navigation';
 
 const LessongPages = ({ params }) => {
     const [lesson, setLesson] = useState(null);
@@ -15,7 +16,10 @@ const LessongPages = ({ params }) => {
     const [error, setError] = useState(null);
     const [imageUrls, setImageUrls] = useState([]);
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false); // État pour vérifier la connexion de l'utilisateur
-    const lessonId = params.id; // Récupérer l'ID depuis les props ou la route
+    const lessonId = params.idLesson; // Récupérer l'ID depuis les props ou la route
+    const unitId = params.idUnit; // Récupérer l'ID depuis les props ou la route
+    const unitOrder = params.numberUnit; // Récupérer l'ID depuis les props ou la route
+    const router = useRouter();
 
     useEffect(() => {
         const fetchLesson = async () => {
@@ -61,15 +65,15 @@ const LessongPages = ({ params }) => {
 
     return (
         <Layout type="root">
-            <Title>{lesson ? lesson.name : <div className="w-full h-8 bg-gray-200 rounded animate-pulse"></div>}</Title>
-            <div className="md:p-4 bg-gray-200">
-                <div className="bg-white md:p-5 rounded">
+            <Title breadCrumb={[{ name: "Leçons", link: "/lessons" }, { name: "Unité " + unitOrder, link: "/units/" + unitId }]} title={lesson ? lesson.name : <div className="w-full h-8 bg-gray-200 animate-pulse"></div>} />
+            <div className="md:p-4 bg-gray-300">
+                <div className="bg-white md:p-5">
                     <Alert type={"primary"} message={"Ce cours est basé sur le dialecte d'Alger. Selon les régions il peux y avoir des changements de vocabulaire ou de la structure grammaticale. N'hesitez pas à consulter le dictionnaire !"} />
                     <div className="flex flex-wrap justify-center mt-4">
                         {loading
                             ? Array.from({ length: 4 }).map((_, index) => (
                                 <div key={index} className="m-4 md:w-1/2 h-auto">
-                                    <div className="skeleton bg-gray-50 rounded animate-pulse h-96 mb-10 w-full"></div>
+                                    <div className="skeleton bg-gray-50 animate-pulse h-96 mb-10 w-full"></div>
                                 </div>
                             ))
                             : imageUrls.map((url, index) => (
@@ -92,28 +96,26 @@ const LessongPages = ({ params }) => {
                             ))
                         }
                         <hr className="w-full border-t-2 border-gray-700 my-4 mb-10" />
-                        <div className="btn-group mb-4" role="group" aria-label="Align Text">
-                            <button type="button" className="btn btn-light btn-xl flex items-center justify-center">
+                        <div className="md:btn-group mb-4" role="group" aria-label="Align Text">
+                            <button type="button" className="btn btn-light flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="0.63em" height="1em" viewBox="0 0 320 512" className="mr-2">
                                     <path fill="currentColor" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path>
                                 </svg>
                                 Revenir à la leçon précédente
                             </button>
                             {isUserLoggedIn ?
-                                <Link href={`/assessments/${lessonId}`}>
-                                    <button type="button" className="btn bg-red-700 hover:bg-red-900 text-white btn-xl flex items-center justify-center">
-                                        Valider le module (Quiz)
-                                    </button>
-                                </Link>
+                                <button onClick={() => router.push(`/assessments/${unitId}/${lessonId}`)} type="button" className="btn bg-red-700 hover:bg-red-900 text-white flex items-center justify-center">
+                                    Valider le module (Quiz)
+                                </button>
                                 :
                                 <Link href={`/login`}>
-                                    <button type="button" className="btn btn-primary btn-xl flex items-center justify-center">
+                                    <button type="button" className="btn btn-primary flex items-center justify-center">
                                         Connectez-vous pour valider le module
                                     </button>
                                 </Link>
 
                             }
-                            <button type="button" className="btn btn-light btn-xl flex items-center justify-center">
+                            <button type="button" className="btn btn-light flex items-center justify-center">
                                 Passer à la leçon suivante
                                 <svg xmlns="http://www.w3.org/2000/svg" width="0.63em" height="1em" viewBox="0 0 320 512" className="ml-2">
                                     <path fill="currentColor" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256L73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path>
