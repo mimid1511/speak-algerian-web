@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-react": "^8.0.0",
+    "ckeditor5": "^42.0.2",
     "firebase": "^10.12.4",
     "kutty": "^0.6.0",
     "next": "14.2.5",
