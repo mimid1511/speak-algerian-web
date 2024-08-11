@@ -55,7 +55,7 @@ const RootLayout = ({ children }) => {
       <body className={inter.className}>
         <div className="h-screen w-full bg-white relative flex overflow-hidden">
           {/* Sidebar */}
-          <aside className="h-full w-16 flex flex-col space-y-7 items-center justify-center bg-primary text-white">
+          <aside className="h-full w-16 flex flex-col space-y-9 items-center justify-center bg-[url('/bg-home.jpg')] bg-repeat  text-white">
 
             <Link href={"/"}><div className="h-10 w-10 flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"></path></svg></div></Link>
@@ -65,9 +65,9 @@ const RootLayout = ({ children }) => {
               <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M18 11c.34 0 .67.03 1 .08V2H3v20h9.26A6.995 6.995 0 0 1 18 11M7 11V4h5v7L9.5 9.5z"></path><path fill="currentColor" d="M18 13c-2.76 0-5 2.24-5 5s2.24 5 5 5s5-2.24 5-5s-2.24-5-5-5m-1.25 7.5v-5l4 2.5z"></path></svg>
             </div></Link>
 
-            <div className="h-10 w-10 flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
+            <Link href={"/dictionary"}><div className="h-10 w-10 flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M14.94 4.66h-4.72l2.36-2.36zm-4.69 14.71h4.66l-2.33 2.33zM6.1 6.27L1.6 17.73h1.84l.92-2.45h5.11l.92 2.45h1.84L7.74 6.27zm-1.13 7.37l1.94-5.18l1.94 5.18zm10.76 2.5h6.12v1.59h-8.53v-1.29l5.92-8.56h-5.88v-1.6h8.3v1.26z"></path></svg>
-            </div>
+            </div></Link>
 
             <Link href={"/map"}><div className="h-10 w-10 flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M15 5.1L9 3L3 5.02v16.2l6-2.33l6 2.1l6-2.02V2.77zm0 13.79l-6-2.11V5.11l6 2.11z"></path></svg>
@@ -96,7 +96,7 @@ const RootLayout = ({ children }) => {
 
           <div className="w-full h-full flex flex-col ">
             {/* Header */}
-            <header className="h-16 w-full p-8 flex items-center justify-between px-5 bg-primary ">
+            <header className="h-16 w-full p-8 flex items-center justify-between px-5 bg-[url('/bg-home.jpg')] bg-repeat   ">
               <div className="flex flex-grow items-center justify-start">
                 <Link href={"/"}><img src={'/sa-logo-white.png'} alt="Logo" className="h-10" /></Link>
               </div>
@@ -133,7 +133,7 @@ const RootLayout = ({ children }) => {
                   </>
                 ) : (
                   <>
-                    <Link href="/login" className="hidden rounded-none btn btn-sm btn-primary md:inline-flex">Connexion</Link>
+                    <Link href="/login" className="hidden rounded-none btn btn-sm hover:bg-primary-dark md:inline-flex">Connexion</Link>
                     <Link href="/registration" className="rounded-none btn btn-sm btn-light">S'inscrire</Link>
                   </>
                 )}

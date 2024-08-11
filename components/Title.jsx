@@ -3,8 +3,8 @@ import Link from 'next/link';
 
 const Title = ({ title, breadCrumb }) => {
     return (
-        <div className="bg-gray-300 p-4">
-            <h1 className="text-3xl font-bold border border-4 border-white text-center text-white p-5 bg-primary-light">
+        <div className="bg-gray-300">
+            <h1 className="text-3xl font-bold border border-8 border-white text-center text-white p-5 bg-[url('/bg-home.jpg')] bg-repeat bg-cover">
                 {title}
             </h1>
             <nav aria-label="breadcrumb">

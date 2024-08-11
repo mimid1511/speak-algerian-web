@@ -40,10 +40,16 @@ const EvaluationPage = ({ params }) => {
                 if (docSnap.exists()) {
                     const data = docSnap.data();
                     const shuffledQuestions = shuffleArray(data.questions);
-                    shuffledQuestions.forEach(question => {
+
+                    // Limiter à 20 questions aléatoires
+                    const selectedQuestions = shuffledQuestions.slice(0, Math.min(shuffledQuestions.length, 20));
+
+                    // Mélanger les réponses de chaque question
+                    selectedQuestions.forEach(question => {
                         question.answers = shuffleArray(question.answers);
                     });
-                    setQuestions(shuffledQuestions);
+
+                    setQuestions(selectedQuestions);
                 } else {
                     setError('Évaluation non trouvée');
                 }
@@ -105,7 +111,7 @@ const EvaluationPage = ({ params }) => {
     };
 
     useEffect(() => {
-        if (testFinished && score / questions.length >= 0.7) {
+        if (testFinished && score / questions.length >= 0.8) {
             const audio = audioRef.current;
 
             if (audio) {
@@ -155,7 +161,7 @@ const EvaluationPage = ({ params }) => {
     if (testFinished) {
         const totalQuestions = questions.length;
         const percentage = (score / totalQuestions) * 100;
-        const isPassed = percentage >= 70;
+        const isPassed = percentage >= 80;
         if (isPassed) {
             addLessonCompleted(evaluationId);
         }

@@ -45,12 +45,28 @@ export const getMessagesByTopicId = async (topicId) => {
             const userDocSnap = await getDoc(userDocRef);
             const userData = userDocSnap.exists() ? userDocSnap.data() : {};
 
+            let urlMedal = null ;
+            if(userData.lessonsCompleted.length > 45){
+                urlMedal = "/Medal/medal-or.png";
+            }
+            else if(userData.lessonsCompleted.length > 30){
+                urlMedal = "/Medal/medal-silver.png";
+            }
+            else if(userData.lessonsCompleted.length > 15){
+                urlMedal = "/Medal/medal-bronze.png";
+            }else{
+                urlMedal = "/Medal/medal-bronze.png";
+            }
+
+            console.log(urlMedal);
+
             messages.push({
                 id: docSnapshot.id,
                 ...messageData,
                 userName: userData.displayName || anonymizeEmail(userData.email),
                 userAvatar: userData.photoURL || null, // Ajoutez une image par défaut si nécessaire
                 createdAt: messageData.createdAt,
+                userMedal: urlMedal || null,
             });
         }
 

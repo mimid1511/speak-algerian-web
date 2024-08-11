@@ -75,7 +75,7 @@ const Pricing = () => {
                                     <div className="flex items-center justify-between">
                                         <p className="mb-1 text-lg font-semibold text-primary">Student</p>
                                     </div>
-                                    <p className="my-2 text-4xl font-bold text-gray-900">24,99€</p>
+                                    <p className="my-2 text-4xl font-bold text-gray-900">29,99€</p>
                                     <p className="text-sm text-gray-500">Par mois et sans engagement</p>
                                 </div>
                                 <a href="#" className="w-full rounded-none mt-6 btn btn-primary btn-lg">Démarer</a>
@@ -118,8 +118,8 @@ const Pricing = () => {
                                         <p className="mb-1 text-lg font-semibold text-secondary">Student +</p>
                                         <span className="badge bg-secondary text-white">Le plus populaire</span>
                                     </div>
-                                    <p className="my-2 text-4xl font-bold text-gray-900">19,99€</p>
-                                    <p className="text-sm text-gray-500"><strong>240€</strong>/an (soit 19,99 €/mois) sans engagement</p>
+                                    <p className="my-2 text-4xl font-bold text-gray-900">24,99€</p>
+                                    <p className="text-sm text-gray-500"><strong>299,99€</strong>/an (soit 24,99 €/mois) sans engagement</p>
                                 </div>
                                 <a href="#" className="w-full rounded-none mt-6 btn bg-red-700 hover:bg-red-900 text-white btn-lg">Démarer</a>
                             </div>

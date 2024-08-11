@@ -61,7 +61,7 @@ const ForumPage = () => {
     return (
         <Layout type={"root"}>
             <Title title={"Forum"} />
-            <section className="px-4 bg-gray-300">
+            <section className="px-4 pt-4 bg-gray-300">
                 <div className='p-4 bg-white'>
                     <button
                         onClick={() => router.push('/forum/add')}
