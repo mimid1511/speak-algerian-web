@@ -42,6 +42,8 @@ const QueryPage = () => {
             >
                 Ajouter des questions
             </button>
+            <p>{process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY}</p>
+            <p>{process.env.NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET}</p>
         </div>
     );
 };

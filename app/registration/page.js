@@ -33,10 +33,10 @@ const Pricing = () => {
                     <div className="grid grid-cols-1 gap-16 lg:grid-cols-3 sm:gap-8 ">
                         <div className="border-0 rounded-none shadow-md  card  md:border">
                             <div className="flex flex-col justify-between p-6 border-b border-gray-200">
-                                <p className="mb-1 text-lg font-semibold text-gray-500">Free</p>
+                                <p className="mb-1 text-lg font-semibold text-gray-500">Découverte</p>
                                 <p className="pb-0 my-2 font-mono text-4xl font-extrabold text-gray-900">0€</p>
                                 <p className="text-sm text-gray-500">Pas de frais, pas d'engagement</p>
-                                <Link href="registration/free" className="w-full mt-6 btn btn-light btn-lg rounded-none">Démarer gratuitement</Link>
+                                <Link href="registration/discovery" className="w-full mt-6 btn btn-light btn-lg rounded-none">Démarrer gratuitement</Link>
                             </div>
                             <ul className="flex flex-col flex-grow p-6 space-y-3">
                                 <li className="flex items-start">
@@ -73,12 +73,12 @@ const Pricing = () => {
                             <div className="flex flex-col justify-between p-6 border-b border-gray-200">
                                 <div>
                                     <div className="flex items-center justify-between">
-                                        <p className="mb-1 text-lg font-semibold text-primary">Student</p>
+                                        <p className="mb-1 text-lg font-semibold text-primary">Apprentissage</p>
                                     </div>
                                     <p className="my-2 text-4xl font-bold text-gray-900">29,99€</p>
                                     <p className="text-sm text-gray-500">Par mois et sans engagement</p>
                                 </div>
-                                <a href="#" className="w-full rounded-none mt-6 btn btn-primary btn-lg">Démarer</a>
+                                <Link href="registration/student" className="w-full rounded-none mt-6 btn btn-primary btn-lg">Démarrer</Link>
                             </div>
                             <ul className="flex flex-col flex-grow p-6 space-y-3">
                                 <li className="flex items-start">
@@ -115,13 +115,13 @@ const Pricing = () => {
                             <div className="flex flex-col justify-between p-6 border-b border-gray-200">
                                 <div>
                                     <div className="flex items-center justify-between">
-                                        <p className="mb-1 text-lg font-semibold text-secondary">Student +</p>
+                                        <p className="mb-1 text-lg font-semibold text-secondary">Apprentissage +</p>
                                         <span className="badge bg-secondary text-white">Le plus populaire</span>
                                     </div>
                                     <p className="my-2 text-4xl font-bold text-gray-900">24,99€</p>
-                                    <p className="text-sm text-gray-500"><strong>299,99€</strong>/an (soit 24,99 €/mois) sans engagement</p>
+                                    <p className="text-sm text-gray-500"><strong>299,99€</strong>/an (24,99 €/mois) sans engagement</p>
                                 </div>
-                                <a href="#" className="w-full rounded-none mt-6 btn bg-red-700 hover:bg-red-900 text-white btn-lg">Démarer</a>
+                                <Link href="registration/studentyear" className="w-full rounded-none mt-6 btn bg-red-700 hover:bg-red-900 text-white btn-lg">Démarrer</Link>
                             </div>
                             <ul className="flex flex-col flex-grow p-6 space-y-3">
                                 <li className="flex items-start">

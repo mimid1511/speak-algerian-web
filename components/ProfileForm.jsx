@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 
 const ProfileForm = ({ user, onSubmit, photoUrl }) => {
-    const [name, setName] = useState(user.displayName || '');
-    const [email, setEmail] = useState(user.email || '');
+    const [name, setName] = useState(user?.displayName || '');
+    const [email, setEmail] = useState(user?.email || '');
     const [password, setPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [error, setError] = useState('');

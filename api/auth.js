@@ -1,5 +1,5 @@
 import { auth, storage, db } from "./firebaseConfig"; // Assurez-vous que le chemin est correct
-import { doc, getDoc, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, getDocs, arrayUnion, collection, where, query } from 'firebase/firestore';
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -10,7 +10,7 @@ import {
 } from 'firebase/auth';
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 
-export const signUp = async (email, password, role) => {
+export const signUp = async (email, password) => {
     try {
         // Créer l'utilisateur avec Firebase Auth
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -22,13 +22,12 @@ export const signUp = async (email, password, role) => {
         // Créer un document dans la collection 'users' avec le même ID que celui de l'utilisateur
         const userDocRef = doc(db, 'users', user.uid);
         await setDoc(userDocRef, {
-            role: role, // Assurez-vous de passer le rôle en paramètre lors de l'appel de la fonction
             email: email, // Facultatif: vous pouvez ajouter d'autres informations
             createdAt: new Date(), // Facultatif: ajouter une date de création
             lessonsCompleted: [], // Ajouter un tableau vide pour les unités complètes
         });
 
-        return { message: 'User created, role assigned, and verification email sent.' };
+        return user;
     } catch (error) {
         console.error("Erreur lors de l'inscription:", error);
         throw new Error(error.message);
@@ -78,16 +77,18 @@ export const updateUserProfile = async (displayName, photoURL) => {
         const user = auth.currentUser;
         if (user) {
 
-            let file = photoURL ;
+            let file = photoURL;
 
-            if (file && file instanceof File) {
-                file = photoURL ;
+            if (file != null) {
+                file = photoURL;
+                console.log("reçus : " + file);
             }
-            else{
-                file = user.photoURL ;
+            else {
+                file = user.photoURL;
+                console.log("non initié : " + file);
             }
 
-            await updateProfile(user, { displayName, file });
+            await updateProfile(user, { displayName, photoURL: file });
 
             // Mettre à jour le document utilisateur dans Firestore
             const userDocRef = doc(db, 'users', user.uid);
@@ -169,11 +170,35 @@ export const getUserDetail = async (userId) => {
         const userDocRef = doc(db, 'users', userId);
         const userDocSnap = await getDoc(userDocRef);
 
-        if (userDocSnap.exists()) {
-            return { id: userDocSnap.id, ...userDocSnap.data() };
-        } else {
+        if (!userDocSnap.exists()) {
             throw new Error('No user data found for the given ID.');
         }
+
+        let role = "dys"; // Default role
+        const now = new Date();
+
+        // Récupérer les paiements valides
+        const paymentsRef = collection(userDocRef, 'payments');
+        const paymentsQuery = query(paymentsRef, where("valid", "==", true));
+        const paymentsSnap = await getDocs(paymentsQuery);
+
+        // Filtrer les paiements valides
+        const validPayments = paymentsSnap.docs.filter(doc => {
+            const paymentData = doc.data();
+            return paymentData.endDate && paymentData.endDate.toDate() > now;
+        });
+
+        // Si un paiement valide est trouvé, définir le rôle
+        if (validPayments.length > 0) {
+            const lastValidPayment = validPayments[validPayments.length - 1];
+            role = lastValidPayment.data().product;
+        }
+
+        return {
+            id: userDocSnap.id,
+            role: role, // Ajouter le rôle à la réponse
+            ...userDocSnap.data()
+        };
     } catch (error) {
         console.error("Erreur lors de la récupération des détails de l'utilisateur:", error);
         throw new Error(error.message);
@@ -195,10 +220,80 @@ export const addLessonCompleted = async (id) => {
         await updateDoc(userDocRef, {
             lessonsCompleted: arrayUnion(id)
         });
-
         return { message: 'Lesson ID added to unitsCompleted successfully.' };
     } catch (error) {
         console.error("Erreur lors de l'ajout de la lesson complétée:", error);
         throw new Error(error.message);
     }
 };
+
+// Fonction pour ajouter un ID d'unité au tableau unitsCompleted de l'utilisateur courant
+export const getLastSubscription = async () => {
+    try {
+        const user = auth.currentUser;
+        if (!user) {
+            throw new Error('No user is currently signed in.');
+        }
+
+        const userDocRef = doc(db, 'users', user.uid);
+        
+        const now = new Date();
+        // Récupérer les paiements valides
+        const paymentsRef = collection(userDocRef, 'payments');
+        const paymentsQuery = query(paymentsRef, where("valid", "==", true));
+        const paymentsSnap = await getDocs(paymentsQuery);
+
+        // Filtrer les paiements valides
+        const validPayments = paymentsSnap.docs.filter(doc => {
+            const paymentData = doc.data();
+            return paymentData.endDate && paymentData.endDate.toDate() > now;
+        });
+
+        if (validPayments.length > 0) {
+            const lastValidPayment = validPayments[validPayments.length - 1];
+            return {... lastValidPayment.data()};
+        }
+
+    } catch (error) {
+        console.error("Erreur lors de l'ajout de la lesson complétée:", error);
+        throw new Error(error.message);
+    }
+};
+
+
+export const addProduct = async (idUser, email, session, total, date, product, valid) => {
+    try {
+        // console.log("idUser: " + idUser + " email: " + email + " session: " + session + " total: " + total + " date: " + date + " product: " + product);
+        // Référence au document utilisateur
+        const userDocRef = doc(db, 'users', idUser);
+        // Référence à la sous-collection 'payments' dans ce document utilisateur
+        const paymentDocRef = doc(userDocRef, 'payments', session);
+
+        // Determination des dates de fin de validité
+        let endDate = null;
+        if (product === 'apm') {
+            // Ajouter un mois
+            endDate = new Date(date);
+            endDate.setMonth(endDate.getMonth() + 1);
+        } else if (product === 'apy') {
+            // Ajouter un an
+            endDate = new Date(date);
+            endDate.setFullYear(endDate.getFullYear() + 1);
+        }
+
+        // Ajout du document à la sous-collection 'payments'
+        await setDoc(paymentDocRef, {
+            // session: session,
+            email: email,
+            product: product,
+            total: parseFloat(total),
+            createdAt: date,
+            endDate: endDate,
+            valid: valid,
+        });
+        console.log("Produit ajouté avec succès à la sous-collection 'payments'");
+    } catch (error) {
+        console.error("Erreur lors de l'ajout du produit: ", error);
+        throw new Error(error.message);
+    }
+}

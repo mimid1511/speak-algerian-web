@@ -7,6 +7,7 @@ import { auth } from "@/api/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import Alert from "@/components/Alert";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -15,6 +16,7 @@ export default function LoginPage() {
     const [alert, setAlert] = useState({ type: '', message: '' });
     const [randomImageData, setRandomImageData] = useState({});
     const [imageLoading, setImageLoading] = useState(true); // Ajout de l'état pour le chargement de l'image
+    const [captchaValue, setCaptchaValue] = useState(false);
 
     useEffect(() => {
         // Liste des images avec le nom des villes et une courte description
@@ -91,6 +93,10 @@ export default function LoginPage() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        if (!captchaValue) {
+            setAlert({ type: 'danger', message: "Veuillez valider le reCAPTCHA." });
+            return;
+        }
         setAlert({ type: '', message: '' });
         try {
             await signInWithEmailAndPassword(auth, email, password);
@@ -106,10 +112,15 @@ export default function LoginPage() {
         }
     };
 
+    const handleRecaptcha = (value) => {
+        setCaptchaValue(value);
+    };
+
+
     return (
-        <section className="grid grid-cols-1 gap-0 lg:grid-cols-12 min-h-screen bg-[url('/bg.jpg')] bg-repeat bg-contain">
+        <section className="grid grid-cols-1 gap-0 lg:grid-cols-12 min-h-screen bg-[url('/bg-animated-square.svg')] bg-repeat bg-contain">
             <div className="w-full bg-white rounded-none shadow-xl col-span-1 p-4 mx-auto mt-6 lg:col-span-8 xl:p-12 md:w-2/4">
-                <Link href={"/"}><img src={'/sa-logo-green.png'} alt="Logo" className="h-10"/></Link>
+                <Link href={"/"}><img src={'/sa-logo-green.png'} alt="Logo" className="h-10" /></Link>
                 <h1 className="mt-6 mb-4 text-xl font-light text-left text-gray-800">Connectez-vous à votre compte</h1>
                 {alert.message && <><Alert type={alert.type} message={alert.message} /><br /></>}
                 <form className="pb-1 space-y-4" onSubmit={handleLogin}>
@@ -136,21 +147,25 @@ export default function LoginPage() {
                             value={password}
                         />
                     </label>
+                    <ReCAPTCHA
+                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                        onChange={handleRecaptcha}
+                    />
                     <div className="flex items-center justify-between">
                         <label className="flex items-center">
                             <input type="checkbox" className="form-checkbox rounded-none" />
                             <span className="block ml-2 text-xs font-medium text-gray-700 cursor-pointer">Se souvenir de moi</span>
                         </label>
-                        <input type="submit" className="btn rounded-none btn-primary" value="Connexion" />
+                        <input type="submit" disabled={!captchaValue} className="btn rounded-none btn-primary" value="Connexion" />
                     </div>
                 </form>
                 <div className="my-6 space-y-2">
                     <p className="text-xs text-gray-600">
                         Vous n'êtes pas encore abonné ?
-                        <Link href="/registration" className="text-purple-700 hover:text-black"> Se créer un compte</Link>
+                        <Link href="/registration" className="text-secondary-light hover:text-secondary-dark"> Se créer un compte</Link>
                     </p>
-                    <a href="#" className="block  text-xs text-purple-700 hover:text-black">Mot de passe oublié ?</a>
-                    <a href="#" className="block  text-xs text-purple-700 hover:text-black">Terme, confidentialité et modalités</a>
+                    <a href="#" className="block text-xs text-secondary-light hover:text-secondary-dark">Mot de passe oublié ?</a>
+                    <a href="#" className="block text-xs text-secondary-light hover:text-secondary-dark">Terme, confidentialité et modalités</a>
                 </div>
             </div>
             <div className="relative col-span-1 lg:col-span-4">
