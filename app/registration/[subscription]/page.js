@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { signUp } from '@/api/auth';
@@ -23,6 +23,11 @@ const Registration = ({ params }) => {
     const [message, setMessage] = useState("");
     const [type, setType] = useState("success");
 
+    useEffect(() => {
+        if(params.subscription != "discovery" && params.subscription != "student" && params.subscription != "studentyear"){
+            router.push('/registration');
+        }
+    }, []);
 
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -44,7 +49,6 @@ const Registration = ({ params }) => {
     const handleRecaptcha = (value) => {
         setRecaptchaToken(value);
     };
-
 
 
     const handleSubmit = (e) => {

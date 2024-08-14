@@ -1,6 +1,12 @@
-import React from 'react';
+'use client'
+
+import React, {useEffect} from 'react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
+import { auth } from '@/api/firebaseConfig';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
+
 
 const CheckIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className='flex-none w-4 h-4 mt-1 mr-2 text-green-600' viewBox="0 0 448 512">
@@ -14,6 +20,17 @@ const XmarkIcon = () => (
 
 
 const Pricing = () => {
+
+    const router = useRouter();
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                router.push('/');
+            }
+        });
+        return () => unsubscribe();
+    }, []);
+
     return (
 
         <>
