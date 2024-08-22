@@ -3,7 +3,7 @@ import React from 'react';
 const WordMain = ({ words }) => {
 
     return (
-        <div className="container mx-auto p-4 bg-[url('/bg.jpg')] bg-repeat bg-contain">
+        <div className="container mx-auto p-4 bg-gray-300">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3">
                 {words.map((word, index) => {
                     // Vérifiez si word.phonetic et word.arab sont des chaînes simples
@@ -12,8 +12,8 @@ const WordMain = ({ words }) => {
 
                     return (
 
-                        <div key={index} class="card border border-primary shadow shadow-sm">
-                            <div class="card-header">
+                        <div key={index} className="card rounded-none">
+                            <div className="card-header">
 
                                 {/* Nom ----------------------------------------------------------- */}
                                 {word?.type == "name" && isPhoneticSimple && isArabSimple && (
@@ -57,12 +57,12 @@ const WordMain = ({ words }) => {
                                     (word?.region == "*" ? <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M418.4 23.98c-87.5-7.58-164.6 2.58-228 35.99l11.3 83.23l-181.56 71.3l-5.99 43.4L294.5 490.4l57-2.2l146.4-114c-60.4-73.4-22.3-118.9-45.6-161.2c-48-86.8-45.2-133.74-33.9-189.02"></path></svg> : word.region)
                                 }
                             </div>
-                            <div class="card-body">
+                            <div className="card-body">
                                 {word?.detail && (
                                         <p dangerouslySetInnerHTML={{ __html: word.detail.replace(/\\n/g, '<br>') }} />
                                     )}
                             </div>
-                            <div class="card-footer">
+                            <div className="card-footer">
                                 {word?.type && (
                                     <p>
                                         {word.type == "name" && "nom"}

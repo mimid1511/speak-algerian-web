@@ -11,6 +11,7 @@ const ForumPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const router = useRouter();
+    
 
     useEffect(() => {
         const fetchTopics = async () => {
@@ -52,9 +53,9 @@ const ForumPage = () => {
 
     // Skeleton Loader Component
     const SkeletonLoader = () => (
-        <div className="list-item flex justify-between items-center animate-pulse">
-                <div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
-            <div className="h-5 bg-gray-200 rounded w-1/4"></div>
+        <div className="list-item flex justify-between rounded-none items-center animate-pulse">
+            <div className="h-6 bg-gray-300  w-3/4 mb-4"></div>
+            <div className="h-5 bg-gray-300  w-1/4"></div>
         </div>
     );
 
@@ -77,17 +78,12 @@ const ForumPage = () => {
             <div className="bg-gray-300 mx-auto w-full p-4">
                 {error && <p className="text-red-500">{error}</p>}
                 <div className="list list-none bg-white">
-                    {loading ? (
+                    {loading || topics.length <= 0 ? (
                         // Afficher les skeletons lors du chargement
                         <>
-                            <SkeletonLoader />
-                            <SkeletonLoader />
-                            <SkeletonLoader />
-                            <SkeletonLoader />
-                            <SkeletonLoader />
-                            <SkeletonLoader />
-                            <SkeletonLoader />
-                            <SkeletonLoader />
+                            {Array.from({ length: 10 }).map((_, index) => (
+                                <SkeletonLoader />
+                            ))}
                         </>
                     ) : (
                         // Afficher les topics une fois chargés

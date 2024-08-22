@@ -47,8 +47,8 @@ const RegistrationSuccess = () => {
             <section className="bg-gray-50 min-h-screen bg-[url('/bg-rect-light.svg')] bg-cover bg-center flex items-center justify-center">
                 <div className="w-full max-w-lg mx-auto p-6 bg-white shadow rounded-none text-center space-y-6">
                     <img src={'/sa-logo-green.png'} alt="Logo" className="h-16 mx-auto mb-4" />
-                    <div class="spinner w-16 h-16 text-primary" role="status">
-                        <span class="sr-only">Loading...</span>
+                    <div className="spinner w-16 h-16 text-primary" role="status">
+                        <span className="sr-only">Loading...</span>
                     </div>
                     <br/>
                     <br/>

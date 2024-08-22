@@ -41,14 +41,14 @@ const ProfileForm = ({ user, onSubmit, photoUrl }) => {
             </button> */}
 
 
-            <div class="form-append mb-4">
-                <input readOnly class="form-input rounded-none" placeholder="Adresse mail" />
-                <button class="btn rounded-none btn-primary">Réinitialiser</button>
+            <div className="form-append mb-4">
+                <input readOnly className="form-input rounded-none" placeholder="Adresse mail" />
+                <button className="btn rounded-none btn-primary">Réinitialiser</button>
             </div>
 
-            <div class="form-append mb-4">
-                <input readOnly class="form-input rounded-none" placeholder="Mot de passe" />
-                <button class="btn rounded-none btn-primary">Réinitialiser</button>
+            <div className="form-append mb-4">
+                <input readOnly className="form-input rounded-none" placeholder="Mot de passe" />
+                <button className="btn rounded-none btn-primary">Réinitialiser</button>
             </div>
 
             <button

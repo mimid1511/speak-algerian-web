@@ -13,6 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const MainLayout = ({ children }) => (
   <html lang="fr">
+    <head><meta name="google-adsense-account" content="ca-pub-3887606276425146"/></head>
     <body className={inter.className}>{children}</body>
   </html>
 );
@@ -33,6 +34,7 @@ const RootLayout = ({ children }) => {
       } catch (error) {
         setRoleUser("dys");
         console.error('Erreur:', error.message);
+        setLoading(true);
       }
     };
 
@@ -52,56 +54,67 @@ const RootLayout = ({ children }) => {
 
   return (
     <html lang="fr">
+      <head>
+        <meta name="google-adsense-account" content="ca-pub-3887606276425146" />
+      </head>
       <body className={inter.className}>
         <div className="h-screen w-full bg-white relative flex overflow-hidden">
           {/* Sidebar */}
-          <aside className={`h-full w-16 flex flex-col ${ user ? 'space-y-9' : 'space-y-14'} items-center justify-center bg-[url('/bg-home.jpg')] bg-repeat  text-white`}>
 
-            <Link href={"/"}><div className="h-10 w-10 flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"></path></svg></div></Link>
+          <aside className={`h-full w-16 flex flex-col ${user ? 'space-y-9' : 'space-y-14'} items-center justify-center bg-[url('/bg-home.jpg')] bg-repeat text-white`}>
+            {!loading ? (<>
+
+              <Link href={"/"}><div className={`h-10 w-10 ${window.location.pathname == "/" ? "bg-white text-primary" : ""} flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white`}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"></path></svg></div></Link>
 
 
-            <Link href={"/lessons"}><div className="h-10 w-10 flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M18 11c.34 0 .67.03 1 .08V2H3v20h9.26A6.995 6.995 0 0 1 18 11M7 11V4h5v7L9.5 9.5z"></path><path fill="currentColor" d="M18 13c-2.76 0-5 2.24-5 5s2.24 5 5 5s5-2.24 5-5s-2.24-5-5-5m-1.25 7.5v-5l4 2.5z"></path></svg>
-            </div></Link>
-
-            <Link href={"/dictionary"}><div className="h-10 w-10 flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M14.94 4.66h-4.72l2.36-2.36zm-4.69 14.71h4.66l-2.33 2.33zM6.1 6.27L1.6 17.73h1.84l.92-2.45h5.11l.92 2.45h1.84L7.74 6.27zm-1.13 7.37l1.94-5.18l1.94 5.18zm10.76 2.5h6.12v1.59h-8.53v-1.29l5.92-8.56h-5.88v-1.6h8.3v1.26z"></path></svg>
-            </div></Link>
-
-            <Link href={"/map"}><div className="h-10 w-10 flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M15 5.1L9 3L3 5.02v16.2l6-2.33l6 2.1l6-2.02V2.77zm0 13.79l-6-2.11V5.11l6 2.11z"></path></svg>
-            </div></Link>
-
-            <Link href={"/news"}><div className="h-10 w-10 flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="m22 3l-1.67 1.67L18.67 3L17 4.67L15.33 3l-1.66 1.67L12 3l-1.67 1.67L8.67 3L7 4.67L5.33 3L3.67 4.67L2 3v18h20zM11 19H4v-6h7zm9 0h-7v-2h7zm0-4h-7v-2h7zm0-4H4V8h16z"></path></svg>
-            </div></Link>
-
-            <Link href={"/forum"}><div className="h-10 w-10 flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M22 6h-3v9H6v3h12l4 4zm-5 7V2H2v15l4-4z"></path></svg>
-            </div></Link>
-
-            {user &&
-              <div className="h-10 w-10 flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2m6-6v-5c0-3.07-1.64-5.64-4.5-6.32V2.5h-3v2.18C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1z"></path></svg>
-              </div>
-            }
-            {user &&
-              <Link href={"/profil"}><div className="h-10 w-10 flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="m19.44 12.99l-.01.02c.04-.33.08-.67.08-1.01s-.03-.66-.07-.99l.01.02l2.44-1.92l-2.43-4.22l-2.87 1.16l.01.01c-.52-.4-1.09-.74-1.71-1h.01L14.44 2H9.57l-.44 3.07h.01c-.62.26-1.19.6-1.71 1l.01-.01l-2.88-1.17l-2.44 4.22l2.44 1.92l.01-.02c-.04.33-.07.65-.07.99s.03.68.08 1.01l-.01-.02l-2.1 1.65l-.33.26l2.43 4.2l2.88-1.15l-.02-.04c.53.41 1.1.75 1.73 1.01h-.03L9.58 22h4.85s.03-.18.06-.42l.38-2.65h-.01c.62-.26 1.2-.6 1.73-1.01l-.02.04l2.88 1.15l2.43-4.2s-.14-.12-.33-.26zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5s-1.57 3.5-3.5 3.5"></path></svg>
+              <Link href={"/lessons"}><div className={`h-10 w-10 ${window.location.pathname == "/lessons" ? "bg-white text-primary" : ""} flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white`}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M18 11c.34 0 .67.03 1 .08V2H3v20h9.26A6.995 6.995 0 0 1 18 11M7 11V4h5v7L9.5 9.5z"></path><path fill="currentColor" d="M18 13c-2.76 0-5 2.24-5 5s2.24 5 5 5s5-2.24 5-5s-2.24-5-5-5m-1.25 7.5v-5l4 2.5z"></path></svg>
               </div></Link>
-            }
 
-            {/* <div className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
+              <Link href={"/word"}><div className={`h-10 w-10 ${window.location.pathname == "/word" ? "bg-white text-primary" : ""} flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white`}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M14.94 4.66h-4.72l2.36-2.36zm-4.69 14.71h4.66l-2.33 2.33zM6.1 6.27L1.6 17.73h1.84l.92-2.45h5.11l.92 2.45h1.84L7.74 6.27zm-1.13 7.37l1.94-5.18l1.94 5.18zm10.76 2.5h6.12v1.59h-8.53v-1.29l5.92-8.56h-5.88v-1.6h8.3v1.26z"></path></svg>
+              </div></Link>
+
+              <Link href={"/map"}><div className={`h-10 w-10 ${window.location.pathname == "/map" ? "bg-white text-primary" : ""} flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white`}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M15 5.1L9 3L3 5.02v16.2l6-2.33l6 2.1l6-2.02V2.77zm0 13.79l-6-2.11V5.11l6 2.11z"></path></svg>
+              </div></Link>
+
+              <Link href={"/news"}><div className={`h-10 w-10 ${window.location.pathname == "/news" ? "bg-white text-primary" : ""} flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white`}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="m22 3l-1.67 1.67L18.67 3L17 4.67L15.33 3l-1.66 1.67L12 3l-1.67 1.67L8.67 3L7 4.67L5.33 3L3.67 4.67L2 3v18h20zM11 19H4v-6h7zm9 0h-7v-2h7zm0-4h-7v-2h7zm0-4H4V8h16z"></path></svg>
+              </div></Link>
+
+              <Link href={"/forum"}><div className={`h-10 w-10 ${window.location.pathname == "/forum" ? "bg-white text-primary" : ""} flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white`}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M22 6h-3v9H6v3h12l4 4zm-5 7V2H2v15l4-4z"></path></svg>
+              </div></Link>
+
+              {user &&
+                <div className="h-10 w-10 flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2m6-6v-5c0-3.07-1.64-5.64-4.5-6.32V2.5h-3v2.18C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1z"></path></svg>
+                </div>
+              }
+              {user &&
+                <Link href={"/profil"}><div className={`h-10 w-10 ${window.location.pathname == "/profil" ? "bg-white text-primary" : ""} flex items-center justify-center cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="m19.44 12.99l-.01.02c.04-.33.08-.67.08-1.01s-.03-.66-.07-.99l.01.02l2.44-1.92l-2.43-4.22l-2.87 1.16l.01.01c-.52-.4-1.09-.74-1.71-1h.01L14.44 2H9.57l-.44 3.07h.01c-.62.26-1.19.6-1.71 1l.01-.01l-2.88-1.17l-2.44 4.22l2.44 1.92l.01-.02c-.04.33-.07.65-.07.99s.03.68.08 1.01l-.01-.02l-2.1 1.65l-.33.26l2.43 4.2l2.88-1.15l-.02-.04c.53.41 1.1.75 1.73 1.01h-.03L9.58 22h4.85s.03-.18.06-.42l.38-2.65h-.01c.62-.26 1.2-.6 1.73-1.01l-.02.04l2.88 1.15l2.43-4.2s-.14-.12-.33-.26zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5s-1.57 3.5-3.5 3.5"></path></svg>
+                </div></Link>
+              }
+
+              {/* <div className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-primary hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 512 512"><path fill="currentColor" d="M495.9 166.6c3.2 8.7.5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4l-55.6 17.8c-8.8 2.8-18.6.3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4c-1.1-8.4-1.7-16.9-1.7-25.5s.6-17.1 1.7-25.4l-43.3-39.4c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160a80 80 0 1 0 0 160"></path></svg>
             </div> */}
+
+            </>
+            ) : (
+              <div className="h-5/6 w-8 bg-gray-300 mt-3 animate-pulse"></div>
+            )}
           </aside>
+
 
           <div className="w-full h-full flex flex-col ">
             {/* Header */}
             <header className="h-16 w-full p-8 flex items-center justify-between px-5 bg-[url('/bg-home.jpg')] bg-repeat   ">
               <div className="flex flex-grow items-center justify-start">
-                <Link href={"/"}><img src={'/sa-logo-white.png'} alt="Logo" className="h-10" /></Link>
+                <Link href={"/"}><img src={'/sa-logo-white.png'} alt="Logo" className={`h-10 ${ loading && 'animate-pulse'}`}/></Link>
               </div>
               <div className="flex flex-shrink-0 items-center space-x-4 text-white hidden sm:flex">
 
@@ -109,19 +122,20 @@ const RootLayout = ({ children }) => {
                 {loading ? (
                   <div className="flex items-center space-x-4">
                     <div className="flex flex-col space-y-2">
-                      <div className="w-32 h-4 bg-gray-200 rounded animate-pulse"></div>
-                      <div className="w-24 h-4 bg-gray-200 rounded animate-pulse"></div>
+                      <div className="w-32 h-4 bg-gray-300  animate-pulse"></div>
+                      <div className="w-24 h-4 bg-gray-300  animate-pulse self-end"></div>
                     </div>
-                    <div className="flex-none w-12 h-12 bg-gray-200 rounded-full animate-pulse"></div>
+                    <div className="flex-none w-12 h-12 bg-gray-300 rounded-full animate-pulse"></div>
                   </div>
                 ) : user ? (
                   <>
                     <Link className="flex flex-row" href={"/profil"}>
                       <div className="flex flex-col items-end mr-4">
                         <div className="text-md font-medium">{user.displayName || user.email}</div>
-                        <div className="text-sm font-regular">{roleUser == "dys" && "Découverte"}{roleUser == "apm" && "Apprentissage"}{roleUser == "apy" && "Apprentissage +"}</div>
+                        {/* <div className="text-sm font-regular">{roleUser == "dys" && "Découverte"}{roleUser == "apm" && "Apprentissage"}{roleUser == "apy" && "Apprentissage +"}</div> */}
+                        <span className="badge rounded-none bg-white text-primary-light">{roleUser == "dys" && "Découverte"}{roleUser == "apm" && "Apprentissage"}{roleUser == "apy" && "Apprentissage +"}</span>
                       </div>
-                      <div className="avatar avatar-online bg-white border border-white w-6 h-6">
+                      <div className="avatar bg-white border border-white border-2 w-6 h-6">
                         {user.photoURL ? (
                           <img
                             src={user.photoURL}

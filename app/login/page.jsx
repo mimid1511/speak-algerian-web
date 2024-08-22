@@ -16,6 +16,7 @@ export default function LoginPage() {
     const [alert, setAlert] = useState({ type: '', message: '' });
     const [randomImageData, setRandomImageData] = useState({});
     const [imageLoading, setImageLoading] = useState(true); // Ajout de l'état pour le chargement de l'image
+    const [loading, setLoading] = useState(true);
     const [captchaValue, setCaptchaValue] = useState(false);
 
     useEffect(() => {
@@ -87,6 +88,9 @@ export default function LoginPage() {
             if (user) {
                 router.push("/");
             }
+            else {
+                setLoading(false);
+            }
         });
         return () => unsubscribe();
     }, [router]);
@@ -119,71 +123,94 @@ export default function LoginPage() {
 
     return (
         <section className="grid grid-cols-1 gap-0 lg:grid-cols-12 min-h-screen bg-[url('/bg-animated-square.svg')] bg-repeat bg-contain">
-            <div className="w-full bg-white rounded-none shadow-xl col-span-1 p-4 mx-auto mt-6 lg:col-span-8 xl:p-12 md:w-2/4">
-                <Link href={"/"}><img src={'/sa-logo-green.png'} alt="Logo" className="h-10" /></Link>
-                <h1 className="mt-6 mb-4 text-xl font-light text-left text-gray-800">Connectez-vous à votre compte</h1>
-                {alert.message && <><Alert type={alert.type} message={alert.message} /><br /></>}
-                <form className="pb-1 space-y-4" onSubmit={handleLogin}>
-                    <label className="block">
-                        <span className="block mb-1 text-xs font-medium text-gray-700">Adresse mail</span>
-                        <input
-                            className="form-input rounded-none"
-                            type="email"
-                            placeholder="Ex. abdelkader@jilali.com"
-                            inputMode="email"
-                            required
-                            onChange={(e) => setEmail(e.target.value)}
-                            value={email}
-                        />
-                    </label>
-                    <label className="block">
-                        <span className="block mb-1 text-xs font-medium text-gray-700">Mot de passe</span>
-                        <input
-                            className="form-input rounded-none"
-                            type="password"
-                            placeholder="••••••••"
-                            required
-                            onChange={(e) => setPassword(e.target.value)}
-                            value={password}
-                        />
-                    </label>
-                    <ReCAPTCHA
-                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                        onChange={handleRecaptcha}
-                    />
-                    <div className="flex items-center justify-between">
-                        <label className="flex items-center">
-                            <input type="checkbox" className="form-checkbox rounded-none" />
-                            <span className="block ml-2 text-xs font-medium text-gray-700 cursor-pointer">Se souvenir de moi</span>
+            {!loading ? (
+                <div className="w-full bg-white rounded-none shadow-xl col-span-1 p-4 mx-auto mt-6 lg:col-span-8 xl:p-12 md:w-2/4">
+                    <Link href={"/"}><img src={'/sa-logo-green.png'} alt="Logo" className="h-10" /></Link>
+                    <h1 className="mt-6 mb-4 text-xl font-light text-left text-gray-800">Connectez-vous à votre compte</h1>
+                    {alert.message && <><Alert type={alert.type} message={alert.message} /><br /></>}
+                    <form className="pb-1 space-y-4" onSubmit={handleLogin}>
+                        <label className="block">
+                            <span className="block mb-1 text-xs font-medium text-gray-700">Adresse mail</span>
+                            <input
+                                className="form-input rounded-none"
+                                type="email"
+                                placeholder="Ex. abdelkader@jilali.com"
+                                inputMode="email"
+                                required
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
+                            />
                         </label>
-                        <input type="submit" disabled={!captchaValue} className="btn rounded-none btn-primary" value="Connexion" />
+                        <label className="block">
+                            <span className="block mb-1 text-xs font-medium text-gray-700">Mot de passe</span>
+                            <input
+                                className="form-input rounded-none"
+                                type="password"
+                                placeholder="••••••••"
+                                required
+                                onChange={(e) => setPassword(e.target.value)}
+                                value={password}
+                            />
+                        </label>
+                        <ReCAPTCHA
+                            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                            onChange={handleRecaptcha}
+                        />
+                        <div className="flex items-center justify-between">
+                            <label className="flex items-center">
+                                <input type="checkbox" className="form-checkbox rounded-none" />
+                                <span className="block ml-2 text-xs font-medium text-gray-700 cursor-pointer">Se souvenir de moi</span>
+                            </label>
+                            <input type="submit" disabled={!captchaValue} className="btn rounded-none btn-primary" value="Connexion" />
+                        </div>
+                    </form>
+                    <div className="my-6 space-y-2">
+                        <p className="text-xs text-gray-600">
+                            Vous n'êtes pas encore abonné ?
+                            <Link href="/registration" className="text-secondary-light hover:text-secondary-dark"> Se créer un compte</Link>
+                        </p>
+                        <a href="#" className="block text-xs text-secondary-light hover:text-secondary-dark">Mot de passe oublié ?</a>
+                        <a href="#" className="block text-xs text-secondary-light hover:text-secondary-dark">Terme, confidentialité et modalités</a>
                     </div>
-                </form>
-                <div className="my-6 space-y-2">
-                    <p className="text-xs text-gray-600">
-                        Vous n'êtes pas encore abonné ?
-                        <Link href="/registration" className="text-secondary-light hover:text-secondary-dark"> Se créer un compte</Link>
-                    </p>
-                    <a href="#" className="block text-xs text-secondary-light hover:text-secondary-dark">Mot de passe oublié ?</a>
-                    <a href="#" className="block text-xs text-secondary-light hover:text-secondary-dark">Terme, confidentialité et modalités</a>
                 </div>
-            </div>
+            ) : (
+                <div className="w-full bg-white rounded-none shadow-xl col-span-1 p-4 mx-auto mt-6 lg:col-span-8 xl:p-12 md:w-2/4">
+                    <Link href={"/"}><img src={'/sa-logo-green.png'} alt="Logo" className="h-10 animate-pulse" /></Link>
+                    <div className="w-80 h-7 bg-gray-300 mt-6 mb-9 animate-pulse"></div>
+                    <div className="w-full h-10 bg-gray-300 mb-9 animate-pulse"></div>
+                    <div className="w-full h-10 bg-gray-300 mb-4 animate-pulse"></div>
+                    <div className="flex items-center justify-between mb-8">
+                        <div className="w-40 h-5 bg-gray-300 animate-pulse"></div>
+                        <div className="w-28 h-9 bg-gray-300 animate-pulse"></div>
+                    </div>
+                    <div className="w-80 h-4 bg-gray-300 mb-1 animate-pulse"></div>
+                    <div className="w-36 h-4 bg-gray-300 mb-1 animate-pulse"></div>
+                    <div className="w-52 h-4 bg-gray-300 animate-pulse"></div>
+                </div>
+            )}
             <div className="relative col-span-1 lg:col-span-4">
-                {imageLoading && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
-                        <div className="w-full h-full bg-white animate-pulse" />
-                    </div>
-                )}
-                <img
-                    src={randomImageData.url}
-                    alt={randomImageData.title}
-                    className="object-cover w-full h-64 min-h-full bg-gray-100"
-                    loading="lazy" onLoad={() => setImageLoading(false)}
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-secondary bg-opacity-75 text-white">
-                    <h2 className="text-lg font-bold">{randomImageData.title}</h2>
-                    <p className="text-sm text-justify">{randomImageData.description}</p>
-                </div>
+                {loading  ?
+                    (
+                        <div className="absolute inset-0 flex items-center justify-center bg-gray-300">
+                            <div className="absolute bottom-0 left-0 right-0 p-24 bg-secondary bg-opacity-75 bg-white animate-pulse" />
+                        </div>
+                    )
+                    :
+                    (
+                        <>
+                            <img
+                                src={randomImageData.url}
+                                alt={randomImageData.title}
+                                className="object-cover w-full h-64 min-h-full bg-gray-100"
+                                loading="lazy" onLoad={() => setImageLoading(false)}
+                            />
+                            <div className="absolute bottom-0 left-0 right-0 p-4 bg-secondary bg-opacity-75 text-white">
+                                <h2 className="text-lg font-bold">{randomImageData.title}</h2>
+                                <p className="text-sm text-justify">{randomImageData.description}</p>
+                            </div>
+                        </>
+                    )
+                }
             </div>
         </section>
     );

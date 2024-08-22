@@ -84,8 +84,8 @@ const TopicPage = ({ params }) => {
                         <div className="h-4 bg-gray-300 rounded w-6"></div>
                     </div>
                     <div className="card-body rounded-none p-4">
-                        <div className="h-3 bg-gray-200 rounded w-full mb-2"></div>
-                        <div className="h-3 bg-gray-200 rounded w-3/4"></div>
+                        <div className="h-3 bg-gray-300 rounded w-full mb-2"></div>
+                        <div className="h-3 bg-gray-300 rounded w-3/4"></div>
                     </div>
                     <div className="justify-end card-footer rounded-none">
                         <div className="h-7 bg-gray-300 rounded w-1/4"></div>
@@ -97,7 +97,7 @@ const TopicPage = ({ params }) => {
 
     return (
         <Layout type={"root"}>
-            <Title breadCrumb={[{ link: "/forum", name: "Forum" }]} title={!loadingTopics ? topic?.title : <div className="w-full h-8 bg-gray-200 animate-pulse"></div>} />
+            <Title breadCrumb={[{ link: "/forum", name: "Forum" }]} title={!loadingTopics ? topic?.title : <div className="w-full h-8 bg-gray-300 animate-pulse"></div>} />
             <div className="mx-auto p-4 md:p-4 bg-gray-300">
                 {error && <p className="text-red-500">{error}</p>}
                     <div>
@@ -141,7 +141,7 @@ const TopicPage = ({ params }) => {
                                             <div>
                                                 <div className="card-header rounded-none flex justify-between">
                                                     <div className="font-semibold text-gray-900">{new Date(message.createdAt.seconds * 1000).toLocaleDateString()} à {new Date(message.createdAt.seconds * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
-                                                    <button className="btn btn-icon btn-sm btn-light">
+                                                    <button className="btn btn-icon btn-sm btn-light rounded-none">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                             <circle cx="12" cy="12" r="1"></circle>
                                                             <circle cx="19" cy="12" r="1"></circle>
@@ -150,8 +150,8 @@ const TopicPage = ({ params }) => {
                                                     </button>
                                                 </div>
                                                 <div className="card-body rounded-none p-4" dangerouslySetInnerHTML={{ __html: message.content }} />
-                                                <div className="justify-end card-footer rounded-none">
-                                                    <a href="#" className="btn btn-primary btn-sm">Répondre</a>
+                                                <div className="justify-end card-footer">
+                                                    <a href="#" className="btn btn-primary rounded-none btn-sm">Répondre</a>
                                                 </div>
                                             </div>
                                         </div>

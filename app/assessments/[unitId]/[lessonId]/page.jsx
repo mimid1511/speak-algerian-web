@@ -235,7 +235,7 @@ const EvaluationPage = ({ params }) => {
             <div className="p-4 bg-gray-300">
                 <div className="bg-white p-5 md:p-16">
                     <div className="text-center mb-12">
-                        <span class="badge bg-gray-100 text-gray-900 mb-4">
+                        <span className="badge bg-gray-100 text-gray-900 mb-4">
                             {currentQuestionIndex + 1} / {questions.length}
                         </span>
 

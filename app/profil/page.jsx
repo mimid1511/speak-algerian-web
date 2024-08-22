@@ -31,19 +31,19 @@ const ProfilePage = () => {
             if (currentUser) {
                 setUser(currentUser);
                 setPhotoUrl(currentUser.photoURL || "");
-
                 try {
                     const lastSubscriptionData = await getLastSubscription();
-                    console.log(lastSubscriptionData);
+                    console.log("Last" + lastSubscriptionData);
                     setLastSubscription(lastSubscriptionData);
                 } catch (error) {
                     console.error("Error fetching last subscription: ", error);
                 }
+                finally{
+                    setLoading(false);
+                }
             } else {
                 router.push('/login');
             }
-
-            setLoading(false);
         });
 
         return () => unsubscribe();
@@ -129,15 +129,15 @@ const ProfilePage = () => {
 
             <div className="m-full flex justify-center items-center md:p-4 bg-gray-300">
                 {loading ?
-                    <div className="flex container max-w-2xl flex-col items-center bg-white p-10 animate-pulse">
-                        <div className="h-32 w-32 bg-gray-300 rounded-full mb-6"></div>
-                        <div className="w-96 h-10 bg-gray-300 mb-2"></div>
-                        <div className="w-96 h-10 bg-gray-300 mb-8"></div>
-                        <div className="w-full h-10 bg-gray-300 mb-4"></div>
-                        <div className="w-full h-10 bg-gray-300 mb-4"></div>
-                        <div className="w-full h-10 bg-gray-300 mb-4"></div>
-                        <div className="w-full h-10 bg-gray-300 mb-4"></div>
-                        <div className="w-full h-14 bg-gray-300"></div>
+                    <div className="flex container max-w-4xl flex-col items-center bg-white p-10">
+                        <div className="h-32 w-32 bg-gray-300 rounded-full mb-6 animate-pulse"></div>
+                        <div className="w-96 h-10 bg-gray-300 mb-2 animate-pulse"></div>
+                        <div className="w-96 h-10 bg-gray-300 mb-8 animate-pulse"></div>
+                        <div className="w-full h-10 bg-gray-300 mb-4 animate-pulse"></div>
+                        <div className="w-full h-10 bg-gray-300 mb-4 animate-pulse"></div>
+                        <div className="w-full h-10 bg-gray-300 mb-4 animate-pulse"></div>
+                        <div className="w-full h-10 bg-gray-300 mb-4 animate-pulse"></div>
+                        <div className="w-full h-14 bg-gray-300 animate-pulse"></div>
                     </div>
                     :
                     <div className="flex container max-w-4xl flex-col items-center bg-white p-10">

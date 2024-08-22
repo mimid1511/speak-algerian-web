@@ -19,7 +19,7 @@ const DictionaryPage = () => {
             } catch (error) {
                 setError("Erreur lors de la récupération des mots français.");
             } finally {
-                setLoading(false); // Fin du chargement
+                setLoading(false);
             }
         };
 
@@ -29,11 +29,18 @@ const DictionaryPage = () => {
     const renderSkeletons = () => (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {Array.from({ length: 12 }).map((_, index) => (
-                <div key={index} className="bg-white p-3 rounded-none animate-pulse">
-                    <div className="h-8 bg-gray-300 mb-4"></div>
-                    <div className="h-4 bg-gray-300 mb-2"></div>
-                    <div className="h-4 bg-gray-300 mb-2"></div>
-                    <div className="h-4 bg-gray-300 mb-2"></div>
+                <div key={index} className="bg-white p-3 rounded-none">
+                    <div className="h-8 bg-gray-300 mb-4 animate-pulse"></div>
+                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
                 </div>
             ))}
         </div>
@@ -65,7 +72,7 @@ const DictionaryPage = () => {
                         ))}
                     </div>
                 ) : (
-                    <p className="text-center text-gray-700">Aucun mot trouvé.</p>
+                    renderSkeletons()
                 )}
             </div>
         </Layout>

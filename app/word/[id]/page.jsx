@@ -38,7 +38,7 @@ export default function Word({ params }) {
         <Layout type="root">
             {word ? (
                 <div>
-                    <Title>{word.french.join(", ")}</Title>
+                    <Title title={word.french.join(", ")} />
                     <WordMain words={word.darija} />
                 </div>
             ) : (

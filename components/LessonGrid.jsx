@@ -13,7 +13,7 @@ const ReservedIcon = () => (
 );
 
 const NotReservedIcon = () => (
-<svg xmlns="http://www.w3.org/2000/svg" className='w-5 h-5' viewBox="0 0 24 24"><path fill="currentColor" d="M20 8h-3V6.21c0-2.61-1.91-4.94-4.51-5.19A5.01 5.01 0 0 0 7 6h2c0-1.13.6-2.24 1.64-2.7C12.85 2.31 15 3.9 15 6v2H4v14h16zm-2 12H6V10h12zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2"></path></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" className='w-5 h-5' viewBox="0 0 24 24"><path fill="currentColor" d="M20 8h-3V6.21c0-2.61-1.91-4.94-4.51-5.19A5.01 5.01 0 0 0 7 6h2c0-1.13.6-2.24 1.64-2.7C12.85 2.31 15 3.9 15 6v2H4v14h16zm-2 12H6V10h12zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2"></path></svg>
 );
 
 const LessonGrid = ({ limited }) => {
@@ -77,28 +77,44 @@ const LessonGrid = ({ limited }) => {
     };
 
 
-    if (loading) {
+    
+    const displayedUnits = limited ? units.slice(0, 6) : units;
+    
+    const totalUnits = units.length;
+    const completedUnits = calculateCompletedUnits();
+    
+    if (loading || totalUnits <= 0 ) {
         return (
             <div className="p-4 bg-gray-300">
                 {roleUser != "dys" && !limited &&
                     <div className='p-4 bg-white mb-4'>
-                        <progress class="progress" max="100" />
+                        <progress className="progress" max="100" />
                     </div>
                 }
 
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
                     {Array.from({ length: 6 }).map((_, index) => (
-                        <div key={index} class="w-full h-72 bg-white animate-pulse"></div>
+                        // <div key={index} className="w-full h-72 bg-white animate-pulse"></div>
+                        <div key={index} className="rounded-none h-72 border-none card">
+                            <div className="card-header">
+                                <div className="w-full h-6 bg-gray-300 animate-pulse" />
+                            </div>
+                            <div className="card-body p-5">
+                                <div className="w-64 h-6 bg-gray-300 animate-pulse mb-5" />
+                                <div className="w-96 h-6 bg-gray-300 animate-pulse mb-5" />
+                                <div className="w-64 h-6 bg-gray-300 animate-pulse mb-5" />
+                                <div className="w-80 h-6 bg-gray-300 animate-pulse" />
+                            </div>
+                            <div className="justify-end card-footer bg-neutral">
+                                <div className="w-32 h-8 bg-gray-300 animate-pulse" />
+                            </div>
+                        </div>
+
                     ))}
                 </div>
             </div>
         );
     }
-
-    const displayedUnits = limited ? units.slice(0, 6) : units;
-
-    const totalUnits = units.length;
-    const completedUnits = calculateCompletedUnits();
 
     return (
         <div className="p-4 bg-gray-300">
@@ -135,8 +151,8 @@ const LessonGrid = ({ limited }) => {
                                         <li className="list-item" key={index}>
                                             <p>
                                                 {unit.reserved && roleUser == "dys"
-                                                    ? <span className="badge bg-gray-100 text-gray-900">{lesson.type}</span>
-                                                    : <span className="badge bg-green-200 text-green-800">{lesson.type}</span>
+                                                    ? <span className="badge rounded-none bg-gray-100 text-gray-900">{lesson.type}</span>
+                                                    : <span className="badge rounded-none bg-green-200 text-green-800">{lesson.type}</span>
                                                 }
                                                 &nbsp; {lesson.name}
                                             </p>
@@ -145,7 +161,7 @@ const LessonGrid = ({ limited }) => {
                                 </ul>
                             </div>
                             <div className={`justify-end card-footer bg-${unit.reserved && roleUser == "dys" ? 'neutral' : 'green-100'}`}>
-                                <Link href={unit.reserved && roleUser == "dys" ? "/registration" : "/units/" + unit.id} className={`btn rounded-none btn-${unit.reserved && roleUser == "dys" ? 'secondary' : 'primary'} btn-sm`}>
+                                <Link href={unit.reserved && roleUser == "dys" ? "/registration" : "/units/" + unit.id} className={`btn rounded-none btn-${unit.reserved && roleUser == "dys" ? 'neutral' : 'primary'} btn-sm`}>
                                     {unit.reserved && roleUser == "dys" ? "S'abonner" : "Suivre la leçon"}
                                 </Link>
                             </div>

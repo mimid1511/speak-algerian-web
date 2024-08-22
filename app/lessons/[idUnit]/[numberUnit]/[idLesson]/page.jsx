@@ -28,6 +28,9 @@ const LessongPages = ({ params }) => {
                 setLesson(lessonData);
             } catch (error) {
                 setError('Erreur lors de la récupération des données.');
+                if(error){
+                    setLoading(true);
+                }
             }
         };
 
@@ -59,13 +62,13 @@ const LessongPages = ({ params }) => {
         checkUserAuth();
     }, [lessonId]);
 
-    if (error) {
-        return <p>{error}</p>;
-    }
+    // if (error) {
+    //     return <p>{error}</p>;
+    // }
 
     return (
         <Layout type="root">
-            <Title breadCrumb={[{ name: "Leçons", link: "/lessons" }, { name: "Unité " + unitOrder, link: "/units/" + unitId }]} title={lesson ? lesson.name : <div className="w-full h-8 bg-gray-200 animate-pulse"></div>} />
+            <Title breadCrumb={[{ name: "Leçons", link: "/lessons" }, { name: "Unité " + unitOrder, link: "/units/" + unitId }]} title={lesson ? lesson.name : <div className="w-full h-8 bg-gray-300 animate-pulse"></div>} />
             <div className="md:p-4 bg-gray-300">
                 <div className="bg-white md:p-5">
                     <Alert type={"primary"} message={"Ce cours est basé sur le dialecte d'Alger. Selon les régions il peux y avoir des changements de vocabulaire ou de la structure grammaticale. N'hesitez pas à consulter le dictionnaire !"} />
@@ -73,7 +76,7 @@ const LessongPages = ({ params }) => {
                         {loading
                             ? Array.from({ length: 4 }).map((_, index) => (
                                 <div key={index} className="m-4 md:w-1/2 h-auto">
-                                    <div className="skeleton bg-gray-50 animate-pulse h-96 mb-10 w-full"></div>
+                                    <div className="skeleton bg-gray-300 animate-pulse h-96 mb-10 w-full"></div>
                                 </div>
                             ))
                             : imageUrls.map((url, index) => (

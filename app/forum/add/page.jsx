@@ -1,10 +1,11 @@
 // pages/forum/add.js
 
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createTopic } from '@/api/forum';
 import { auth } from '@/api/firebaseConfig';
+import { onAuthStateChanged } from 'firebase/auth';
 import Layout from '@/app/layout';
 import Title from '@/components/Title';
 
@@ -12,7 +13,21 @@ const AddTopicPage = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                router.push('/');
+            }
+            else {
+                setLoading(false);
+            }
+        });
+        return () => unsubscribe();
+    }, []);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
