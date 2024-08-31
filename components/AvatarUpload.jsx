@@ -49,7 +49,7 @@ const AvatarUpload = ({ setPhotoUrl, photoUrl }) => {
 
     return (
         <div className="mb-6 flex flex-col items-center w-full">
-            <div className="avatar avatar-xl mb-4">
+            <div className="avatar avatar-xl mb-4 bg-primary">
                 {selectedImage ? (
                     <img
                         src={selectedImage}

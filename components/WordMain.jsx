@@ -3,7 +3,7 @@ import React from 'react';
 const WordMain = ({ words }) => {
 
     return (
-        <div className="container mx-auto p-4 bg-gray-300">
+        <div className="container mx-auto p-4 bg-font">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3">
                 {words.map((word, index) => {
                     // Vérifiez si word.phonetic et word.arab sont des chaînes simples
@@ -12,8 +12,8 @@ const WordMain = ({ words }) => {
 
                     return (
 
-                        <div key={index} className="card rounded-none">
-                            <div className="card-header">
+                        <div key={index} className="card rounded-none border-none">
+                            <div className="card-header bg-back">
 
                                 {/* Nom ----------------------------------------------------------- */}
                                 {word?.type == "name" && isPhoneticSimple && isArabSimple && (
@@ -21,30 +21,28 @@ const WordMain = ({ words }) => {
                                 )}
                                 {word?.type == "name" && word?.phonetic?.coll && word?.arab?.coll && (
                                     <p>
-                                        coll: <strong>{word.arab.coll} {word.phonetic.coll}</strong> &ensp;
-                                        unit: <strong>{word.arab.unit} {word.phonetic.unit}</strong> <br />
-                                        plur: <strong>{word.arab.plur} {word.phonetic.plur}</strong>
+                                        coll: <strong>{word.arab.coll} {word.phonetic.coll}</strong>&ensp;unit: <strong>{word.arab.unit} {word.phonetic.unit}</strong>&ensp;pl: <strong>{word.arab.plur} {word.phonetic.plur}</strong>
                                     </p>
                                 )}
                                 {word?.type == "name" && !word?.phonetic?.coll && !word?.arab?.coll && word?.phonetic?.plur && word?.arab?.plur && (
                                     <>
                                         <p>
-                                            unit: <strong>{word.arab.unit} {word.phonetic.unit}</strong> &emsp;
-                                            plur: <strong>{word.arab.plur} {word.phonetic.plur}</strong>
+                                            unit: <strong>{word.arab.unit} {word.phonetic.unit}</strong>&emsp;pl: <strong>{word.arab.plur} {word.phonetic.plur}</strong>
                                         </p>
                                     </>
                                 )}
                                 {/* Adjectifs ----------------------------------------------------------- */}
                                 {word?.type == "adjective" && (
                                     <p>
-                                        masc: <strong>{word.arab.m} {word.phonetic.m}</strong> &ensp;
-                                        femi: <strong>{word.arab.f} {word.phonetic.f}</strong> <br/>
-                                        p.m: <strong>{word.arab.pm} {word.phonetic.pm}</strong> &ensp;
-                                        p.f: <strong>{word.arab.pf} {word.phonetic.pf}</strong>
+                                        m: <strong>{word.arab.m} {word.phonetic.m}</strong> (pl: <strong>{word.arab.pm} {word.phonetic.pm}</strong>)&ensp;f: <strong>{word.arab.f} {word.phonetic.f}</strong> (pl: <strong>{word.arab.pf} {word.phonetic.pf}</strong>)
                                     </p>
                                 )}
                                 {/* Interjection ----------------------------------------------------------- */}
                                 {word?.type == "interjection" && (
+                                    <strong>{word.arab} {word.phonetic}</strong>
+                                )}
+                                {/* Adverbe ----------------------------------------------------------- */}
+                                {word?.type == "adverb" && (
                                     <strong>{word.arab} {word.phonetic}</strong>
                                 )}
                                 {/* Verbes ----------------------------------------------------------- */}
@@ -59,15 +57,16 @@ const WordMain = ({ words }) => {
                             </div>
                             <div className="card-body">
                                 {word?.detail && (
-                                        <p dangerouslySetInnerHTML={{ __html: word.detail.replace(/\\n/g, '<br>') }} />
-                                    )}
+                                    <p dangerouslySetInnerHTML={{ __html: word.detail.replace(/\\n/g, '<br>') }} />
+                                )}
                             </div>
-                            <div className="card-footer">
+                            <div className="card-footer rounded-none border-none">
                                 {word?.type && (
                                     <p>
                                         {word.type == "name" && "nom"}
                                         {word.type == "adjective" && "adjectif"}
                                         {word.type == "interjection" && "interjection"}
+                                        {word.type == "adverb" && "adverbe"}
                                         {word.type == "verb" && "verbe " + word.group + " (forme " + word.form + ")"}
                                     </p>
                                 )}

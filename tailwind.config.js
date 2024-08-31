@@ -10,17 +10,14 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          light: "#007B59", // For lighter primary color
-          DEFAULT: "#005C43", // Normal primary color
-          dark: "#00523B", // Used for hover, active, etc.
+          light: "#DBFBCC",
+          DEFAULT: "#57853F",
+          dark: "#476538",
         },
-        secondary: {
-          light: "#de3459", // For lighter primary color
-          DEFAULT: "#d00b36", // Normal primary color
-          dark: "#971934", // Used for hover, active, etc.
-        },
+        secondary: "#d00b36",
+        back: "#F8FCF5",
+        font: "#D1CFCF",
       },
     },
   },
-  
 };

@@ -11,9 +11,9 @@ export default function Home() {
       <Hero />
       <Features />
       <LessonGrid limited={true} />
-      <Link href={"/"}>
+      {/* <Link href={"/"}>
         <img src={'/pub-felaha.jpg'} className="w-full" alt="Logo" />
-      </Link>
+      </Link> */}
     </Layout>
   );
 }

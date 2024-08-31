@@ -3,10 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getAllUnits } from '@/api/units';
-import { auth } from "@/api/firebaseConfig";
-import { onAuthStateChanged } from "firebase/auth";
-import { getUserDetail } from '@/api/auth';
-
+import { useUser } from "@/context/UserContext";
 
 const ReservedIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className='w-5 h-5' viewBox="0 0 24 24"><path fill="currentColor" d="M20 8h-3V6.21c0-2.61-1.91-4.94-4.51-5.19A5.01 5.01 0 0 0 7 6v2H4v14h16zm-8 9c-1.1 0-2-.9-2-2s.9-2 2-2s2 .9 2 2s-.9 2-2 2M9 8V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2z"></path></svg>
@@ -17,34 +14,20 @@ const NotReservedIcon = () => (
 );
 
 const LessonGrid = ({ limited }) => {
+
+    const { user, userDetail } = useUser();
+
     const [roleUser, setRoleUser] = useState("dys");
     const [units, setUnits] = useState([]);
     const [loading, setLoading] = useState(true);
     const [lessonsCompleted, setLessonsCompleted] = useState([]);
 
     useEffect(() => {
-        const fetchUserDetails = async (user) => {
-            try {
-                const userDetails = await getUserDetail(user.uid);
-                setRoleUser(userDetails.role);
-                setLessonsCompleted(userDetails.lessonsCompleted || []); // Récupérer les leçons complétées
-                console.log('User Details:', userDetails.role);
-            } catch (error) {
-                setRoleUser("dys");
-                console.error('Erreur:', error.message);
-            }
-        };
-
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                fetchUserDetails(user);
-            } else {
-                setRoleUser("dys");
-            }
-        });
-
-        return () => unsubscribe();
-    }, []);
+        if (user && userDetail) {
+            setRoleUser(userDetail.role);
+            setLessonsCompleted(userDetail.lessonsCompleted || []);
+        }
+    }, [user, userDetail]);
 
 
     useEffect(() => {
@@ -85,7 +68,7 @@ const LessonGrid = ({ limited }) => {
     
     if (loading || totalUnits <= 0 ) {
         return (
-            <div className="p-4 bg-gray-300">
+            <div className="p-4 bg-font">
                 {roleUser != "dys" && !limited &&
                     <div className='p-4 bg-white mb-4'>
                         <progress className="progress" max="100" />
@@ -97,16 +80,16 @@ const LessonGrid = ({ limited }) => {
                         // <div key={index} className="w-full h-72 bg-white animate-pulse"></div>
                         <div key={index} className="rounded-none h-72 border-none card">
                             <div className="card-header">
-                                <div className="w-full h-6 bg-gray-300 animate-pulse" />
+                                <div className="w-full h-6 bg-font animate-pulse" />
                             </div>
                             <div className="card-body p-5">
-                                <div className="w-64 h-6 bg-gray-300 animate-pulse mb-5" />
-                                <div className="w-96 h-6 bg-gray-300 animate-pulse mb-5" />
-                                <div className="w-64 h-6 bg-gray-300 animate-pulse mb-5" />
-                                <div className="w-80 h-6 bg-gray-300 animate-pulse" />
+                                <div className="w-64 h-6 bg-font animate-pulse mb-5" />
+                                <div className="w-96 h-6 bg-font animate-pulse mb-5" />
+                                <div className="w-64 h-6 bg-font animate-pulse mb-5" />
+                                <div className="w-80 h-6 bg-font animate-pulse" />
                             </div>
                             <div className="justify-end card-footer bg-neutral">
-                                <div className="w-32 h-8 bg-gray-300 animate-pulse" />
+                                <div className="w-32 h-8 bg-font animate-pulse" />
                             </div>
                         </div>
 
@@ -117,7 +100,7 @@ const LessonGrid = ({ limited }) => {
     }
 
     return (
-        <div className="p-4 bg-gray-300">
+        <div className="p-4 bg-font">
 
             {/* Grande barre de progression */}
             {roleUser != "dys" && !limited &&
@@ -145,14 +128,14 @@ const LessonGrid = ({ limited }) => {
                                 {unit.reserved && roleUser == "dys" ? <ReservedIcon /> : <NotReservedIcon />}
                             </div>
                             <div className="card-body">
-                                {roleUser != "dys" && !limited ? <progress className="progress h-1 text-gray-300" value={progress} max="100">{progress}%</progress> : ""}
+                                {roleUser != "dys" && !limited ? <progress className="progress h-1 text-font" value={progress} max="100">{progress}%</progress> : ""}
                                 <ul className="list list-flush">
                                     {unit.lessons.map((lesson, index) => (
                                         <li className="list-item" key={index}>
                                             <p>
                                                 {unit.reserved && roleUser == "dys"
                                                     ? <span className="badge rounded-none bg-gray-100 text-gray-900">{lesson.type}</span>
-                                                    : <span className="badge rounded-none bg-green-200 text-green-800">{lesson.type}</span>
+                                                    : <span className="badge rounded-none bg-primary-light text-primary">{lesson.type}</span>
                                                 }
                                                 &nbsp; {lesson.name}
                                             </p>
@@ -160,8 +143,8 @@ const LessonGrid = ({ limited }) => {
                                     ))}
                                 </ul>
                             </div>
-                            <div className={`justify-end card-footer bg-${unit.reserved && roleUser == "dys" ? 'neutral' : 'green-100'}`}>
-                                <Link href={unit.reserved && roleUser == "dys" ? "/registration" : "/units/" + unit.id} className={`btn rounded-none btn-${unit.reserved && roleUser == "dys" ? 'neutral' : 'primary'} btn-sm`}>
+                            <div className={`justify-end card-footer bg-${unit.reserved && roleUser == "dys" ? 'neutral' : 'primary-light'}`}>
+                                <Link href={unit.reserved && roleUser == "dys" ? "/registration" : "/units/" + unit.id} className={`btn rounded-none btn-outline-${unit.reserved && roleUser == "dys" ? 'secondary' : 'primary'} btn-sm`}>
                                     {unit.reserved && roleUser == "dys" ? "S'abonner" : "Suivre la leçon"}
                                 </Link>
                             </div>
@@ -173,7 +156,7 @@ const LessonGrid = ({ limited }) => {
             {/* Si `limited` est vrai, afficher le bouton pour voir toutes les leçons */}
             {limited && (
                 <div className="mt-4 text-center">
-                    <Link href="/lessons" className="btn rounded-none bg-red-700 hover:bg-red-900 text-white btn-xl w-full">
+                    <Link href="/lessons" className="btn rounded-none btn-primary btn-xl w-full">
                         Voir toutes les leçons
                     </Link>
                 </div>

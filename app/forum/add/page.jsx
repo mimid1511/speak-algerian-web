@@ -43,7 +43,7 @@ const AddTopicPage = () => {
     return (
         <Layout type={"root"}>
             <Title title={"Ajouter un nouveau topic"} breadCrumb={[{name : "Forum", link : "/forum"}]} />
-            <div className="mx-auto md:p-4 bg-gray-300 rounded-none">
+            <div className="mx-auto md:p-4 bg-font rounded-none">
                 {error && <p className="text-red-500">{error}</p>}
                 <form onSubmit={handleSubmit} className='bg-white p-4 md:p-10 '>
                     <div className="mb-4">
@@ -53,7 +53,7 @@ const AddTopicPage = () => {
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            className="w-full p-2 border border-gray-300 rounded"
+                            className="w-full p-2 border border-font rounded"
                             required
                         /> */}
                         <label className="block mb-1" for="title">Titre</label>
@@ -66,7 +66,7 @@ const AddTopicPage = () => {
                             id="description"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            className="w-full p-2 border border-gray-300 rounded"
+                            className="w-full p-2 border border-font rounded"
                             rows="4"
                             required
                         /> */}

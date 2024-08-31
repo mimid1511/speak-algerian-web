@@ -54,15 +54,15 @@ const ForumPage = () => {
     // Skeleton Loader Component
     const SkeletonLoader = () => (
         <div className="list-item flex justify-between rounded-none items-center animate-pulse">
-            <div className="h-6 bg-gray-300  w-3/4 mb-4"></div>
-            <div className="h-5 bg-gray-300  w-1/4"></div>
+            <div className="h-6 bg-font  w-3/4 mb-4"></div>
+            <div className="h-5 bg-font  w-1/4"></div>
         </div>
     );
 
     return (
         <Layout type={"root"}>
             <Title title={"Forum"} />
-            <section className="px-4 pt-4 bg-gray-300">
+            <section className="px-4 pt-4 bg-font">
                 <div className='p-4 bg-white'>
                     <button
                         onClick={() => router.push('/forum/add')}
@@ -75,14 +75,14 @@ const ForumPage = () => {
                     </button>
                 </div>
             </section>
-            <div className="bg-gray-300 mx-auto w-full p-4">
+            <div className="bg-font mx-auto w-full p-4">
                 {error && <p className="text-red-500">{error}</p>}
                 <div className="list list-none bg-white">
                     {loading || topics.length <= 0 ? (
                         // Afficher les skeletons lors du chargement
                         <>
                             {Array.from({ length: 10 }).map((_, index) => (
-                                <SkeletonLoader />
+                                <SkeletonLoader key={index} />
                             ))}
                         </>
                     ) : (

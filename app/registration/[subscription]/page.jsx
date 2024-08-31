@@ -8,6 +8,7 @@ import Alert from '@/components/Alert';
 import { auth } from '@/api/firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
+import { useUser } from "@/context/UserContext";
 import ReCAPTCHA from "react-google-recaptcha";
 
 const Registration = ({ params }) => {
@@ -20,32 +21,33 @@ const Registration = ({ params }) => {
     const [recaptchaToken, setRecaptchaToken] = useState('');
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [lock, setLock] = useState(false);
 
     const [loading, setLoading] = useState(true);
+
+    const { user, userLoading } = useUser();
 
     const router = useRouter();
 
     const [message, setMessage] = useState("");
     const [type, setType] = useState("success");
 
-
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                router.push('/');
+        if(!userLoading){
+            if (user && !lock) {
+                router.push("/");
             }
             else {
                 if (params.subscription != "discovery" && params.subscription != "student" && params.subscription != "studentyear") {
                     router.push('/registration');
                 }
                 else {
+                    setLock(true);
                     setLoading(false);
                 }
             }
-        });
-        return () => unsubscribe();
-    }, []);
-
+        }
+    }, [router, user, userLoading]);
 
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -137,13 +139,13 @@ const Registration = ({ params }) => {
             <section className="bg-gray-50 min-h-screen bg-[url('/bg-rect-light.svg')]  bg-contain bg-no-repeat bg-cover bg-center content-center">
                 <div className="mx-auto max-w-7xl">
                     <Link href="/" title="Kutty Home Page" className="flex items-center justify-start sm:justify-center">
-                        <img src={'/sa-logo-white.png'} alt="Logo" className={`h-16 ${loading && 'animate-pulse'}`} />
+                        <img src={'/logoPA-white.svg'} alt="Logo" className={`h-16 ${loading && 'animate-pulse'}`} />
                     </Link>
                     {!loading ?
                         (
                             <>
                                 <div
-                                    className="w-full px-0 pt-5 pb-6 mx-auto mt-4 shadow-lg mb-0 space-y-4 bg-transparent border-0 border-gray-300 rounded-none bg-white md:border sm:w-10/12 md:w-8/12 lg:w-6/12 xl:w-4/12 md:px-6 px-4 sm:mt-8 sm:mb-5"
+                                    className="w-full px-0 pt-5 pb-6 mx-auto mt-4 shadow-lg mb-0 space-y-4 bg-transparent border-0 border-font rounded-none bg-white md:border sm:w-10/12 md:w-8/12 lg:w-6/12 xl:w-4/12 md:px-6 px-4 sm:mt-8 sm:mb-5"
                                 >
                                     <h1 className="mb-5 text-xl font-light text-left text-gray-800 sm:text-center">Réjoingnez-nous dès maintenant !</h1>
                                     {message && <Alert type={type} message={message} />}
@@ -213,7 +215,7 @@ const Registration = ({ params }) => {
                                     </form>
                                 </div>
                                 <p className="my-0 text-xs font-medium text-center text-white sm:my-5">
-                                    Vous avez déjà un compte ? <Link href="/login" className="text-gray-300 hover:text-gray-400">Connexion</Link>
+                                    Vous avez déjà un compte ? <Link href="/login" className="text-font hover:text-gray-400">Connexion</Link>
                                 </p>
                             </>
                         )
@@ -221,20 +223,21 @@ const Registration = ({ params }) => {
                         (
                             <>
                                 <div
-                                    className="w-full px-0 pt-5 pb-6 mx-auto mt-2 shadow-lg space-y-4 bg-transparent border-0 border-gray-300 rounded-none bg-white md:border sm:w-10/12 md:w-8/12 lg:w-6/12 xl:w-4/12 md:px-6 px-4 sm:mt-3 sm:mb-5"
+                                    className="w-full px-0 pt-5 pb-6 mx-auto mt-2 shadow-lg space-y-4 bg-transparent border-0 border-font rounded-none bg-white md:border sm:w-10/12 md:w-8/12 lg:w-6/12 xl:w-4/12 md:px-6 px-4 sm:mt-3 sm:mb-5"
                                 >
-                                    <div className="w-full h-6 bg-gray-300 mb-8 animate-pulse "></div>
-                                    <div className="w-full h-10 bg-gray-300 animate-pulse"></div>
+                                    <div className="w-full h-6 bg-font mb-8 animate-pulse "></div>
+                                    <div className="w-full h-10 bg-font animate-pulse"></div>
                                     <br />
-                                    <div className="w-full h-10 bg-gray-300 animate-pulse"></div>
+                                    <div className="w-full h-10 bg-font animate-pulse"></div>
                                     <br />
-                                    <div className="w-full h-10 bg-gray-300 animate-pulse"></div>
+                                    <div className="w-full h-10 bg-font animate-pulse"></div>
+                                    <div className="w-80 h-20 bg-font mb-4 animate-pulse"></div>
                                     <div className="flex items-center justify-between mb-8">
-                                        <div className="w-40 h-5 bg-gray-300 animate-pulse"></div>
-                                        <div className="w-28 h-9 bg-gray-300 animate-pulse"></div>
+                                        <div className="w-40 h-5 bg-font animate-pulse"></div>
+                                        <div className="w-28 h-9 bg-font animate-pulse"></div>
                                     </div>
                                 </div>
-                                <div className="w-80 h-4 bg-gray-300 animate-pulse mx-auto"></div>
+                                <div className="w-80 h-4 bg-font animate-pulse mx-auto"></div>
                             </>
                         )
                     }

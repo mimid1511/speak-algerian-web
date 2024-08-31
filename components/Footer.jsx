@@ -3,46 +3,46 @@ import Link from 'next/link';
 
 const Footer = () => {
     return (
-        <footer className="px-4 bg-white  py-12 mx-auto max-w-7xl">
+        <footer className="px-4 bg-back py-12 md:px-28 px-10">
             <div className="grid grid-cols-2 gap-10 mb-3 md:grid-cols-3 lg:grid-cols-11 lg:gap-20">
                 <div className="col-span-3">
-                    <Link href={"/"}><img src={'/logo-society.svg'} alt="Logo" className="h-20" /></Link>
+                    <Link href={"/"}><img src={'/bma-logo.png'} alt="Logo" className="h-14" /></Link>
                     <p className="my-4 text-justify text-xs leading-normal text-gray-600">
-                        Cette application est hébergée en Belgique, au sein de l'Union Européenne, et est soumise aux réglementations du RGPD (Règlement Général sur la Protection des Données).
+                        Cette application est hébergée en Belgique, au sein de l'Union Européenne. Elle est ainsi soumise aux réglementations du RGPD (Règlement Général sur la Protection des Données).
                     </p>
                 </div>
                 <nav className="col-span-1 md:col-span-1 lg:col-span-2">
-                    <p className="mb-3 text-xs font-semibold tracking-wider text-gray-400 uppercase">Navigation</p>
-                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary hover:underline" href="/">Accueil</Link>
-                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary hover:underline" href="forum">Forum</Link>
-                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary hover:underline" href="#">Actualitées</Link>
-                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary hover:underline" href="lessons">Leçons</Link>
-                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary hover:underline" href="map">Carte des dialectes</Link>
-                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary hover:underline" href="word">Lexique</Link>
+                    <p className="mb-3 text-xs font-semibold tracking-wider text-gray-500 uppercase">Navigation</p>
+                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 text-primary hover:font-bold hover:text-primary-dark hover:underline" href="/">Accueil</Link>
+                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 text-primary hover:font-bold hover:text-primary-dark hover:underline" href="forum">Forum</Link>
+                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 text-primary hover:font-bold hover:text-primary-dark hover:underline" href="#">Actualitées</Link>
+                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 text-primary hover:font-bold hover:text-primary-dark hover:underline" href="lessons">Leçons</Link>
+                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 text-primary hover:font-bold hover:text-primary-dark hover:underline" href="map">Carte des dialectes</Link>
+                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 text-primary hover:font-bold hover:text-primary-dark hover:underline" href="word">Lexique</Link>
                 </nav>
                 <nav className="col-span-2 md:col-span-1 lg:col-span-2">
-                    <p className="mb-3 text-xs font-semibold tracking-wider text-gray-400 uppercase">Parametre</p>
-                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary hover:underline" href="profil">Profil</Link>
-                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary hover:underline" href="profil">Abonnement</Link>
-                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary hover:underline" href="profil">Application</Link>
+                    <p className="mb-3 text-xs font-semibold tracking-wider text-gray-500 uppercase">Parametres</p>
+                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 text-primary hover:font-bold hover:text-primary-dark hover:underline" href="profil">Profil</Link>
+                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 text-primary hover:font-bold hover:text-primary-dark hover:underline" href="profil">Abonnement</Link>
+                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 text-primary hover:font-bold hover:text-primary-dark hover:underline" href="profil">Application</Link>
                 </nav>
                 <nav className="col-span-1 md:col-span-1 lg:col-span-2">
-                    <p className="mb-3 text-xs font-semibold tracking-wider text-gray-400 uppercase">Réseaux sociaux</p>
-                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary hover:underline" href="#">Youtube</Link>
-                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary hover:underline" href="#">Instagram</Link>
-                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary hover:underline" href="#">TikTok</Link>
+                    <p className="mb-3 text-xs font-semibold tracking-wider text-gray-500 uppercase">Réseaux sociaux</p>
+                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 text-primary hover:font-bold hover:text-primary-dark hover:underline" href="#">Youtube</Link>
+                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 text-primary hover:font-bold hover:text-primary-dark hover:underline" href="#">Instagram</Link>
+                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 text-primary hover:font-bold hover:text-primary-dark hover:underline" href="#">TikTok</Link>
                     {/* <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary" href="#">Why feature vote?</Link> */}
                 </nav>
                 <nav className="col-span-1 md:col-span-1 lg:col-span-2">
-                    <p className="mb-3 text-xs font-semibold tracking-wider text-gray-400 uppercase">Application</p>
-                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary hover:underline" href="#">FAQ</Link>
-                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary hover:underline" href="#">Nous contacter</Link>
-                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary hover:underline" href="#">Confidentialité</Link>
-                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary hover:underline" href="#">Termes</Link>
+                    <p className="mb-3 text-xs font-semibold tracking-wider text-gray-500 uppercase">Application</p>
+                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 text-primary hover:font-bold hover:text-primary-dark hover:underline" href="#">FAQ</Link>
+                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 text-primary hover:font-bold hover:text-primary-dark hover:underline" href="#">Nous contacter</Link>
+                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 text-primary hover:font-bold hover:text-primary-dark hover:underline" href="#">Confidentialité</Link>
+                    <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 text-primary hover:font-bold hover:text-primary-dark hover:underline" href="#">Termes</Link>
                     {/* <Link className="flex mb-3 text-sm font-medium text-gray-800 transition md:mb-2 hover:text-secondary" href="#">Status</Link> */}
                 </nav>
             </div>
-            <div className="flex flex-col items-start justify-between pt-10 mt-10 border-t border-gray-100 md:flex-row md:items-center">
+            <div className="flex flex-col items-start justify-between pt-10 mt-10 border-t border-black md:flex-row md:items-center">
                 <p className="mb-8 text-sm text-center text-gray-700 md:text-left md:mb-0">© Copyright 2024 - Parler Algerien. Tout droit réservé.</p>
                 <div className="flex items-center space-x-6">
                     <Link href="#">

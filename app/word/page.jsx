@@ -30,17 +30,17 @@ const DictionaryPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {Array.from({ length: 12 }).map((_, index) => (
                 <div key={index} className="bg-white p-3 rounded-none">
-                    <div className="h-8 bg-gray-300 mb-4 animate-pulse"></div>
-                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
-                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
-                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
-                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
-                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
-                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
-                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
-                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
-                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
-                    <div className="h-4 bg-gray-300 mb-2 animate-pulse"></div>
+                    <div className="h-14 bg-font mb-4 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
                 </div>
             ))}
         </div>
@@ -49,7 +49,7 @@ const DictionaryPage = () => {
     return (
         <Layout type={"root"}>
             <Title title={"Lexique"} />
-            <div className="mx-auto p-4 bg-gray-300">
+            <div className="mx-auto p-4 bg-font">
                 {error && <p className="text-red-500">{error}</p>}
                 {loading ? (
                     renderSkeletons() // Affiche les skeletons pendant le chargement
@@ -57,12 +57,12 @@ const DictionaryPage = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         {sortedWords.map(({ letter, words }) => (
                             <div key={letter} className="bg-white p-3 rounded-none">
-                                <h2 className="text-3xl font-bold mb-2 text-center text-secondary-dark">{letter}</h2>
-                                <hr className="border-gray-400 mb-3" />
+                                <h2 className="text-3xl font-bold mb-2 p-2 text-center bg-primary-light text-primary">{letter}</h2>
+                                {/* <hr className="border-gray-400 mb-3" /> */}
                                 <ul className="list-disc ml-2 list-inside space-y-1">
-                                    {words.map(word => (
-                                        <li key={word.id}>
-                                            <Link href={`/word/${word.id}`} className="text-secondary hover:underline capitalize">
+                                    {words.map((word, index) => (
+                                        <li key={index}>
+                                            <Link href={`/word/${word.id}`} className="text-primary-dark font-normal hover:font-semibold hover:underline capitalize">
                                                 {word.name.toLowerCase()}
                                             </Link>
                                         </li>

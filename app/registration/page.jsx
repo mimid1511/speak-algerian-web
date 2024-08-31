@@ -3,10 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
-import { auth } from '@/api/firebaseConfig';
-import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
-
+import { useUser } from "@/context/UserContext";
 
 const CheckIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className='flex-none w-4 h-4 mt-1 mr-2 text-green-600' viewBox="0 0 448 512">
@@ -22,19 +20,20 @@ const XmarkIcon = () => (
 const Pricing = () => {
 
     const [loading, setLoading] = useState(true);
+    const { user, userLoading } = useUser();
     const router = useRouter();
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (!userLoading) {
             if (user) {
-                router.push('/');
+                router.push("/");
             }
             else {
                 setLoading(false);
             }
-        });
-        return () => unsubscribe();
-    }, []);
+        }
+    }, [router, user, userLoading]);
+
 
     return (
 
@@ -45,7 +44,7 @@ const Pricing = () => {
                         <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
                             <div className='flex justify-center items-center mb-4'>
                                 <Link href={"/"}>
-                                    <img src={'/sa-logo-green.png'} alt="Logo" className="h-20" />
+                                    <img src={'/logoPA-primary.svg'} alt="Logo" className="h-20" />
                                 </Link>
                             </div>
                             <p className="px-0 mb-10 text-secondary text-lg text-gray-500 md:text-lg lg:px-24">
@@ -54,12 +53,12 @@ const Pricing = () => {
                         </div>
                         <div className="w-full mx-auto xl:w-4/5 ">
                             <div className="grid grid-cols-1 gap-16 lg:grid-cols-3 sm:gap-8 ">
-                                <div className="border-0 rounded-none shadow-md  card  md:border">
-                                    <div className="flex flex-col justify-between p-6 border-b border-gray-300">
-                                        <p className="mb-1 text-lg font-semibold text-gray-500">Découverte</p>
+                                <div key={1} className="border-0 rounded-none shadow-md  card  md:border">
+                                    <div className="flex flex-col justify-between p-6 border-b border-font">
+                                        <p className="mb-1 text-2xl font-semibold text-gray-500">Découverte</p>
                                         <p className="pb-0 my-2 font-mono text-4xl font-extrabold text-gray-900">0€</p>
                                         <p className="text-sm text-gray-500">Pas de frais, pas d'engagement</p>
-                                        <Link href="registration/discovery" className="w-full mt-6 btn btn-light btn-lg rounded-none">Démarrer gratuitement</Link>
+                                        <Link href="registration/discovery" className="mt-6 max-w-64 btn btn-light btn-lg rounded-none">Démarrer gratuitement</Link>
                                     </div>
                                     <ul className="flex flex-col flex-grow p-6 space-y-3">
                                         <li className="flex items-start">
@@ -92,16 +91,16 @@ const Pricing = () => {
                                         </li>
                                     </ul>
                                 </div>
-                                <div className="border-0 rounded-none shadow-none card  md:border shadow-xl">
-                                    <div className="flex flex-col justify-between p-6 border-b border-gray-300">
+                                <div key={2} className="border-0 rounded-none shadow-none card  md:border shadow-xl">
+                                    <div className="flex flex-col justify-between p-6 border-b border-font">
                                         <div>
                                             <div className="flex items-center justify-between">
-                                                <p className="mb-1 text-lg font-semibold text-primary">Apprentissage</p>
+                                                <p className="mb-1 text-2xl font-semibold text-primary">Apprentissage</p>
                                             </div>
                                             <p className="my-2 text-4xl font-bold text-gray-900">29,99€</p>
                                             <p className="text-sm text-gray-500">Par mois et sans engagement</p>
                                         </div>
-                                        <Link href="registration/student" className="w-full rounded-none mt-6 btn btn-primary btn-lg">Démarrer</Link>
+                                        <Link href="registration/student" className="w-40 rounded-none mt-6 btn btn-primary btn-lg">Démarrer</Link>
                                     </div>
                                     <ul className="flex flex-col flex-grow p-6 space-y-3">
                                         <li className="flex items-start">
@@ -134,17 +133,17 @@ const Pricing = () => {
                                         </li>
                                     </ul>
                                 </div>
-                                <div className="border-0 rounded-none shadow-none card  md:border shadow-xl">
-                                    <div className="flex flex-col justify-between p-6 border-b border-gray-300">
+                                <div key={3} className="border-0 rounded-none shadow-none card  md:border shadow-xl">
+                                    <div className="flex flex-col justify-between p-6 border-b border-font">
                                         <div>
                                             <div className="flex items-center justify-between">
-                                                <p className="mb-1 text-lg font-semibold text-secondary">Apprentissage +</p>
-                                                <span className="badge bg-secondary text-white">Le plus populaire</span>
+                                                <p className="mb-1 text-2xl font-semibold text-primary">Apprentissage +</p>
+                                                <span className="badge bg-primary-dark rounded-none text-white">Le plus populaire</span>
                                             </div>
                                             <p className="my-2 text-4xl font-bold text-gray-900">24,99€</p>
                                             <p className="text-sm text-gray-500"><strong>299,99€</strong>/an (24,99 €/mois) sans engagement</p>
                                         </div>
-                                        <Link href="registration/studentyear" className="w-full rounded-none mt-6 btn bg-red-700 hover:bg-red-900 text-white btn-lg">Démarrer</Link>
+                                        <Link href="registration/studentyear" className="w-40 rounded-none mt-6 btn btn-primary btn-lg">Démarrer</Link>
                                     </div>
                                     <ul className="flex flex-col flex-grow p-6 space-y-3">
                                         <li className="flex items-start">
@@ -188,7 +187,7 @@ const Pricing = () => {
                         <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center animate-pulse">
                             <div className='flex justify-center items-center mb-4'>
                                 <Link href={"/"}>
-                                    <img src={'/sa-logo-green.png'} alt="Logo" className="h-20" />
+                                    <img src={'/logoPA-primary.svg'} alt="Logo" className="h-20" />
                                 </Link>
                             </div>
                             <p className="px-0 mb-10 text-secondary text-lg text-gray-500 md:text-lg lg:px-24">
@@ -198,17 +197,17 @@ const Pricing = () => {
                         <div className="w-full mx-auto xl:w-4/5 ">
                             <div className="grid grid-cols-1 gap-16 lg:grid-cols-3 sm:gap-8 ">
                                 {Array.from({ length: 3 }).map((_, index) => (
-                                    <div className="border-0 rounded-none shadow-md  card  md:border">
-                                        <div className="flex flex-col justify-between p-6 border-b border-gray-300">
-                                            <div className="w-80 h-7 bg-gray-300 mb-4 animate-pulse"></div>
-                                            <div className="w-36 h-9 bg-gray-300 mb-2 animate-pulse"></div>
-                                            <div className="w-full h-5 bg-gray-300 mb-2 animate-pulse"></div>
-                                            <div className="w-80 h-12 bg-gray-300 mt-4 animate-pulse"></div>
+                                    <div key={index} className="border-0 rounded-none shadow-md  card  md:border">
+                                        <div className="flex flex-col justify-between p-6 border-b border-font">
+                                            <div className="w-80 h-7 bg-font mb-4 animate-pulse"></div>
+                                            <div className="w-36 h-9 bg-font mb-2 animate-pulse"></div>
+                                            <div className="w-full h-5 bg-font mb-2 animate-pulse"></div>
+                                            <div className="w-80 h-12 bg-font mt-4 animate-pulse"></div>
                                         </div>
                                         <ul className="flex flex-col flex-grow p-6 space-y-3">
                                             {Array.from({ length: 8 }).map((_, index) => (
-                                                <li className="flex items-start">
-                                                    <div className="w-full h-7 bg-gray-300 animate-pulse"></div>
+                                                <li key={index} className="flex items-start">
+                                                    <div className="w-full h-7 bg-font animate-pulse"></div>
                                                 </li>
                                             ))}
                                         </ul>

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="1280" height="720" preserveAspectRatio="none" viewBox="0 0 1280 720">
     <g mask="url(&quot;#SvgjsMask1006&quot;)" fill="none">
-        <rect width="1280" height="720" x="0" y="0" fill="rgba(0, 92, 67, 1)"></rect>
+        <rect width="1280" height="720" x="0" y="0" fill="#476538"></rect>
         <path d="M940.0023258529335 506.3609495251626L1035.0550939460136 341.7247257878862 870.4188702087371 246.67195769480617 775.3661021156571 411.30818143208256z" fill="rgba(255, 255, 255, 0.5)" class="triangle-float1"></path>
         <path d="M1065.257814131586 402.7325023150941L1007.0563245867954 258.678760693537 863.0025829652384 316.8802502383276 921.2040725100289 460.9339918598847z" fill="rgba(255, 255, 255, 0.5)" class="triangle-float2"></path>
         <path d="M244.86362873111622 628.5948242890603L258.47841672504495 784.2125631506724 414.0961555866571 770.5977751567438 400.48136759272836 614.9800362951315z" fill="rgba(255, 255, 255, 0.5)" class="triangle-float3"></path>

@@ -9,6 +9,7 @@ import LogoutButton from '@/components/LogoutButton';
 import Layout from '../layout';
 import Title from '@/components/Title';
 import Alert from '@/components/Alert';
+import { useUser } from "@/context/UserContext";
 import {
     updateUserProfile,
     uploadProfilePicture,
@@ -19,35 +20,34 @@ import {
 } from '@/api/auth'; // Assurez-vous que le chemin est correct
 
 const ProfilePage = () => {
-    const [user, setUser] = useState(null);
+
+    const { user, userDetail, userLoading } = useUser();
+
     const [lastSubscription, setLastSubscription] = useState(null);
-    const [loading, setLoading] = useState(true);
     const [photoUrl, setPhotoUrl] = useState("");
-    const [activeTab, setActiveTab] = useState("profile");
+    const [activeTab, setActiveTab] = useState("profil");
     const router = useRouter();
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
-            if (currentUser) {
-                setUser(currentUser);
-                setPhotoUrl(currentUser.photoURL || "");
+        if (!userLoading && !user) {
+            router.push('/login');
+            return;
+        }
+        if (user) {
+            const fetchSubscription = async () => {
                 try {
                     const lastSubscriptionData = await getLastSubscription();
-                    console.log("Last" + lastSubscriptionData);
                     setLastSubscription(lastSubscriptionData);
                 } catch (error) {
                     console.error("Error fetching last subscription: ", error);
                 }
-                finally{
-                    setLoading(false);
-                }
-            } else {
-                router.push('/login');
-            }
-        });
-
-        return () => unsubscribe();
-    }, [router]);
+            };
+            fetchSubscription();
+        }
+        if (user && user.photoURL) {
+            setPhotoUrl(user.photoURL);
+        }
+    }, [user, userLoading, router]);
 
     const handleProfileUpdate = async (displayName, file) => {
         try {
@@ -100,12 +100,12 @@ const ProfilePage = () => {
     return (
         <Layout type="root">
             <Title title={"Paramètre"} />
-            <nav className="tab tab-lg p-4 justify-center">
+            <nav className="tab tab-lg pb-4 bg-back justify-center">
                 <a
-                    className={`tab-link cursor-pointer ${activeTab === 'profile' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('profile')}
+                    className={`tab-link cursor-pointer ${activeTab === 'profil' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('profil')}
                 >
-                    Profile
+                    Profil
                 </a>
                 <a
                     className={`tab-link cursor-pointer ${activeTab === 'subscription' ? 'active' : ''}`}
@@ -127,21 +127,21 @@ const ProfilePage = () => {
                 </a>
             </nav>
 
-            <div className="m-full flex justify-center items-center md:p-4 bg-gray-300">
-                {loading ?
+            <div className="m-full flex justify-center items-center md:p-4 bg-font">
+                {userLoading ?
                     <div className="flex container max-w-4xl flex-col items-center bg-white p-10">
-                        <div className="h-32 w-32 bg-gray-300 rounded-full mb-6 animate-pulse"></div>
-                        <div className="w-96 h-10 bg-gray-300 mb-2 animate-pulse"></div>
-                        <div className="w-96 h-10 bg-gray-300 mb-8 animate-pulse"></div>
-                        <div className="w-full h-10 bg-gray-300 mb-4 animate-pulse"></div>
-                        <div className="w-full h-10 bg-gray-300 mb-4 animate-pulse"></div>
-                        <div className="w-full h-10 bg-gray-300 mb-4 animate-pulse"></div>
-                        <div className="w-full h-10 bg-gray-300 mb-4 animate-pulse"></div>
-                        <div className="w-full h-14 bg-gray-300 animate-pulse"></div>
+                        <div className="h-32 w-32 bg-font rounded-full mb-6 animate-pulse"></div>
+                        <div className="w-96 h-10 bg-font mb-2 animate-pulse"></div>
+                        <div className="w-96 h-10 bg-font mb-8 animate-pulse"></div>
+                        <div className="w-full h-10 bg-font mb-4 animate-pulse"></div>
+                        <div className="w-full h-10 bg-font mb-4 animate-pulse"></div>
+                        <div className="w-full h-10 bg-font mb-4 animate-pulse"></div>
+                        <div className="w-full h-10 bg-font mb-4 animate-pulse"></div>
+                        <div className="w-full h-14 bg-font animate-pulse"></div>
                     </div>
                     :
                     <div className="flex container max-w-4xl flex-col items-center bg-white p-10">
-                        {activeTab === 'profile' && (
+                        {activeTab === 'profil' && (
                             <>
                                 <AvatarUpload
                                     photoUrl={photoUrl}
@@ -162,22 +162,22 @@ const ProfilePage = () => {
                                 {/* Faire une petit design pour la div du bas */}
                                 {lastSubscription ? (
                                     <>
-                                        <div className="bg-primary-light p-6 mb-6">
-                                            <h2 className="text-xl bg-secondary-dark text-center p-2 font-bold text-white mb-4">
+                                        <div className="bg-primary-light p-6 mb-6 w-full">
+                                            <h2 className="text-xl bg-primary text-center p-2 font-bold text-white mb-4">
                                                 {lastSubscription.product === "apm" && "Apprentissage"}
                                                 {lastSubscription.product === "apy" && "Apprentissage +"}
                                             </h2>
-                                            <p className="text-white text-center">
+                                            <p className="text-primary text-center">
                                                 <span className="font-semibold">Prix :</span>{" "}
                                                 {lastSubscription.total} €
                                             </p>
-                                            <p className="text-white text-center">
+                                            <p className="text-primary text-center">
                                                 <span className="font-semibold">Date de début :</span>{" "}
                                                 {new Date(
                                                     lastSubscription.createdAt.seconds * 1000
                                                 ).toLocaleDateString("fr-FR")}
                                             </p>
-                                            <p className="text-white text-center">
+                                            <p className="text-primary text-center">
                                                 <span className="font-semibold">Date de fin :</span>{" "}
                                                 {new Date(
                                                     lastSubscription.endDate.seconds * 1000
@@ -188,8 +188,8 @@ const ProfilePage = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <div className="bg-gray-300 p-6 mb-6">
-                                            <h2 className="text-xl bg-gray-100 text-center p-2 font-bold text-primary mb-4">
+                                        <div className="bg-font p-6 mb-6 w-full">
+                                            <h2 className="text-xl bg-gray-100 text-center p-2 border border-2 font-bold text-primary mb-4">
                                                 Découverte
                                             </h2>
                                             <p className="text-center">

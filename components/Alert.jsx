@@ -6,7 +6,7 @@ const Alert = ({ type, message }) => {
     switch (type) {
       case 'primary':
         return (
-          <div className="alert bg-white text-primary-light border border-primary rounded-none" role="alert">
+          <div className="alert text-primary border border-primary rounded-none" role="alert">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"

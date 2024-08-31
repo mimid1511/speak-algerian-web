@@ -136,7 +136,7 @@ const EvaluationPage = ({ params }) => {
         return (
             <Layout type="root">
                 <Title title={"Évaluation"}/>
-                <div className="p-4 bg-gray-300 text-center">
+                <div className="p-4 bg-font text-center">
                     <div className='bg-white p-16'>
                         {isLoading ? (
                             <button className="btn btn-outline-primary btn-xl btn-loading" disabled>
@@ -169,7 +169,7 @@ const EvaluationPage = ({ params }) => {
         return (
             <Layout type="root">
                 <Title title={"Résultat de l'évaluation"} />
-                <div className="p-4 bg-gray-300 flex flex-col items-center">
+                <div className="p-4 bg-font flex flex-col items-center">
                     <div style={{backgroundColor: '#FCFEFC'}}  className="md:p-8 flex flex-col items-center space-y-4 container max-w-xl">
                         <p className={`text-2xl font-bold ${isPassed ? "bg-green-200" : "bg-red-200"} p-4 text-center`}>
                             {isPassed ? "Vous avez réussi l'évaluation !" : "Vous avez échoué l'évaluation."}
@@ -232,7 +232,7 @@ const EvaluationPage = ({ params }) => {
     return (
         <Layout type="root">
             <Title title={"Évaluation"} />
-            <div className="p-4 bg-gray-300">
+            <div className="p-4 bg-font">
                 <div className="bg-white p-5 md:p-16">
                     <div className="text-center mb-12">
                         <span className="badge bg-gray-100 text-gray-900 mb-4">

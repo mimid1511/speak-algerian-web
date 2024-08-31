@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { auth } from "@/api/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { onAuthStateChanged } from "firebase/auth";
+import { useUser } from "@/context/UserContext";
 import Alert from "@/components/Alert";
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -18,6 +18,7 @@ export default function LoginPage() {
     const [imageLoading, setImageLoading] = useState(true); // Ajout de l'état pour le chargement de l'image
     const [loading, setLoading] = useState(true);
     const [captchaValue, setCaptchaValue] = useState(false);
+    const { user, userLoading } = useUser();
 
     useEffect(() => {
         // Liste des images avec le nom des villes et une courte description
@@ -83,17 +84,19 @@ export default function LoginPage() {
         // Sélection aléatoire d'une image
         const randomIndex = Math.floor(Math.random() * imageData.length);
         setRandomImageData(imageData[randomIndex]);
+    }, []);
 
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+    useEffect(() => {
+        if(!userLoading){
             if (user) {
                 router.push("/");
             }
             else {
                 setLoading(false);
-            }
-        });
-        return () => unsubscribe();
-    }, [router]);
+            }    
+        }
+    }, [router, user, userLoading]);
+
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -125,7 +128,7 @@ export default function LoginPage() {
         <section className="grid grid-cols-1 gap-0 lg:grid-cols-12 min-h-screen bg-[url('/bg-animated-square.svg')] bg-repeat bg-contain">
             {!loading ? (
                 <div className="w-full bg-white rounded-none shadow-xl col-span-1 p-4 mx-auto mt-6 lg:col-span-8 xl:p-12 md:w-2/4">
-                    <Link href={"/"}><img src={'/sa-logo-green.png'} alt="Logo" className="h-10" /></Link>
+                    <Link href={"/"}><img src={'/logoPA-primary.svg'} alt="Logo" className="h-10" /></Link>
                     <h1 className="mt-6 mb-4 text-xl font-light text-left text-gray-800">Connectez-vous à votre compte</h1>
                     {alert.message && <><Alert type={alert.type} message={alert.message} /><br /></>}
                     <form className="pb-1 space-y-4" onSubmit={handleLogin}>
@@ -166,32 +169,33 @@ export default function LoginPage() {
                     </form>
                     <div className="my-6 space-y-2">
                         <p className="text-xs text-gray-600">
-                            Vous n'êtes pas encore abonné ?
-                            <Link href="/registration" className="text-secondary-light hover:text-secondary-dark"> Se créer un compte</Link>
+                            Vous n'êtes pas encore abonné ?&ensp;
+                            <Link href="/registration" className="text-primary hover:underline hover:text-primary-dark">Se créer un compte</Link>
                         </p>
-                        <a href="#" className="block text-xs text-secondary-light hover:text-secondary-dark">Mot de passe oublié ?</a>
-                        <a href="#" className="block text-xs text-secondary-light hover:text-secondary-dark">Terme, confidentialité et modalités</a>
+                        <a href="#" className="block text-xs text-primary hover:underline hover:text-primary-dark">Mot de passe oublié ?</a>
+                        <a href="#" className="block text-xs text-primary hover:underline hover:text-primary-dark">Terme, confidentialité et modalités</a>
                     </div>
                 </div>
             ) : (
                 <div className="w-full bg-white rounded-none shadow-xl col-span-1 p-4 mx-auto mt-6 lg:col-span-8 xl:p-12 md:w-2/4">
-                    <Link href={"/"}><img src={'/sa-logo-green.png'} alt="Logo" className="h-10 animate-pulse" /></Link>
-                    <div className="w-80 h-7 bg-gray-300 mt-6 mb-9 animate-pulse"></div>
-                    <div className="w-full h-10 bg-gray-300 mb-9 animate-pulse"></div>
-                    <div className="w-full h-10 bg-gray-300 mb-4 animate-pulse"></div>
+                    <Link href={"/"}><img src={'/logoPA-primary.svg'} alt="Logo" className="h-10 animate-pulse" /></Link>
+                    <div className="w-80 h-7 bg-font mt-6 mb-9 animate-pulse"></div>
+                    <div className="w-full h-10 bg-font mb-9 animate-pulse"></div>
+                    <div className="w-full h-10 bg-font mb-4 animate-pulse"></div>
+                    <div className="w-80 h-20 bg-font mb-4 animate-pulse"></div>
                     <div className="flex items-center justify-between mb-8">
-                        <div className="w-40 h-5 bg-gray-300 animate-pulse"></div>
-                        <div className="w-28 h-9 bg-gray-300 animate-pulse"></div>
+                        <div className="w-40 h-5 bg-font animate-pulse"></div>
+                        <div className="w-28 h-9 bg-font animate-pulse"></div>
                     </div>
-                    <div className="w-80 h-4 bg-gray-300 mb-1 animate-pulse"></div>
-                    <div className="w-36 h-4 bg-gray-300 mb-1 animate-pulse"></div>
-                    <div className="w-52 h-4 bg-gray-300 animate-pulse"></div>
+                    <div className="w-80 h-4 bg-font mb-1 animate-pulse"></div>
+                    <div className="w-36 h-4 bg-font mb-1 animate-pulse"></div>
+                    <div className="w-52 h-4 bg-font animate-pulse"></div>
                 </div>
             )}
             <div className="relative col-span-1 lg:col-span-4">
-                {loading  ?
+                {loading ?
                     (
-                        <div className="absolute inset-0 flex items-center justify-center bg-gray-300">
+                        <div className="absolute inset-0 flex items-center justify-center bg-font">
                             <div className="absolute bottom-0 left-0 right-0 p-24 bg-secondary bg-opacity-75 bg-white animate-pulse" />
                         </div>
                     )

@@ -26,23 +26,37 @@ export default function Word({ params }) {
         fetchWord();
     }, [params.id]);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
-
     return (
         <Layout type="root">
-            {word ? (
+            {word && !loading ? (
                 <div>
-                    <Title title={word.french.join(", ")} />
+                    <Title breadCrumb={[{ name: "Lexique", link: "/word" }]} title={word.french.join(", ")} />
                     <WordMain words={word.darija} />
                 </div>
             ) : (
-                <div>Word not found</div>
+                <div>
+                    <Title breadCrumb={[{ name: "Lexique", link: "/word" }]} title={loading ? <div class="spinner text-white mb-1" role="status"><span class="sr-only">Loading...</span></div> : word.french.join(", ")} />
+                    {/* <WordMain words={word.darija} /> */}
+                    <div className="container mx-auto p-4 bg-font">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3">
+                            {Array.from({ length: 6 }).map((_, index) => (
+                                <div key={index} className="rounded-none border-none card">
+                                    <div className="card-header">
+                                        <div className="w-full h-5 bg-font animate-pulse" />
+                                    </div>
+                                    <div className="card-body">
+                                        <div className="w-full mb-2 h-5 bg-font animate-pulse" />
+                                        <div className="w-full mb-2 h-5 bg-font animate-pulse" />
+                                        <div className="w-full h-5 bg-font animate-pulse" />
+                                    </div>
+                                    <div className="card-footer rounded-none border-none">
+                                        <div className="w-full h-5 bg-font animate-pulse" />
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
             )}
         </Layout>
     );

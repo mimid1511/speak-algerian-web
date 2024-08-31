@@ -54,7 +54,13 @@ export const getWordById = async (id) => {
         const docRef = doc(db, "words", id);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-            return { id: docSnap.id, ...docSnap.data() };
+            const data = docSnap.data();
+            // Vérifier si le champ "darija" existe et est un tableau
+            if (data.darija && Array.isArray(data.darija)) {
+                // Trier le tableau "darija" par la clé "order"
+                data.darija.sort((a, b) => (a.order > b.order ? 1 : -1));
+            }
+            return { id: docSnap.id, ...data };
         } else {
             throw new Error('Aucun document trouvé');
         }
