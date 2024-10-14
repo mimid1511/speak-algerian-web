@@ -17,7 +17,7 @@ const RegistrationSuccess = () => {
     useEffect(() => {
         if(!userLoading){
             if (!user && !userDetail) {
-                router.push("/registration");
+                router.push("/login");
             }
             else {
                 setRoleUser(userDetail.role);

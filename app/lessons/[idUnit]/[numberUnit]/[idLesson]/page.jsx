@@ -68,7 +68,7 @@ const LessongPages = ({ params }) => {
 
     return (
         <Layout type="root">
-            <Title breadCrumb={[{ name: "Leçons", link: "/lessons" }, { name: "Unité " + unitOrder, link: "/units/" + unitId }]} title={lesson ? lesson.name : <div class="spinner text-white mb-1" role="status"><span class="sr-only">Loading...</span></div>} />
+            <Title breadCrumb={[{ name: "Leçons", link: "/lessons" }, { name: "Unité " + unitOrder, link: "/units/" + unitId }]} title={lesson ? lesson.name : <div class="spinner w-4 h-4 text-primary-dark mb-1" role="status"><span class="sr-only">Loading...</span></div>} />
             <div className="md:p-4 bg-font">
                 <div className="bg-white md:p-5">
                     <Alert type={"primary"} message={"Ce cours est basé sur le dialecte d'Alger. Selon les régions il peux y avoir des changements de vocabulaire ou de la structure grammaticale. N'hesitez pas à consulter le dictionnaire !"} />
@@ -93,12 +93,12 @@ const LessongPages = ({ params }) => {
                                         }}
                                     />
                                     {index < imageUrls.length - 1 && (
-                                        <hr className="w-full border-t-2 border-gray-700 my-4" />
+                                        <hr className="w-full border-t-4 border-gray-100 my-4" />
                                     )}
                                 </React.Fragment>
                             ))
                         }
-                        <hr className="w-full border-t-2 border-gray-700 my-4 mb-10" />
+                        <hr className="w-full border-t-4 border-gray-100 my-4 mb-10" />
                         <div className="md:btn-group mb-4" role="group" aria-label="Align Text">
                             <button type="button" className="btn btn-light flex items-center justify-center rounded-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="0.63em" height="1em" viewBox="0 0 320 512" className="mr-2">

@@ -54,7 +54,7 @@ const UnitsPage = ({ params }) => {
 
     return (
         <Layout type="root">
-            <Title title={unit ? `Unité ${unit.order}` : <div class="spinner text-white mb-1" role="status"><span class="sr-only">Loading...</span></div> } breadCrumb={[{ name: "Leçons", link: "/lessons" }]} />
+            <Title title={unit ? `Unité ${unit.order}` : <div class="spinner w-4 h-4 text-primary-dark mb-1" role="status"><span class="sr-only">Loading...</span></div> } breadCrumb={[{ name: "Leçons", link: "/lessons" }]} />
             <div className="p-4 bg-font">
                 <div className="bg-white md:p-4">
                     {/* <h2 className="text-xl font-semibold mb-8 mt-2">Leçons disponibles</h2> */}

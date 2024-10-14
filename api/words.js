@@ -13,6 +13,55 @@ export const getAllWords = async () => {
 };
 
 // Nouvelle fonction pour récupérer et trier les mots français par leur première lettre
+export const getAllFrenchWordsByLetter = async () => {
+    try {
+        const querySnapshot = await getDocs(collection(db, "words"));
+        let allFrenchWords = new Map(); // Utilisation d'une Map pour éviter les doublons
+
+        const normalizeString = (str) => {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        };
+
+        // Récupérer tous les mots français de chaque document
+        querySnapshot.forEach(doc => {
+            const data = doc.data();
+            if (data.french && Array.isArray(data.french)) {
+                data.french.forEach(word => {
+                    const normalizedWord = normalizeString(word);
+                    if (!allFrenchWords.has(normalizedWord)) {
+                        allFrenchWords.set(normalizedWord, { id: doc.id, name: word });
+                    }
+                });
+            }
+        });
+
+        // Trier les mots par leur première lettre
+        const sortedWords = Array.from(allFrenchWords.values()).reduce((acc, word) => {
+            const firstLetter = normalizeString(word.name[0]).toUpperCase();
+            if (!acc[firstLetter]) {
+                acc[firstLetter] = [];
+            }
+            acc[firstLetter].push(word);
+            return acc;
+        }, {});
+
+        // **Ajout : Trier chaque groupe de mots de manière lexicographique**
+        Object.keys(sortedWords).forEach(letter => {
+            sortedWords[letter].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+        });
+
+        // Retourner un tableau d'objets classés par première lettre
+        return Object.keys(sortedWords).sort().map(letter => ({
+            letter,
+            words: sortedWords[letter]
+        }));
+    } catch (error) {
+        console.error("Erreur lors de la récupération des mots français:", error);
+        throw new Error('Erreur lors de la récupération des mots français');
+    }
+};
+
+
 export const getAllFrenchWords = async () => {
     try {
         const querySnapshot = await getDocs(collection(db, "words"));
@@ -26,21 +75,8 @@ export const getAllFrenchWords = async () => {
             }
         });
 
-        // Trier les mots par leur première lettre
-        const sortedWords = allFrenchWords.reduce((acc, word) => {
-            const firstLetter = word.name[0].toUpperCase();
-            if (!acc[firstLetter]) {
-                acc[firstLetter] = [];
-            }
-            acc[firstLetter].push(word);
-            return acc;
-        }, {});
+        return allFrenchWords;
 
-        // Retourner un tableau d'objets classés par première lettre
-        return Object.keys(sortedWords).sort().map(letter => ({
-            letter,
-            words: sortedWords[letter]
-        }));
     } catch (error) {
         console.error("Erreur lors de la récupération des mots français:", error);
         throw new Error('Erreur lors de la récupération des mots français');

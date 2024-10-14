@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { getAllFrenchWords } from '@/api/words';
+import { getAllFrenchWordsByLetter } from '@/api/words';
 import Link from 'next/link';
 import Title from '@/components/Title';
 import Layout from '@/app/layout';
@@ -14,7 +14,7 @@ const DictionaryPage = () => {
     useEffect(() => {
         const fetchWords = async () => {
             try {
-                const words = await getAllFrenchWords();
+                const words = await getAllFrenchWordsByLetter();
                 setSortedWords(words);
             } catch (error) {
                 setError("Erreur lors de la récupération des mots français.");
@@ -31,6 +31,16 @@ const DictionaryPage = () => {
             {Array.from({ length: 12 }).map((_, index) => (
                 <div key={index} className="bg-white p-3 rounded-none">
                     <div className="h-14 bg-font mb-4 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-font mb-2 animate-pulse"></div>
                     <div className="h-4 bg-font mb-2 animate-pulse"></div>
                     <div className="h-4 bg-font mb-2 animate-pulse"></div>
                     <div className="h-4 bg-font mb-2 animate-pulse"></div>
@@ -59,10 +69,10 @@ const DictionaryPage = () => {
                             <div key={letter} className="bg-white p-3 rounded-none">
                                 <h2 className="text-3xl font-bold mb-2 p-2 text-center bg-primary-light text-primary">{letter}</h2>
                                 {/* <hr className="border-gray-400 mb-3" /> */}
-                                <ul className="list-disc ml-2 list-inside space-y-1">
+                                <ul className="list-disc m-4 list-inside space-y-1">
                                     {words.map((word, index) => (
                                         <li key={index}>
-                                            <Link href={`/word/${word.id}`} className="text-primary-dark font-normal hover:font-semibold hover:underline capitalize">
+                                            <Link href={`/word/${word.id}`} className="text-primary-dark capitalize hover:font-semibold hover:underline">
                                                 {word.name.toLowerCase()}
                                             </Link>
                                         </li>

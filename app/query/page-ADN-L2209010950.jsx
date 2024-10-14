@@ -5,7 +5,7 @@ import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 
 const addQuestionsToFirestore = async () => {
     try {
-        // Référence au document eχistant
+        // Référence au document existant
         const docRef = doc(db, "assessments", "test");
 
         // Liste des nouvelles questions
@@ -22,7 +22,7 @@ const addQuestionsToFirestore = async () => {
             },
         ];
 
-        // Mise à jour du document en ajoutant les nouvelles questions à l'array eχistant
+        // Mise à jour du document en ajoutant les nouvelles questions à l'array existant
         await updateDoc(docRef, {
             questions: arrayUnion(...newQuestions)
         });

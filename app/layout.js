@@ -58,7 +58,7 @@ const Aside = () => {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="M15 5.1L9 3L3 5.02v16.2l6-2.33l6 2.1l6-2.02V2.77zm0 13.79l-6-2.11V5.11l6 2.11z"></path></svg>
           </div></Link>
 
-          <Link href={"/news"}><div className={`h-10 w-10 ${window.location.pathname == "/news" ? "bg-primary text-white" : ""} flex items-center justify-center cursor-pointer hover:text-white hover:bg-primary hover:duration-300 hover:ease-linear focus:bg-primary`}>
+          <Link href={"https://parler-algerien.com/blog/"}><div className={`h-10 w-10 ${window.location.pathname == "/news" ? "bg-primary text-white" : ""} flex items-center justify-center cursor-pointer hover:text-white hover:bg-primary hover:duration-300 hover:ease-linear focus:bg-primary`}>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 24 24"><path fill="currentColor" d="m22 3l-1.67 1.67L18.67 3L17 4.67L15.33 3l-1.66 1.67L12 3l-1.67 1.67L8.67 3L7 4.67L5.33 3L3.67 4.67L2 3v18h20zM11 19H4v-6h7zm9 0h-7v-2h7zm0-4h-7v-2h7zm0-4H4V8h16z"></path></svg>
           </div></Link>
 
@@ -94,7 +94,7 @@ const Header = () => {
     //regle l'ombre pour qu'elle ne se fasse qu'en bas (bottom)
     <header className="h-16 w-full p-8 flex items-center justify-between px-5 bg-[url('/bg-home.jpg')] bg-cover bg-repeat shadow-[6px_4px_6px_0px_rgba(0,0,0,0.2)] z-50">
       <div className="flex flex-grow items-center justify-start">
-        <Link href={"/"}><img src={'/logoPA-primary.svg'} alt="Logo" className={`h-10 ${userLoading && 'animate-pulse'}  fill-current text-blue-500`} /></Link>
+        <Link href={"https://parler-algerien.com/"}><img src={'/logoPA-primary.svg'} alt="Logo" className={`h-10 ${userLoading && 'animate-pulse'}  fill-current text-blue-500`} /></Link>
       </div>
       <div className="flex flex-shrink-0 items-center space-x-4 text-white hidden sm:flex">
         {userLoading ? (

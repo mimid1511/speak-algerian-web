@@ -16,10 +16,9 @@ export default function Word({ params }) {
             try {
                 const wordData = await getWordById(params.id);
                 setWord(wordData);
+                setLoading(false);                
             } catch (error) {
                 setError(error.message);
-            } finally {
-                setLoading(false);
             }
         };
 
@@ -30,14 +29,14 @@ export default function Word({ params }) {
         <Layout type="root">
             {word && !loading ? (
                 <div>
-                    <Title breadCrumb={[{ name: "Lexique", link: "/word" }]} title={word.french.join(", ")} />
+                    <Title breadCrumb={[{ name: "Lexique", link: "/word" }]} title={ word.french.length > 1 ? word.french.join(", ") + "..." : word.french } />
                     <WordMain words={word.darija} />
                 </div>
             ) : (
                 <div>
-                    <Title breadCrumb={[{ name: "Lexique", link: "/word" }]} title={loading ? <div class="spinner text-white mb-1" role="status"><span class="sr-only">Loading...</span></div> : word.french.join(", ")} />
+                    <Title breadCrumb={[{ name: "Lexique", link: "/word" }]} title={loading ? <div class="spinner w-4 h-4 text-primary-dark mb-1" role="status"><span class="sr-only">Loading...</span></div> : word.french.join(", ")} />
                     {/* <WordMain words={word.darija} /> */}
-                    <div className="container mx-auto p-4 bg-font">
+                    <div className="mx-auto p-4 bg-font">
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3">
                             {Array.from({ length: 6 }).map((_, index) => (
                                 <div key={index} className="rounded-none border-none card">
