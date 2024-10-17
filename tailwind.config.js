@@ -18,6 +18,9 @@ module.exports = {
         back: "#F8FCF5",
         font: "#D1CFCF",
       },
+      ringColor: {
+        DEFAULT: "#57853F",
+      },
     },
   },
 };
